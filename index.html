@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Twin Factory — Fast Forward to the Future</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #07111F;
+    --blue:      #85C6EB;
+    --orange:    #FF671D;
+    --gray:      #57677F;
+    --white:     #FFFFFF;
+    --card-bg:   #0B1828;
+    --border:    rgba(133,198,235,0.12);
+    --border-h:  rgba(133,198,235,0.3);
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--white);font-family:'Plus Jakarta Sans',sans-serif;font-weight:400;overflow-x:hidden;cursor:none;}
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(133,198,235,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(133,198,235,0.025) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;z-index:0;}
+
+  /* CURSOR */
+  .cursor{width:8px;height:8px;background:var(--orange);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;}
+  .cursor-ring{width:30px;height:30px;border:1px solid rgba(133,198,235,0.4);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transition:all 0.13s ease;}
+
+  /* LANG */
+  .lang-toggle{display:flex;gap:3px;margin-left:32px;}
+  .lang-btn{background:none;border:1px solid var(--border);color:var(--gray);font-family:'Nunito Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;padding:5px 10px;cursor:none;transition:all 0.2s;}
+  .lang-btn.active,.lang-btn:hover{border-color:var(--blue);color:var(--blue);}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 60px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(7,17,31,0.97),transparent);backdrop-filter:blur(12px);}
+  .nav-logo{display:flex;align-items:center;height:28px;text-decoration:none;}
+  .nav-logo svg{height:22px;width:auto;}
+  .nav-links{display:flex;gap:32px;list-style:none;}
+  .nav-links a{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:10px;letter-spacing:3px;color:var(--gray);text-decoration:none;text-transform:uppercase;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--blue);}
+
+  /* HERO */
+  #hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:120px 60px 80px;overflow:hidden;}
+  .hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 75% 50%,rgba(11,24,40,0.7),transparent 70%),radial-gradient(ellipse 40% 50% at 15% 85%,rgba(255,103,29,0.06),transparent 60%),radial-gradient(ellipse 50% 40% at 80% 10%,rgba(133,198,235,0.05),transparent 60%);}
+  .scanline{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);opacity:0.2;animation:scan 10s linear infinite;}
+  @keyframes scan{0%{top:-1px}100%{top:100%}}
+  .hero-stripe{position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--orange) 30%,var(--blue) 70%,transparent);opacity:0.35;animation:stripe 7s ease-in-out infinite alternate;}
+  @keyframes stripe{0%{top:25%}100%{top:75%}}
+  .hero-content{position:relative;z-index:2;max-width:720px;}
+  .hero-eyebrow{display:flex;align-items:center;gap:12px;font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:10px;letter-spacing:4px;color:var(--orange);margin-bottom:28px;}
+  .hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--orange);}
+  h1{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:clamp(56px,8vw,108px);line-height:0.88;letter-spacing:-3px;margin-bottom:14px;}
+  h1 .outline{color:transparent;-webkit-text-stroke:1.5px rgba(133,198,235,0.35);}
+  .hero-tagline{display:flex;align-items:center;justify-content:flex-end;gap:14px;width:min(644px,88vw);padding-right:1em;font-family:'Nunito Sans',sans-serif;font-weight:300;font-size:clamp(14px,1.6vw,20px);letter-spacing:5px;color:var(--white);margin-bottom:16px;text-transform:uppercase;}
+  .tl-word{color:var(--white);}
+  .hero-subtitle{font-family:'Plus Jakarta Sans',sans-serif;font-weight:300;font-size:clamp(14px,1.5vw,19px);letter-spacing:5px;color:var(--orange);text-transform:uppercase;margin-bottom:36px;}
+  .hero-eyebrow{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:clamp(11px,1.2vw,14px);letter-spacing:4px;color:var(--orange);margin-top:2em;margin-bottom:36px;text-transform:uppercase;}
+  .ff-arrows{display:inline-flex;gap:3px;}
+  .ff-arrows span{display:block;width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:8px solid var(--orange);}
+  .hero-desc{font-size:16px;font-weight:400;line-height:1.85;color:var(--gray);width:min(604px,84vw);max-width:100%;margin-bottom:44px;text-align:justify;margin-left:auto;margin-right:auto;}
+  .hero-badges{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px;justify-content:center;width:min(644px,88vw);}
+  .badge{border:1px solid var(--border);padding:6px 14px;font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:9px;letter-spacing:2px;color:var(--blue);text-transform:uppercase;}
+  .badge.o{border-color:rgba(255,103,29,0.4);color:var(--orange);}
+  .hero-locs{display:flex;align-items:center;gap:16px;font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:10px;letter-spacing:3px;color:var(--gray);width:min(644px,88vw);justify-content:center;}
+  .hero-locs strong{color:var(--blue);}
+  .loc-arr{width:24px;height:1px;background:var(--orange);position:relative;display:inline-block;}
+  .loc-arr::after{content:'';position:absolute;right:-6px;top:-4px;border:5px solid transparent;border-left-color:var(--orange);}
+
+  /* SECTIONS */
+  section{position:relative;z-index:1;}
+  .si{padding:100px 60px;max-width:1400px;margin:0 auto;}
+  .slbl{display:flex;align-items:center;gap:12px;font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:9px;letter-spacing:5px;color:var(--orange);text-transform:uppercase;margin-bottom:16px;}
+  .slbl::before{content:'';width:22px;height:1px;background:var(--orange);}
+  h2{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:clamp(38px,4.5vw,60px);letter-spacing:-1.5px;line-height:1.05;margin-bottom:48px;}
+
+  /* ABOUT */
+  #about{border-top:1px solid var(--border);}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+  .about-grid p{text-align:left;}
+  .about-block1{margin-bottom:56px;}
+  .about-taglines{margin:20px 0 32px;}
+  .about-tagline-b{font-family:'Nunito Sans',sans-serif;font-weight:300;font-size:clamp(15px,1.4vw,19px);color:var(--blue);line-height:1.5;margin-bottom:8px;font-style:italic;}
+  .about-tagline-c{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:clamp(12px,1.1vw,15px);color:var(--white);letter-spacing:1px;text-align:center;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);white-space:nowrap;}
+  .about-tagline-c em{color:var(--orange);font-style:normal;}
+  .indent-line{display:inline-block;padding-left:2ch;white-space:nowrap;}
+  .indent-line2{display:inline-block;padding-left:3.2ch;}
+  .ford-inline-label{display:block;color:var(--orange);font-style:italic;font-weight:300;font-size:15px;letter-spacing:0;text-transform:none;margin-bottom:0;line-height:1.2;}
+  .ford-bq{font-size:15px;line-height:1.65;}
+  .ford-inline-label{margin-bottom:2px;}
+  .ford-callout{margin-top:24px;}
+  .ford-label{display:none;}
+  .about-text p{font-size:16px;line-height:1.85;color:var(--gray);margin-bottom:20px;text-align:justify;}
+  .about-text strong{color:var(--white);font-weight:700;}
+  .bq{border-left:3px solid var(--orange);padding:12px 0 12px 22px;font-style:italic;font-size:17px;font-weight:300;color:var(--blue);line-height:1.65;margin:28px 0;}
+  .stats{display:flex;flex-direction:column;gap:2px;height:100%;}
+  .stat{background:var(--card-bg);border:1px solid var(--border);padding:28px 24px;transition:border-color 0.3s;flex:1;display:flex;flex-direction:column;justify-content:center;}
+  .stat:hover{border-color:var(--border-h);}
+  .snum{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:62px;color:var(--blue);line-height:1;}
+  .snum sup{font-size:28px;color:var(--orange);}
+  .snum-plus{font-size:1.1em;color:var(--orange);font-style:italic;vertical-align:middle;}
+  .snum-trl{font-size:inherit;color:var(--blue);font-weight:900;}
+  .snum-arrow{font-size:18px;color:var(--orange);font-weight:800;letter-spacing:1px;margin-left:6px;}
+  .snum-split{display:inline-flex;align-items:center;gap:0;}
+  .snum-op{font-size:36px;color:var(--orange);margin:0 4px;line-height:1;align-self:center;}
+  .slb{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;color:var(--gray);margin-top:10px;text-transform:uppercase;line-height:1.8;}
+
+  /* TECH */
+  #technology{background:linear-gradient(to bottom,transparent,rgba(11,24,40,0.4),transparent);}
+  .tech-intro{max-width:640px;font-size:16px;line-height:1.85;color:var(--gray);margin-bottom:56px;}
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:56px;}
+  .tc{background:var(--card-bg);border:1px solid var(--border);padding:28px;transition:border-color 0.3s,transform 0.3s;}
+  .tc:hover{border-color:var(--border-h);transform:translateY(-4px);}
+  .tcode{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:36px;color:var(--blue);margin-bottom:12px;line-height:1;}
+  .tc h3{font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;color:var(--white);margin-bottom:10px;text-transform:uppercase;}
+  .tc p{font-size:13px;color:var(--gray);line-height:1.7;}
+  .trl-lbl{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:9px;letter-spacing:4px;color:var(--gray);margin-bottom:10px;text-transform:uppercase;}
+  .trl-bar{display:flex;gap:3px;}
+  .ts{flex:1;height:5px;background:rgba(133,198,235,0.08);}
+  .ts.on{background:var(--blue);}
+  .ts.hl{background:var(--orange);}
+
+  /* PROJECTS */
+  #projects{border-top:1px solid var(--border);}
+  .pg{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;}
+  .pc{background:var(--card-bg);border:1px solid var(--border);padding:40px;position:relative;overflow:hidden;transition:border-color 0.3s;}
+  .pc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
+  .pc:hover::before{transform:scaleX(1);}
+  .pc:hover{border-color:var(--border-h);}
+  .pnum{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:100px;color:rgba(255,255,255,0.07);position:absolute;top:10px;right:24px;line-height:1;pointer-events:none;transition:color 0.3s;}
+  .pc:hover .pnum{color:rgba(255,255,255,0.12);}
+  .d2w-img{width:120px;height:120px;display:block;border-radius:50%;object-fit:cover;border:2px solid rgba(133,198,235,0.3);flex-shrink:0;}
+  .proj-logo{width:min(400px,85%);margin-bottom:16px;}
+  .proj-logo svg{width:100%;height:auto;display:block;}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+  .ptrl{display:inline-block;border:1px solid rgba(255,103,29,0.5);font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:8px;letter-spacing:3px;color:var(--orange);padding:4px 10px;margin-bottom:20px;text-transform:uppercase;}
+  .pc h3{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:28px;color:var(--white);margin-bottom:6px;}
+  .psub{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:9px;letter-spacing:3px;color:var(--blue);margin-bottom:20px;text-transform:uppercase;}
+  .pdesc{font-size:14px;line-height:1.75;color:var(--gray);margin-bottom:24px;}
+  .ptags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px;}
+  .ptag{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:8px;letter-spacing:1px;color:var(--gray);border:1px solid var(--border);padding:3px 8px;text-transform:uppercase;}
+  .plink{display:inline-flex;align-items:center;gap:10px;font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:9px;letter-spacing:3px;color:var(--blue);text-decoration:none;text-transform:uppercase;border-bottom:1px solid transparent;transition:border-color 0.2s;}
+  .plink:hover{border-color:var(--blue);}
+  .arr{width:18px;height:1px;background:currentColor;position:relative;display:inline-block;}
+  .arr::after{content:'';position:absolute;right:-5px;top:-4px;border:5px solid transparent;border-left-color:currentColor;}
+  .pc.feat{grid-column:1/-1;}
+  .pc.feat .pi{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+  .mvp{background:rgba(133,198,235,0.04);border:1px solid var(--border);padding:20px;margin-bottom:2px;}
+  .mvpt{font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:8px;letter-spacing:3px;color:var(--orange);text-transform:uppercase;margin-bottom:14px;}
+  .mvpr{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;font-size:12px;color:var(--gray);font-family:'Nunito Sans',sans-serif;}
+  .mvpr-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+  .mvp-tag{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:8px;letter-spacing:1px;color:var(--blue);border:1px solid var(--border);padding:3px 8px;text-transform:uppercase;}
+  .poc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .poc-item{font-family:'Nunito Sans',sans-serif;font-size:11px;color:var(--gray);padding:3px 0;border-bottom:1px solid rgba(133,198,235,0.06);line-height:1.6;}
+  .poc-item::before{content:'✓ ';color:var(--orange);font-weight:700;}
+  .mvpr strong{color:var(--white);font-weight:800;font-size:13px;}
+
+  /* FOUNDER */
+  #founder{border-top:1px solid var(--border);}
+  .fg{display:grid;grid-template-columns:300px 1fr;gap:72px;align-items:start;}
+  .fcard{background:var(--card-bg);border:1px solid var(--border);aspect-ratio:3/4;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:24px;position:relative;overflow:hidden;}
+  .fcard-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:64px;letter-spacing:-2px;line-height:0.85;color:rgba(133,198,235,0.04);text-align:center;pointer-events:none;}
+  .fcard-lbl{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:8px;letter-spacing:4px;color:var(--gray);text-transform:uppercase;text-align:center;position:relative;}
+  .fname{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:clamp(36px,4vw,52px);line-height:0.9;letter-spacing:-1px;margin-bottom:6px;}
+  .frole{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:9px;letter-spacing:4px;color:var(--orange);text-transform:uppercase;margin-bottom:32px;}
+  .founder-text p{font-size:15px;line-height:1.85;color:var(--gray);margin-bottom:16px;}
+  .founder-text strong{color:var(--white);font-weight:700;}
+
+  /* RECOGNITION */
+  #recognition{border-top:1px solid var(--border);}
+  .rg{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+  .rc{background:var(--card-bg);border:1px solid var(--border);padding:36px;transition:border-color 0.3s;}
+  .rc:hover{border-color:var(--border-h);}
+  .ri{font-size:28px;margin-bottom:20px;color:var(--blue);}
+  .rc h3{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:16px;letter-spacing:1px;margin-bottom:10px;}
+  .rc p{font-size:13px;color:var(--gray);line-height:1.7;}
+
+  /* CONTACT */
+  #contact{border-top:1px solid var(--border);}
+  .cg{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+  .bcta{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:clamp(28px,3.5vw,46px);line-height:1.15;margin-bottom:32px;}
+  .bcta em{color:var(--orange);font-style:normal;}
+  .clist{display:flex;flex-direction:column;gap:18px;}
+  .ci{display:flex;align-items:center;gap:14px;font-family:'Nunito Sans',sans-serif;font-size:13px;color:var(--gray);}
+  .cdot{width:6px;height:6px;background:var(--orange);border-radius:50%;flex-shrink:0;}
+  .ci a{color:var(--blue);text-decoration:none;font-weight:700;}
+  .ci a:hover{color:var(--white);}
+  .addr{margin-top:32px;border-left:2px solid var(--border);padding-left:20px;}
+  .addr p{font-family:'Nunito Sans',sans-serif;font-size:10px;letter-spacing:2px;color:var(--gray);line-height:2.2;text-transform:uppercase;}
+
+  /* SETA ICON */
+  .seta-icon{width:16px;height:auto;flex-shrink:0;}
+  .hero-locs .seta-icon{width:22px;}
+  .seta-loc{height:0.9em;width:auto;display:inline-block;vertical-align:middle;}
+  .hero-tagline .seta-icon{width:20px;}
+
+  /* HERO LOGO */
+  .hero-logo{width:min(644px,88vw);margin-bottom:0.5em;}
+  .hero-logo svg{width:100%;height:auto;}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify-content:space-between;align-items:center;}
+  .flogo{width:min(300px,55vw);height:auto;opacity:0.35;}
+  .fcopy{font-family:'Nunito Sans',sans-serif;font-size:9px;letter-spacing:2px;color:rgba(87,103,127,0.5);text-transform:uppercase;}
+
+  /* ANIM */
+  .fu{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+  .fu.vis{opacity:1;transform:translateY(0);}
+
+  @media(max-width:900px){
+    nav{padding:14px 20px;} .nav-links{display:none;}
+    .si{padding:60px 20px;} #hero{padding:100px 20px 60px;}
+    .about-grid,.tech-grid,.pg,.rg,.cg,.fg{grid-template-columns:1fr;gap:32px;}
+    .pc.feat .pi{grid-template-columns:1fr;}
+    .lang-toggle{margin-left:16px;}
+    footer{flex-direction:column;gap:10px;padding:20px;text-align:center;}
+  }
+</style>
+</head>
+<body>
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+
+<nav>
+  <a href="#hero" class="nav-logo">
+    <svg viewBox="0 0 1774.2 143.4" xmlns="http://www.w3.org/2000/svg">
+      <path d="M168.5,13.6l-20.5,26.7h-36.6v75.9h-31.7V40.3H31.5l20.5-26.7h116.5Z" fill="#fff"/>
+      <path d="M294.2,78c-8.9-15.8-13-23.5-16.6-30.8-3.2,7.4-7.4,14.9-16.2,30.7l-16.4,29.1c-3.7,6.6-9.2,10.9-17.5,10.9s-15-4.6-17.8-14.1l-26.1-90.1h31.7l9.7,35.7c3.2,11.5,5.4,19.9,6.9,28.2,3.4-7.2,7.4-15,14.4-28.4l13.8-25.8c5.4-10.1,10.6-11.5,18.1-11.5s13,1.4,18.4,11.5l13.6,25.9c7.7,14.1,11.2,21.3,14.4,28.2,1.7-8.1,4-16.9,7.1-28.2l9.7-35.7h31l-26.5,90.1c-2.8,9.5-9.8,14.1-17.8,14.1s-13.6-4.1-17.5-10.9l-16.4-29Z" fill="#fff"/>
+      <path d="M429.9,116.1h-31.7V13.6h31.7v102.6Z" fill="#fff"/>
+      <path d="M554.1,112.3l-62.8-56.4v60.2h-28.8V31.1c0-13.6,8.3-19.2,17.3-19.2s7.7.9,12.7,5.5l62.8,56.4V13.6h29v84.9c0,13.6-8.3,19.3-17.5,19.3s-7.8-.9-12.7-5.5Z" fill="#fff"/>
+      <path d="M803,13.6l-20.5,26.7h-62.5v13.3h77.3l-19.3,25h-57.9v37.6h-31.9V13.6h115Z" fill="#fff"/>
+      <path d="M844.4,116.1l19.2-26.4h25.8c6.1,0,13.3,0,18.2.3-2.8-3.7-7.1-10-10.4-14.9l-18.4-27.1-48.1,68.1h-37.6l65.8-92.7c4.3-6,10.6-11.5,20.5-11.5s15.8,5.1,20.2,11.5l64.1,92.7h-119.3Z" fill="#fff"/>
+      <path d="M1102.9,89.8l-20.4,26.4h-51.5c-35.6,0-61.8-22.5-61.8-52.3s26.2-50.3,61.8-50.3h71.9l-20.4,26.7h-51.5c-17.2,0-30,10.3-30,25s12.7,24.5,30,24.5h71.9Z" fill="#fff"/>
+      <path d="M1254.5,13.6l-20.5,26.7h-36.6v75.9h-31.7V40.3h-48.1l20.5-26.7h116.5Z" fill="#fff"/>
+      <path d="M1409.4,64.8c0,36.6-25.1,53-75,53s-75-16.4-75-53,25-52.9,75-52.9,75,16.2,75,52.9ZM1377.9,64.8c0-22.1-11.5-26.2-43.4-26.2s-43.4,4.1-43.4,26.2,11.5,26.4,43.4,26.4,43.4-4.3,43.4-26.4Z" fill="#fff"/>
+      <path d="M1584.2,116.1h-42.5l-22.8-27.1h-48.7v27.1h-31.7v-52.4h89.2c9.8,0,17.5-4.4,17.5-11.5s-6.6-12-17.5-12h-89.2l20.7-26.7h65.9c23.3,0,52.7,7.4,52.7,36.6s-10,29.1-26.8,32.5c3.5,2.6,7.4,6.3,14.4,13.5l18.9,19.9Z" fill="#fff"/>
+      <path d="M1741.6,13.6l-60.9,68.7v33.9h-31.9v-34l-62.5-68.5h40.8l24.5,28.5c3.2,3.7,11.8,13,14,16.1,2-2.9,5.5-7.4,12.9-16.2l23.3-28.4h39.9Z" fill="#fff"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about" data-en="ABOUT" data-pt="SOBRE">ABOUT</a></li>
+    <li><a href="#technology" data-en="TECHNOLOGY" data-pt="TECNOLOGIA">TECHNOLOGY</a></li>
+    <li><a href="#projects" data-en="PROJECTS" data-pt="PROJETOS">PROJECTS</a></li>
+    <li><a href="#founder" data-en="FOUNDER" data-pt="FUNDADOR">FOUNDER</a></li>
+    <li><a href="#contact" data-en="CONTACT" data-pt="CONTATO">CONTACT</a></li>
+  </ul>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+    <button class="lang-btn" onclick="setLang('pt')" id="btn-pt">PT</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="scanline"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-content fu">
+
+    <!-- LOGO -->
+    <div class="hero-logo"><svg viewBox="0 0 1774.19 143.45" xmlns="http://www.w3.org/2000/svg">
+        <path d="M168.52,13.59l-20.54,26.67h-36.64v75.88h-31.73V40.26H31.47l20.54-26.67h116.5Z" style="fill:#fff;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;"/>
+        <path d="M294.22,77.97c-8.89-15.79-13.03-23.45-16.56-30.81-3.22,7.36-7.36,14.87-16.25,30.66l-16.4,29.12c-3.68,6.59-9.2,10.88-17.47,10.88s-15.02-4.6-17.78-14.1l-26.06-90.13h31.73l9.66,35.72c3.22,11.5,5.37,19.93,6.9,28.21,3.37-7.2,7.36-15.02,14.41-28.36l13.8-25.75c5.37-10.12,10.58-11.5,18.09-11.5s13.03,1.38,18.4,11.5l13.64,25.91c7.66,14.1,11.19,21.31,14.41,28.21,1.69-8.12,3.99-16.86,7.05-28.21l9.66-35.72h30.96l-26.52,90.13c-2.76,9.5-9.81,14.1-17.78,14.1s-13.64-4.14-17.47-10.88l-16.4-28.97Z" style="fill:#fff;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;"/>
+        <path d="M429.89,116.14h-31.73V13.59h31.73v102.55Z" style="fill:#fff;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;"/>
+        <path d="M554.05,112.31l-62.85-56.41v60.24h-28.82V31.06c0-13.64,8.28-19.16,17.32-19.16,3.83,0,7.66.92,12.72,5.52l62.85,56.41V13.59h28.97v84.92c0,13.64-8.28,19.31-17.47,19.31-3.99,0-7.82-.92-12.72-5.52Z" style="fill:#fff;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;"/>
+        <path d="M803,13.59l-20.54,26.67h-62.54v13.34h77.26l-19.31,24.99h-57.94v37.56h-31.88V13.59h114.97Z" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;"/>
+        <path d="M844.4,116.14l19.16-26.37h25.75c6.13,0,13.34,0,18.24.31-2.76-3.68-7.05-9.96-10.42-14.87l-18.39-27.13-48.13,68.06h-37.56l65.76-92.74c4.29-5.98,10.58-11.5,20.54-11.5s15.79,5.06,20.23,11.5l64.08,92.74h-119.26Z" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;"/>
+        <path d="M1102.85,89.77l-20.39,26.37h-51.51c-35.56,0-61.78-22.53-61.78-52.27s26.21-50.28,61.78-50.28h71.89l-20.39,26.67h-51.51c-17.17,0-30.04,10.27-30.04,24.99s12.72,24.53,30.04,24.53h71.89Z" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;"/>
+        <path d="M1254.46,13.59l-20.54,26.67h-36.64v75.88h-31.73V40.26h-48.13l20.54-26.67h116.5Z" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;"/>
+        <path d="M1409.44,64.79c0,36.64-25.14,53.04-74.96,53.04s-74.96-16.4-74.96-53.04,24.99-52.89,74.96-52.89,74.96,16.25,74.96,52.89ZM1377.87,64.79c0-22.07-11.5-26.21-43.38-26.21s-43.38,4.14-43.38,26.21,11.5,26.37,43.38,26.37,43.38-4.29,43.38-26.37Z" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;"/>
+        <path d="M1584.2,116.14h-42.46l-22.84-27.13h-48.75v27.13h-31.73v-52.43h89.21c9.81,0,17.47-4.45,17.47-11.5,0-7.97-6.59-11.96-17.47-11.96h-89.21l20.69-26.67h65.91c23.3,0,52.73,7.36,52.73,36.64,0,15.94-9.96,29.12-26.83,32.5,3.53,2.61,7.36,6.28,14.41,13.49l18.85,19.93Z" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;"/>
+        <path d="M1741.64,13.59l-60.86,68.67v33.88h-31.88v-34.03l-62.54-68.52h40.77l24.53,28.51c3.22,3.68,11.8,13.03,13.95,16.1,1.99-2.91,5.52-7.36,12.88-16.25l23.3-28.36h39.86Z" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;"/>
+      </svg></div>
+
+    <!-- SLOGAN com setas -->
+    <div class="hero-tagline">
+      <span class="tl-word">Fast Forward</span>
+      <svg class="seta-icon" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+      <span class="tl-word">to the Future</span>
+    </div>
+
+    <!-- EYEBROW -->
+    <div class="hero-eyebrow">
+      <span data-en="DEEP TECH STARTUP &nbsp;&nbsp; Born from the Future" data-pt="STARTUP DEEP TECH &nbsp;&nbsp; Nascemos do Futuro">STARTUP DEEP TECH &nbsp;&nbsp; Nascemos do Futuro</span>
+    </div>
+
+    <!-- DESC -->
+    <p class="hero-desc"
+      data-en="We develop intelligent products with Industry 4.0 enabling technologies — IoT, AI, XR and Digital Twins. With deep tech we connect the human body to the digital world to uniquely transform motor health: rehabilitation, performance, sport and defence."
+      data-pt="Desenvolvemos produtos inteligentes com as tecnologias habilitadoras da Indústria 4.0 — IoT, AI, XR e Gêmeos Digitais. Com deep tech conectamos o corpo humano ao mundo digital para transformar, de maneira única, a saúde motora: reabilitação, performance, esporte e defesa.">
+      Desenvolvemos produtos inteligentes com as tecnologias habilitadoras da Indústria 4.0 — IoT, AI, XR e Gêmeos Digitais. Com deep tech conectamos o corpo humano ao mundo digital para transformar, de maneira única, a saúde motora: reabilitação, performance, esporte e defesa.
+    </p>
+
+    <!-- BADGES -->
+    <div class="hero-badges">
+      <div class="badge o" data-en="VOUCHERS FOR STARTUPS — APPROVED 2025" data-pt="VOUCHERS FOR STARTUPS — APROVADO 2025">VOUCHERS FOR STARTUPS — APROVADO 2025</div>
+      <div class="badge o" data-en="STARTUP PORTUGAL CERTIFIED · 2026" data-pt="STARTUP PORTUGAL CERTIFICADA · 2026">STARTUP PORTUGAL CERTIFICADA · 2026</div>
+      <div class="badge" data-en="MEMBER · TAGUSPARK INCUBATOR · OEIRAS VALLEY" data-pt="MEMBRO · INCUBADORA TAGUSPARK · OEIRAS VALLEY">MEMBRO · INCUBADORA TAGUSPARK · OEIRAS VALLEY</div>
+    </div>
+
+    <!-- LOCALIZAÇÕES com seta SVG -->
+    <div class="hero-locs">
+      <strong>SÃO PAULO · BRASIL</strong>
+      <svg class="seta-loc" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+      <strong>LISBOA · PORTUGAL</strong>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="si">
+    <div class="slbl" data-en="ABOUT US" data-pt="SOBRE NÓS">SOBRE NÓS</div>
+    <div class="about-grid">
+
+      <!-- COLUNA ESQUERDA: dois blocos -->
+      <div>
+
+        <!-- BLOCO 1: Technology Driven. Driving Technology. -->
+        <div class="fu about-block1">
+          <h2 data-en="Technology Driven.<br><span class='indent-line'>Driving Technology.</span>" data-pt="Technology Driven.<br><span class='indent-line'>Driving Technology.</span>">Technology Driven.<br><span class="indent-line" style="white-space:nowrap;">Driving Technology.</span></h2>
+          <div class="about-tagline-b"
+            data-en="We are driven by emerging technologies — and we drive them forward."
+            data-pt="Somos impulsionados pelas tecnologias emergentes — e as impulsionamos para frente.">
+            Somos impulsionados pelas tecnologias emergentes — e as impulsionamos para frente.
+          </div>
+          <p data-en="At Twin Factory we don't just apply emerging technologies — we push them beyond their known limits. Creativity and unconventional thinking lead us to use technology in ways its own creators never anticipated. In doing so, we don't only build better products — we expand what technology itself can do."
+             data-pt="Na Twin Factory não apenas aplicamos tecnologias emergentes — nós as empurramos além dos seus limites conhecidos. A criatividade e o pensamento não convencional nos levam a usar a tecnologia de maneiras que nem seus próprios criadores previram. Ao fazer isso, não apenas construímos produtos melhores — expandimos o que a própria tecnologia é capaz de fazer.">
+            Na Twin Factory não apenas aplicamos tecnologias emergentes — nós as empurramos além dos seus limites conhecidos. A criatividade e o pensamento não convencional nos levam a usar a tecnologia de maneiras que nem seus próprios criadores previram. Ao fazer isso, não apenas construímos produtos melhores — expandimos o que a própria tecnologia é capaz de fazer.
+          </p>
+        </div>
+
+        <!-- BLOCO 2: Foco em saúde motora + Ford -->
+        <div class="fu">
+          <h2 style="margin-bottom:24px;" data-en="Motor Health.<br><span class='indent-line2'>Redefined.</span>" data-pt="Saúde Motora.<br><span class='indent-line2'>Redefinida.</span>">Saúde Motora.<br><span class="indent-line2">Redefinida.</span></h2>
+          <p data-en="We are a deep tech startup developing <strong>intelligent products</strong> based on Industry 4.0 enabling technologies. Our core focus is motor health — transforming rehabilitation, performance, sport and defence through data, replacing assumptions with measurable, objective insights powered by real biodata."
+             data-pt="Somos uma startup de deep tech que desenvolve <strong>produtos inteligentes</strong> baseados nas tecnologias habilitadoras da Indústria 4.0. Nosso foco central é a saúde motora — transformando reabilitação, performance, esporte e defesa por meio de dados, substituindo suposições por insights objetivos e mensuráveis baseados em biodados reais.">
+            Somos uma startup de deep tech que desenvolve <strong>produtos inteligentes</strong> baseados nas tecnologias habilitadoras da Indústria 4.0. Nosso foco central é a saúde motora — transformando reabilitação, performance, esporte e defesa por meio de dados, substituindo suposições por insights objetivos e mensuráveis baseados em biodados reais.
+          </p>
+          <div class="ford-callout">
+            <div class="bq ford-bq"
+              data-en='<span class="ford-inline-label">As Henry Ford would say...</span>"If I had asked people what they wanted,<br>they would have said faster horses."'
+              data-pt='<span class="ford-inline-label">Como Henry Ford diria...</span>"Se eu tivesse perguntado às pessoas o que queriam,<br>teriam dito cavalos mais rápidos."'>
+              <span class="ford-inline-label">Como Henry Ford diria...</span>"Se eu tivesse perguntado às pessoas o que queriam,<br>teriam dito cavalos mais rápidos."
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FRASE CENTRAL: spanning visual center -->
+      <!-- placeholder, will be added below grid -->
+      <!-- COLUNA DIREITA: stats -->
+      <div class="stats fu">
+
+        <div class="stat">
+          <div class="snum" style="display:flex;align-items:center;gap:10px;">
+            <span>4</span>
+            <span style="font-size:inherit;line-height:1;display:flex;align-items:center;gap:1px;">
+              <span class="snum-paren-br">(</span><span class="snum-plus">Plus</span><span class="snum-paren-br">)</span>
+            </span>
+          </div>
+          <div class="slb"
+            data-en="PRODUCTS IN DEVELOPMENT"
+            data-pt="PRODUTOS EM DESENVOLVIMENTO">
+            PRODUTOS EM DESENVOLVIMENTO
+          </div>
+        </div>
+
+        <div class="stat">
+          <div class="snum" style="display:flex;align-items:center;gap:10px;">
+            <span>2</span>
+            <span style="font-size:inherit;font-weight:900;color:var(--orange);">Países</span>
+          </div>
+          <div class="slb"
+            data-en="PRESENCE IN SP &nbsp;•&nbsp; LX"
+            data-pt="PRESENÇA EM SP &nbsp;•&nbsp; LX">
+            PRESENÇA EM SP &nbsp;•&nbsp; LX
+          </div>
+        </div>
+
+        <div class="stat">
+          <div class="snum">
+            <span class="snum-paren-br">(</span><span class="snum-trl">TRL</span><span class="snum-paren-br">)</span>&nbsp;<span style="color:var(--orange);">5</span>
+          </div>
+          <div class="slb"
+            data-en="TECHNOLOGY READINESS LEVEL<br>NASA METHODOLOGY"
+            data-pt="TECHNOLOGY READINESS LEVEL<br>METODOLOGIA NASA">
+            TECHNOLOGY READINESS LEVEL<br>METODOLOGIA NASA
+          </div>
+        </div>
+
+        <div class="stat">
+          <div class="snum"><span class="snum-split">20<span class="snum-op">+</span>10</span></div>
+          <div class="slb"
+            data-en="YEARS OF EXPERIENCE<br>20 IN COMMUNICATION<br>10 IN TECHNOLOGY & INDUSTRY 4.0"
+            data-pt="ANOS DE EXPERIÊNCIA<br>20 EM COMUNICAÇÃO<br>10 EM TECNOLOGIA E INDÚSTRIA 4.0">
+            ANOS DE EXPERIÊNCIA<br>20 EM COMUNICAÇÃO<br>10 EM TECNOLOGIA E INDÚSTRIA 4.0
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- FRASE CENTRAL full-width -->
+    <div class="about-tagline-c">
+      <span data-en="Technology moves us." data-pt="A tecnologia nos move.">A tecnologia nos move.</span>
+      &nbsp;<em data-en="We move technology." data-pt="Nós movemos a tecnologia.">Nós movemos a tecnologia.</em>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGY -->
+<section id="technology">
+  <div class="si">
+    <div class="slbl" data-en="CORE TECHNOLOGIES" data-pt="TECNOLOGIAS CENTRAIS">CORE TECHNOLOGIES</div>
+    <h2 data-en="The Stack." data-pt="O Stack.">The Stack.</h2>
+    <p class="tech-intro fu" data-en="We leverage the most advanced enabling technologies of Industry 4.0 to create products at the intersection of the digital and physical worlds — what we call the Digital Twin Factory." data-pt="Aproveitamos as tecnologias habilitadoras mais avançadas da Indústria 4.0 para criar produtos na interseção dos mundos digital e físico — o que chamamos de Fábrica de Gêmeos Digitais.">Aproveitamos as tecnologias habilitadoras mais avançadas da Indústria 4.0 para criar produtos na interseção dos mundos digital e físico — o que chamamos de Fábrica de Gêmeos Digitais.</p>
+    <div class="tech-grid">
+      <div class="tc fu"><div class="tcode">IoT</div><h3>INTERNET OF THINGS</h3><p data-en="Connected sensors capturing real-time biodata from the human body in motion, anywhere in the world." data-pt="Sensores conectados capturando biodados em tempo real do corpo humano em movimento, em qualquer lugar.">Connected sensors capturing real-time biodata from the human body in motion, anywhere in the world.</p></div>
+      <div class="tc fu"><div class="tcode">AI</div><h3>ARTIFICIAL INTELLIGENCE</h3><p data-en="Predictive analytics and biomechanical intelligence that anticipates injury, optimises performance and personalises recovery." data-pt="Análise preditiva e inteligência biomecânica que antecipa lesões, otimiza performance e personaliza a recuperação.">Predictive analytics and biomechanical intelligence that anticipates injury, optimises performance and personalises recovery.</p></div>
+      <div class="tc fu"><div class="tcode">XR</div><h3>EXTENDED REALITY</h3><p data-en="Immersive interfaces and real-time 3D avatars that visualise the body's digital twin in action." data-pt="Interfaces imersivas e avatares 3D em tempo real que visualizam o gêmeo digital do corpo em ação.">Immersive interfaces and real-time 3D avatars that visualise the body's digital twin in action.</p></div>
+      <div class="tc fu"><div class="tcode">DT</div><h3>DIGITAL TWINS</h3><p data-en="Virtual replicas enabling real-time monitoring, simulation and optimisation of human movement." data-pt="Réplicas virtuais para monitorização, simulação e otimização do movimento humano em tempo real.">Virtual replicas enabling real-time monitoring, simulation and optimisation of human movement.</p></div>
+      <div class="tc fu"><div class="tcode">5G</div><h3>CONNECTIVITY</h3><p data-en="Ultra-low latency wireless communication enabling real-time control and data transfer anywhere." data-pt="Comunicação sem fio de latência ultra-baixa para controle em tempo real e transferência de dados em qualquer lugar.">Ultra-low latency wireless communication enabling real-time control and data transfer anywhere.</p></div>
+      <div class="tc fu"><div class="tcode">E·T</div><h3>E-TEXTILE / NANOTECH</h3><p data-en="Nanotechnology embedded into fibres creates an intelligent second skin that reads and stimulates muscle activity." data-pt="Nanotecnologia incorporada nas fibras cria uma segunda pele inteligente que lê e estimula a atividade muscular.">Nanotechnology embedded into fibres creates an intelligent second skin that reads and stimulates muscle activity.</p></div>
+    </div>
+    <div class="fu">
+      <div class="trl-lbl" data-en="NASA TRL METHODOLOGY — TISSUE-TECH TRL 2/3 · D2W TRL 4/5" data-pt="METODOLOGIA TRL NASA — TISSUE-TECH TRL 2/3 · D2W TRL 4/5">METODOLOGIA TRL NASA — TISSUE-TECH TRL 2/3 · D2W TRL 4/5</div>
+      <div class="trl-bar"><div class="ts on"></div><div class="ts on"></div><div class="ts on"></div><div class="ts on"></div><div class="ts hl"></div><div class="ts"></div><div class="ts"></div><div class="ts"></div><div class="ts"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="si">
+    <div class="slbl" data-en="R&D PORTFOLIO" data-pt="PORTFÓLIO P&D">R&D PORTFOLIO</div>
+    <h2 data-en="Projects in<br>Development." data-pt="Projetos em<br>Desenvolvimento.">Projects in<br>Development.</h2>
+    <div class="pg">
+      <div class="pc feat fu">
+        <div class="pnum">04</div>
+        <div class="pi">
+
+          <!-- COLUNA ESQUERDA -->
+          <div>
+            <div class="proj-logo"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774.19 143.45">
+  <path d="M75.41,109.5H17v-54.37h27.12v31.94h31.29c15,0,25.82-8.34,25.82-20.86s-11.21-21.25-25.82-21.25H17l17.21-22.69h41.2c30.51,0,52.55,17.6,52.55,42.77s-22.3,44.46-52.55,44.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M171.91,22.28h51.11c26.47,0,37.42,10.69,37.42,27.12,0,14.99-10.3,25.03-32.73,25.03h-41.46c-6.26,0-9.26,1.83-9.26,6.26v6.39h84.1l-17.34,22.43h-92.83v-28.55c0-15.91,11.47-23.86,32.73-23.86h41.46c6.26,0,9.26-1.69,9.26-6.13s-3-6-9.26-6h-70.54l17.34-22.69Z" style="fill: none; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M373.49,77.04c-7.56-13.43-11.08-19.95-14.08-26.21-2.74,6.26-6.26,12.65-13.82,26.08l-13.95,24.77c-3.13,5.61-7.82,9.26-14.86,9.26s-12.78-3.91-15.12-12l-22.17-76.67h26.99l8.21,30.38c2.74,9.78,4.56,16.95,5.87,23.99,2.87-6.13,6.26-12.78,12.26-24.12l11.73-21.9c4.56-8.61,9-9.78,15.39-9.78s11.08,1.17,15.65,9.78l11.6,22.04c6.52,12,9.52,18.12,12.26,23.99,1.43-6.91,3.39-14.34,6-23.99l8.21-30.38h26.34l-22.56,76.67c-2.35,8.08-8.34,12-15.12,12s-11.6-3.52-14.86-9.26l-13.95-24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M581.08,109.5h-58.41v-54.37h27.12v31.94h31.29c15,0,25.82-8.34,25.82-20.86s-11.21-21.25-25.82-21.25h-58.41l17.21-22.69h41.2c30.51,0,52.55,17.6,52.55,42.77s-22.3,44.46-52.55,44.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M685.92,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M767.8,55h55.81v54.5h-59.85c-30.25,0-52.54-19.17-52.54-44.46s22.3-42.77,52.54-42.77h62.46l-17.47,22.69h-44.98c-14.6,0-25.69,8.87-25.69,21.25s10.69,20.86,25.69,20.86h32.99v-12.65h-45.11l16.17-19.43Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M877.72,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1014.11,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1042.93,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1259.77,87.08l-17.47,22.43h-77.06V22.28h26.99v64.8h67.54Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1299.02,22.28h51.11c26.47,0,37.42,10.69,37.42,27.12,0,14.99-10.3,25.03-32.73,25.03h-41.46c-6.26,0-9.26,1.83-9.26,6.26v6.39h84.1l-17.34,22.43h-92.83v-28.55c0-15.91,11.47-23.86,32.73-23.86h41.46c6.26,0,9.26-1.69,9.26-6.13s-3-6-9.26-6h-70.54l17.34-22.69Z" style="fill: none; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1500.61,77.04c-7.56-13.43-11.08-19.95-14.08-26.21-2.74,6.26-6.26,12.65-13.82,26.08l-13.95,24.77c-3.13,5.61-7.82,9.26-14.86,9.26s-12.78-3.91-15.12-12l-22.17-76.67h26.99l8.21,30.38c2.74,9.78,4.56,16.95,5.87,23.99,2.87-6.13,6.26-12.78,12.26-24.12l11.73-21.9c4.56-8.61,9-9.78,15.39-9.78s11.08,1.17,15.65,9.78l11.6,22.04c6.52,12,9.52,18.12,12.26,23.99,1.43-6.91,3.39-14.34,6-23.99l8.21-30.38h26.34l-22.56,76.67c-2.35,8.08-8.34,12-15.12,12s-11.6-3.52-14.86-9.26l-13.95-24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1616.01,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1721.62,106.24l-53.46-47.98v51.24h-24.51V37.14c0-11.6,7.04-16.3,14.73-16.3,3.26,0,6.52.78,10.82,4.69l53.46,47.98V22.28h24.64v72.23c0,11.6-7.04,16.43-14.86,16.43-3.39,0-6.65-.78-10.82-4.69Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+</svg></div>
+            <div class="ptrl">TRL 4/5 · PROTOTYPE</div>
+            <h3 class="sr-only">D2W — DIGITAL2WIN</h3>
+            <div class="psub"
+              data-en="LOAD GENERATOR DEVICE · FITNESS / REHAB / SPORT / DEFENCE"
+              data-pt="DISPOSITIVO GERADOR DE CARGA · FITNESS / REABILITAÇÃO / ESPORTE / DEFESA">
+              DISPOSITIVO GERADOR DE CARGA · FITNESS / REABILITAÇÃO / ESPORTE / DEFESA
+            </div>
+            <p class="pdesc"
+              data-en="D2W is a portable, connected load generator device — not merely a sensor, but an actuator. It measures velocity, amplitude, frequency and output power (which varies as a function of load and achieved velocity) in real time, creating a Digital Twin of the user's body in motion."
+              data-pt="O D2W é um dispositivo portátil e conectado gerador de carga — não apenas um sensor, mas um atuador. Mede em tempo real velocidade, amplitude, frequência e potência (variável em função da carga e da velocidade realizadas), criando um Gêmeo Digital do corpo em movimento.">
+              O D2W é um dispositivo portátil e conectado gerador de carga — não apenas um sensor, mas um atuador. Mede em tempo real velocidade, amplitude, frequência e potência (variável em função da carga e da velocidade realizadas), criando um Gêmeo Digital do corpo em movimento.
+            </p>
+            <div class="ptags">
+              <span class="ptag">IoT</span><span class="ptag">LOAD GENERATOR</span>
+              <span class="ptag">ACTUATOR</span><span class="ptag">REAL-TIME DATA</span>
+              <span class="ptag">DIGITAL TWIN</span><span class="ptag">PORTABLE</span>
+            </div>
+            <a href="#" class="plink" data-en="EXPLORE D2W" data-pt="EXPLORAR D2W">EXPLORE D2W <span class="arr"></span></a>
+            <div class="d2w-img-block">
+            <div class="d2w-img-label" data-en="MUSCULOSKELETAL IMPROVEMENT SYSTEM" data-pt="SISTEMA DE MELHORA MUSCULOESQUELÉTICA">MUSCULOSKELETAL IMPROVEMENT SYSTEM</div>
+            <img class="d2w-img" src="data:image/png;<img class="d2w-img" src="homem.png">
+            </div>
+          <!-- COLUNA DIREITA -->
+          <div>
+
+            <!-- MVP-01 -->
+            <div class="mvp">
+              <div class="mvpt" data-en="MVP-01 · BASE PRODUCT" data-pt="MVP-01 · PRODUTO BASE">MVP-01 · PRODUTO BASE</div>
+              <div class="mvpr"><span data-en="Load" data-pt="Carga">Carga</span><strong>8 KG</strong></div>
+              <div class="mvpr"><span data-en="Weight" data-pt="Peso">Peso</span><strong>1,2 KG</strong></div>
+              <div class="mvpr-tags">
+                <span class="mvp-tag" data-en="Velocity" data-pt="Velocidade">Velocidade</span>
+                <span class="mvp-tag" data-en="Amplitude" data-pt="Amplitude">Amplitude</span>
+                <span class="mvp-tag" data-en="Frequency" data-pt="Frequência">Frequência</span>
+                <span class="mvp-tag" data-en="Power" data-pt="Potência">Potência</span>
+              </div>
+            </div>
+
+            <!-- MVP-02 -->
+            <div class="mvp">
+              <div class="mvpt" data-en="MVP-02 · CONNECTED + DYNAMIC CONTROL" data-pt="MVP-02 · CONECTADO + CONTROLE DINÂMICO">MVP-02 · CONECTADO + CONTROLE DINÂMICO</div>
+              <div class="mvpr"><span data-en="Load" data-pt="Carga">Carga</span><strong>30 KG</strong></div>
+              <div class="mvpr"><span data-en="Real-time adjustment" data-pt="Ajuste em tempo real">Ajuste em tempo real</span><strong>ECC / CON</strong></div>
+              <div class="mvpr-tags">
+                <span class="mvp-tag" data-en="Velocity" data-pt="Velocidade">Velocidade</span>
+                <span class="mvp-tag" data-en="Amplitude" data-pt="Amplitude">Amplitude</span>
+                <span class="mvp-tag" data-en="Frequency" data-pt="Frequência">Frequência</span>
+                <span class="mvp-tag" data-en="Angle" data-pt="Ângulo">Ângulo</span>
+                <span class="mvp-tag" data-en="Power" data-pt="Potência">Potência</span>
+                <span class="mvp-tag" data-en="Objective Real-time Data" data-pt="Dados Objetivos em Tempo Real">Dados Objetivos em Tempo Real</span>
+                <span class="mvp-tag">AI</span>
+                <span class="mvp-tag" data-en="3D Tracking" data-pt="Tracking 3D">Tracking 3D</span>
+                <span class="mvp-tag">Avatar 3D</span>
+              </div>
+            </div>
+
+            <!-- PoCs -->
+            <div class="mvp poc-grid">
+              <div>
+                <div class="mvpt">PoC (a) · VALIDATED</div>
+                <div class="poc-item">IoT</div>
+                <div class="poc-item" data-en="Portable Device" data-pt="Dispositivo Portátil">Dispositivo Portátil</div>
+                <div class="poc-item" data-en="Real-time Data" data-pt="Dados em Tempo Real">Dados em Tempo Real</div>
+                <div class="poc-item" data-en="Real-time 3D Avatar" data-pt="Avatar 3D em Tempo Real">Avatar 3D em Tempo Real</div>
+              </div>
+              <div>
+                <div class="mvpt">PoC (b) · VALIDATED</div>
+                <div class="poc-item">IoT</div>
+                <div class="poc-item" data-en="Portable Device" data-pt="Dispositivo Portátil">Dispositivo Portátil</div>
+                <div class="poc-item" data-en="Real-time Data" data-pt="Dados em Tempo Real">Dados em Tempo Real</div>
+                <div class="poc-item" data-en="Load Adjustments (round trip)" data-pt="Ajuste de Carga (round trip)">Ajuste de Carga (round trip)</div>
+                <div class="poc-item" data-en="Real-time Remote Control" data-pt="Controle Remoto em Tempo Real">Controle Remoto em Tempo Real</div>
+                <div class="poc-item" data-en="3D Spatial Tracking + Real-time Plotting" data-pt="Tracking Espacial 3D + Plotagem em Tempo Real">Tracking Espacial 3D + Plotagem em Tempo Real</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="pc feat fu">
+        <div class="pnum">01</div>
+        <div class="pi">
+          <!-- COLUNA ESQUERDA -->
+          <div>
+            <div class="proj-logo"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774.19 143.45">
+  <path d="M125.35,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96H8.79l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M172.17,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M281.04,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55h-81.23l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M417.83,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55h-81.23l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M587.07,71.43c0,26.34-18.12,39.51-54.37,39.51-41.98,0-60.11-13.17-60.11-39.51V22.28h26.86v49.16c0,12.91,5.48,17.08,33.25,17.08,20.73,0,27.25-4.82,27.25-17.08V22.28h27.12v49.16Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M714.86,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: none; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M785.79,56.96l-13.17,16.82h-43.55l13.17-16.82h43.55Z" style="fill: none; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M904.32,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: none; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1025.06,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1156.5,87.08l-17.34,22.43h-43.81c-30.25,0-52.54-19.17-52.54-44.46s22.3-42.77,52.54-42.77h61.15l-17.34,22.69h-43.81c-14.6,0-25.56,8.74-25.56,21.25s10.82,20.86,25.56,20.86h61.15Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1282.98,109.5h-26.86v-33.64h-51.89v33.64h-27.12V22.28h27.12v30.9h51.89v-30.9h26.86v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+</svg></div>
+            <div class="ptrl">TRL 2/3 · CONCEPT</div>
+            <h3 class="sr-only">TISSUE-TECH</h3>
+            <div class="psub"
+              data-en="E-TEXTILE WEARABLE · BIOFEEDBACK · EMG / FES"
+              data-pt="WEARABLE E-TÊXTIL · BIOFEEDBACK · EMG / FES">
+              WEARABLE E-TÊXTIL · BIOFEEDBACK · EMG / FES
+            </div>
+            <p class="pdesc"
+              data-en="An e-textile nanotech wearable — an intelligent second skin integrated with the Body Operating System (BoS). Reads neuromuscular activity via EMG and actuates through FES electro-stimulation. Invisible technology delivering unlimited human potential across rehabilitation, performance, sport and defence."
+              data-pt="Um wearable e-têxtil nanotecnológico — uma segunda pele inteligente integrada ao Sistema Operacional do Corpo (BoS). Lê a atividade neuromuscular via EMG e atua por estimulação eletrofuncional FES. Tecnologia invisível que libera o potencial humano ilimitado em reabilitação, performance, esporte e defesa.">
+              Um wearable e-têxtil nanotecnológico — uma segunda pele inteligente integrada ao Sistema Operacional do Corpo (BoS). Lê a atividade neuromuscular via EMG e atua por estimulação eletrofuncional FES. Tecnologia invisível que libera o potencial humano ilimitado em reabilitação, performance, esporte e defesa.
+            </p>
+            <div class="ptags">
+              <span class="ptag">E-TEXTILE</span><span class="ptag">NANOTECH</span>
+              <span class="ptag">EMG / FES</span><span class="ptag">BIOFEEDBACK</span>
+              <span class="ptag">IoT</span><span class="ptag">BoS</span>
+              <span class="ptag">REHAB</span><span class="ptag">PERFORMANCE</span>
+              <span class="ptag">SPORT</span><span class="ptag">DEFENCE</span>
+            </div>
+            <a href="#" class="plink" data-en="LEARN MORE" data-pt="SAIBA MAIS">LEARN MORE <span class="arr"></span></a>
+          </div>
+          <!-- COLUNA DIREITA (placeholder) -->
+          <div>
+            <div class="mvp">
+              <div class="mvpt" data-en="CONCEPT · KEY CAPABILITIES" data-pt="CONCEITO · CAPACIDADES">CONCEITO · CAPACIDADES</div>
+              <div class="mvpr-tags">
+                <span class="mvp-tag">EMG READING</span>
+                <span class="mvp-tag">FES ACTUATION</span>
+                <span class="mvp-tag">REAL-TIME BIOFEEDBACK</span>
+                <span class="mvp-tag">IoT CONNECTED</span>
+                <span class="mvp-tag">BoS INTEGRATION</span>
+                <span class="mvp-tag">INVISIBLE WEARABLE</span>
+                <span class="mvp-tag">AI READY</span>
+                <span class="mvp-tag">DIGITAL TWIN</span>
+              </div>
+            </div>
+            <div class="mvp">
+              <div class="mvpt" data-en="TARGET MARKETS" data-pt="MERCADOS ALVO">MERCADOS ALVO</div>
+              <div class="mvpr-tags">
+                <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">REHABILITATION</span>
+                <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">PERFORMANCE</span>
+                <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">SPORT</span>
+                <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">DEFENCE</span>
+                <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">FITNESS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pc fu">
+        <div class="pnum">02</div>
+        <div class="ptrl">TRL 2 · CONCEPT</div>
+        <h3>SMART SEAT</h3>
+        <div class="psub" data-en="G-FORCE SIMULATOR" data-pt="SIMULADOR DE FORÇA G">G-FORCE SIMULATOR</div>
+        <p class="pdesc" data-en="An intelligent seat with G-Force simulation — designed for motorsport training, racing simulation and rehabilitation of postural and core muscles under dynamic loading conditions." data-pt="Assento inteligente com simulação de Força G — para treino automobilístico, simulação de corrida e reabilitação de músculos posturais sob carga dinâmica.">An intelligent seat with G-Force simulation — designed for motorsport training, racing simulation and rehabilitation of postural and core muscles under dynamic loading conditions.</p>
+        <div class="ptags"><span class="ptag">G-FORCE</span><span class="ptag">MOTORSPORT</span><span class="ptag">REHAB</span><span class="ptag">SIMULATION</span></div>
+        <a href="#" class="plink" data-en="LEARN MORE" data-pt="SAIBA MAIS">LEARN MORE <span class="arr"></span></a>
+      </div>
+      <div class="pc fu">
+        <div class="pnum">03</div>
+        <div class="ptrl">TRL 2/3 · CONCEPT</div>
+        <h3>SMART BIKE CVT</h3>
+        <div class="psub" data-en="AUTOMATIC TRANSMISSION · BIO-FEEDBACK" data-pt="TRANSMISSÃO AUTOMÁTICA · BIO-FEEDBACK">AUTOMATIC TRANSMISSION · BIO-FEEDBACK</div>
+        <p class="pdesc" data-en="A CVT-type automatic transmission for bicycles that adapts gear ratios in real-time based on the rider's biofeedback — cadence, power output and physiological response — for optimal performance and rehabilitation." data-pt="Transmissão automática tipo CVT para bicicletas que adapta as relações em tempo real com base no biofeedback do ciclista — cadência, potência e resposta fisiológica.">A CVT-type automatic transmission for bicycles that adapts gear ratios in real-time based on the rider's biofeedback — cadence, power output and physiological response — for optimal performance and rehabilitation.</p>
+        <div class="ptags"><span class="ptag">CVT</span><span class="ptag">BIOFEEDBACK</span><span class="ptag">CYCLING</span><span class="ptag">SMART GEAR</span></div>
+        <a href="#" class="plink" data-en="LEARN MORE" data-pt="SAIBA MAIS">LEARN MORE <span class="arr"></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder">
+  <div class="si">
+    <div class="slbl" data-en="THE FOUNDER" data-pt="O FUNDADOR">THE FOUNDER</div>
+    <div class="fg">
+      <div class="fcard fu">
+        <div class="fcard-bg">ANDRE&#10;SERNAGLIA</div>
+        <div class="fcard-lbl" data-en="FOUNDER & CEO" data-pt="FUNDADOR & CEO">FOUNDER & CEO</div>
+      </div>
+      <div class="fu">
+        <h2 class="fname">ANDRE<br>SERNAGLIA</h2>
+        <div class="frole" data-en="FOUNDER & CEO · TWIN FACTORY" data-pt="FUNDADOR & CEO · TWIN FACTORY">FOUNDER & CEO · TWIN FACTORY</div>
+        <p data-en="Passionate enthusiast of science, technology and sports — with a special love for mountain biking and snowboarding. André embraces life as an adventure, driven by curiosity and a commitment to innovation." data-pt="Entusiasta apaixonado por ciência, tecnologia e esportes — com um amor especial por mountain bike e snowboard. André abraça a vida como uma aventura, movido pela curiosidade e comprometimento com a inovação.">Passionate enthusiast of science, technology and sports — with a special love for mountain biking and snowboarding. André embraces life as an adventure, driven by curiosity and a commitment to innovation.</p>
+        <p data-en='With deep experience in Industry 4.0, where precision and data are essential, he asked: <strong>"Why not use these technologies to transform motor health?"</strong> Frustrated by the lack of objectivity in physical therapy after his own injury recovery, he founded Twin Factory to bridge that gap.' data-pt='Com vasta experiência na Indústria 4.0, ele perguntou: <strong>"Por que não usar essas tecnologias para transformar a saúde motora?"</strong> Frustrado com a falta de objetividade na fisioterapia após sua recuperação, fundou a Twin Factory.'>With deep experience in Industry 4.0, where precision and data are essential, he asked: <strong>"Why not use these technologies to transform motor health?"</strong> Frustrated by the lack of objectivity in physical therapy after his own injury recovery, he founded Twin Factory to bridge that gap.</p>
+        <div class="bq" data-en='"This imprecision left me frustrated and convinced that there was significant room for improvement."' data-pt='"Essa imprecisão me deixou frustrado e convicto de que havia muito espaço para melhoria."'>"This imprecision left me frustrated and convinced that there was significant room for improvement."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOGNITION -->
+<section id="recognition">
+  <div class="si">
+    <div class="slbl" data-en="RECOGNITION & ECOSYSTEM" data-pt="RECONHECIMENTO & ECOSSISTEMA">RECOGNITION & ECOSYSTEM</div>
+    <h2 data-en="Validated by<br>the Ecosystem." data-pt="Validados pelo<br>Ecossistema.">Validated by<br>the Ecosystem.</h2>
+    <div class="rg">
+      <div class="rc fu"><div class="ri">✦</div><h3 data-en="VOUCHERS FOR STARTUPS" data-pt="VOUCHERS FOR STARTUPS">VOUCHERS FOR STARTUPS</h3><p data-en="Approved 2025 — New Digital/Technological Products. Funded by the Portuguese government to accelerate deep tech innovation." data-pt="Aprovado 2025 — Novos Produtos Digitais/Tecnológicos. Financiado pelo governo português para acelerar a inovação deep tech.">Approved 2025 — New Digital/Technological Products. Funded by the Portuguese government to accelerate deep tech innovation.</p></div>
+      <div class="rc fu"><div class="ri">◈</div><h3 data-en="STARTUP PORTUGAL" data-pt="STARTUP PORTUGAL">STARTUP PORTUGAL</h3><p data-en="Certified within the national startup ecosystem recognition programme, validating the technology concept and market potential." data-pt="Certificada pelo programa nacional de reconhecimento do ecossistema de startups, validando o conceito tecnológico e o potencial de mercado.">Certified within the national startup ecosystem recognition programme, validating the technology concept and market potential.</p></div>
+      <div class="rc fu"><div class="ri">⬡</div><h3 data-en="TAGUSPARK INCUBATOR" data-pt="INCUBADORA TAGUSPARK">TAGUSPARK INCUBATOR</h3><p data-en="Member of Taguspark — Oeiras Valley, one of Portugal's leading technology parks and part of the European innovation ecosystem." data-pt="Membro do Taguspark — Oeiras Valley, um dos principais parques tecnológicos de Portugal e parte do ecossistema europeu de inovação.">Member of Taguspark — Oeiras Valley, one of Portugal's leading technology parks and part of the European innovation ecosystem.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="si">
+    <div class="cg">
+      <div class="fu">
+        <div class="slbl" data-en="GET IN TOUCH" data-pt="ENTRE EM CONTATO">GET IN TOUCH</div>
+        <div class="bcta" data-en='"United, our potential is <em>limitless</em>.<br>Let\'s make it happen."' data-pt='"Unidos, nosso potencial é <em>ilimitado</em>.<br>Vamos fazer acontecer."'>"United, our potential is <em>limitless</em>.<br>Let's make it happen."</div>
+      </div>
+      <div class="clist fu">
+        <div class="ci"><div class="cdot"></div><a href="/cdn-cgi/l/email-protection#33525d5741567347445a5d555250475c414a1d5050"><span class="__cf_email__" data-cfemail="7819161c0a1d380c0f11161e191b0c170a01561b1b">[email&#160;protected]</span></a></div>
+        <div class="ci"><div class="cdot"></div><span>+351 918 592 199</span></div>
+        <div class="ci"><div class="cdot"></div><span>+55 11 98764 6464</span></div>
+        <div class="addr"><p>AV. JACQUES DELORS, EDIFÍCIO INOVAÇÃO II</p><p>Nº 411-421, G14 · CP: 2740-122</p><p>TAGUSPARK · OEIRAS VALLEY · PORTUGAL</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <svg class="flogo" viewBox="0 0 1774.2 143.4" xmlns="http://www.w3.org/2000/svg">
+    <path d="M168.5,13.6l-20.5,26.7h-36.6v75.9h-31.7V40.3H31.5l20.5-26.7h116.5Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M294.2,78c-8.9-15.8-13-23.5-16.6-30.8-3.2,7.4-7.4,14.9-16.2,30.7l-16.4,29.1c-3.7,6.6-9.2,10.9-17.5,10.9s-15-4.6-17.8-14.1l-26.1-90.1h31.7l9.7,35.7c3.2,11.5,5.4,19.9,6.9,28.2,3.4-7.2,7.4-15,14.4-28.4l13.8-25.8c5.4-10.1,10.6-11.5,18.1-11.5s13,1.4,18.4,11.5l13.6,25.9c7.7,14.1,11.2,21.3,14.4,28.2,1.7-8.1,4-16.9,7.1-28.2l9.7-35.7h31l-26.5,90.1c-2.8,9.5-9.8,14.1-17.8,14.1s-13.6-4.1-17.5-10.9l-16.4-29Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M429.9,116.1h-31.7V13.6h31.7v102.6Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M554.1,112.3l-62.8-56.4v60.2h-28.8V31.1c0-13.6,8.3-19.2,17.3-19.2s7.7.9,12.7,5.5l62.8,56.4V13.6h29v84.9c0,13.6-8.3,19.3-17.5,19.3s-7.8-.9-12.7-5.5Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M803,13.6l-20.5,26.7h-62.5v13.3h77.3l-19.3,25h-57.9v37.6h-31.9V13.6h115Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M844.4,116.1l19.2-26.4h25.8c6.1,0,13.3,0,18.2.3-2.8-3.7-7.1-10-10.4-14.9l-18.4-27.1-48.1,68.1h-37.6l65.8-92.7c4.3-6,10.6-11.5,20.5-11.5s15.8,5.1,20.2,11.5l64.1,92.7h-119.3Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M1102.9,89.8l-20.4,26.4h-51.5c-35.6,0-61.8-22.5-61.8-52.3s26.2-50.3,61.8-50.3h71.9l-20.4,26.7h-51.5c-17.2,0-30,10.3-30,25s12.7,24.5,30,24.5h71.9Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M1254.5,13.6l-20.5,26.7h-36.6v75.9h-31.7V40.3h-48.1l20.5-26.7h116.5Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M1409.4,64.8c0,36.6-25.1,53-75,53s-75-16.4-75-53,25-52.9,75-52.9,75,16.2,75,52.9ZM1377.9,64.8c0-22.1-11.5-26.2-43.4-26.2s-43.4,4.1-43.4,26.2,11.5,26.4,43.4,26.4,43.4-4.3,43.4-26.4Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M1584.2,116.1h-42.5l-22.8-27.1h-48.7v27.1h-31.7v-52.4h89.2c9.8,0,17.5-4.4,17.5-11.5s-6.6-12-17.5-12h-89.2l20.7-26.7h65.9c23.3,0,52.7,7.4,52.7,36.6s-10,29.1-26.8,32.5c3.5,2.6,7.4,6.3,14.4,13.5l18.9,19.9Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M1741.6,13.6l-60.9,68.7v33.9h-31.9v-34l-62.5-68.5h40.8l24.5,28.5c3.2,3.7,11.8,13,14,16.1,2-2.9,5.5-7.4,12.9-16.2l23.3-28.4h39.9Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+  </svg>
+  <div class="fcopy">© 2025 TWIN FACTORY LDA · ALL RIGHTS RESERVED</div>
+</footer>
+<script>
+  window.setLang = function(l){
+    document.getElementById('btn-en').classList.toggle('active',l==='en');
+    document.getElementById('btn-pt').classList.toggle('active',l==='pt');
+    document.querySelectorAll('[data-en]').forEach(function(el){
+      var v=el.getAttribute('data-'+l); if(v) el.innerHTML=v;
+    });
+  };
+  document.addEventListener('DOMContentLoaded',function(){
+    var cur=document.getElementById('cur'),curR=document.getElementById('curR');
+    var mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;});
+    (function loop(){
+      cur.style.transform='translate('+(mx-4)+'px,'+(my-4)+'px)';
+      rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+      curR.style.transform='translate('+(rx-15)+'px,'+(ry-15)+'px)';
+      requestAnimationFrame(loop);
+    })();
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e,i){
+        if(e.isIntersecting){
+          setTimeout(function(){e.target.classList.add('vis');},i*70);
+          obs.unobserve(e.target);
+        }
+      });
+    },{threshold:0.08});
+    document.querySelectorAll('.fu').forEach(function(el){obs.observe(el);});
+  });
+</script>
+</body>
+</html>
