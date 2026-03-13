@@ -122,13 +122,17 @@
   /* PROJECTS */
   #projects{border-top:1px solid var(--border);}
   .pg{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;}
-  .pc{background:var(--card-bg);border:1px solid var(--border);padding:40px;position:relative;overflow:hidden;transition:border-color 0.3s;}
+  .pc{background:var(--card-bg);border:1px solid var(--border);padding:40px 40px 16px;position:relative;overflow:hidden;transition:border-color 0.3s;}
   .pc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
   .pc:hover::before{transform:scaleX(1);}
   .pc:hover{border-color:var(--border-h);}
   .pnum{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:100px;color:rgba(255,255,255,0.07);position:absolute;top:10px;right:24px;line-height:1;pointer-events:none;transition:color 0.3s;}
   .pc:hover .pnum{color:rgba(255,255,255,0.12);}
-  .d2w-img{width:120px;height:120px;display:block;border-radius:50%;object-fit:cover;border:2px solid rgba(133,198,235,0.3);flex-shrink:0;}
+  .pc.feat .pi > div:first-child{display:flex;flex-direction:column;}
+  .d2w-img-block{display:flex;align-items:center;gap:24px;margin-top:auto;padding-top:28px;position:relative;bottom:37px;}
+  .tt-img-block{position:relative;bottom:37px;}
+  .d2w-img-label{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:22px;letter-spacing:2px;color:var(--orange);text-transform:uppercase;margin-bottom:0;text-align:left;line-height:1.3;flex:1;}
+  .d2w-img{aspect-ratio:1/1;width:100%;max-width:238px;display:block;border-radius:50%;object-fit:cover;border:2px solid rgba(133,198,235,0.3);flex-shrink:0;}
   .proj-logo{width:min(400px,85%);margin-bottom:16px;}
   .proj-logo svg{width:100%;height:auto;display:block;}
   .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
@@ -286,9 +290,9 @@
 
     <!-- DESC -->
     <p class="hero-desc"
-      data-en="We develop intelligent products with Industry 4.0 enabling technologies — IoT, AI, XR and Digital Twins. With deep tech we connect the human body to the digital world to uniquely transform motor health: rehabilitation, performance, sport and defence."
-      data-pt="Desenvolvemos produtos inteligentes com as tecnologias habilitadoras da Indústria 4.0 — IoT, AI, XR e Gêmeos Digitais. Com deep tech conectamos o corpo humano ao mundo digital para transformar, de maneira única, a saúde motora: reabilitação, performance, esporte e defesa.">
-      Desenvolvemos produtos inteligentes com as tecnologias habilitadoras da Indústria 4.0 — IoT, AI, XR e Gêmeos Digitais. Com deep tech conectamos o corpo humano ao mundo digital para transformar, de maneira única, a saúde motora: reabilitação, performance, esporte e defesa.
+      data-en="We develop intelligent products with Industry 4.0 enabling technologies — IoT, AI, XR and Digital Twins. With deep tech we connect the human body to the digital world to uniquely transform motor health: rehabilitation, fitness, performance and military defence."
+      data-pt="Desenvolvemos produtos inteligentes com as tecnologias habilitadoras da Indústria 4.0 — IoT, AI, XR e Gêmeos Digitais. Com deep tech conectamos o corpo humano ao mundo digital para transformar, de maneira única, a saúde motora: reabilitação, fitness, performance e defesa militar.">
+      Desenvolvemos produtos inteligentes com as tecnologias habilitadoras da Indústria 4.0 — IoT, AI, XR e Gêmeos Digitais. Com deep tech conectamos o corpo humano ao mundo digital para transformar, de maneira única, a saúde motora: reabilitação, fitness, performance e defesa militar.
     </p>
 
     <!-- BADGES -->
@@ -321,9 +325,9 @@
         <div class="fu about-block1">
           <h2 data-en="Technology Driven.<br><span class='indent-line'>Driving Technology.</span>" data-pt="Technology Driven.<br><span class='indent-line'>Driving Technology.</span>">Technology Driven.<br><span class="indent-line" style="white-space:nowrap;">Driving Technology.</span></h2>
           <div class="about-tagline-b"
-            data-en="We are driven by emerging technologies — and we drive them forward."
-            data-pt="Somos impulsionados pelas tecnologias emergentes — e as impulsionamos para frente.">
-            Somos impulsionados pelas tecnologias emergentes — e as impulsionamos para frente.
+            data-en="We are driven by emerging technologies — but we also drive technologies forward."
+            data-pt="Somos impulsionados pelas tecnologias emergentes — mas também impulsionamos as tecnologias.">
+            Somos impulsionados pelas tecnologias emergentes — mas também impulsionamos as tecnologias.
           </div>
           <p data-en="At Twin Factory we don't just apply emerging technologies — we push them beyond their known limits. Creativity and unconventional thinking lead us to use technology in ways its own creators never anticipated. In doing so, we don't only build better products — we expand what technology itself can do."
              data-pt="Na Twin Factory não apenas aplicamos tecnologias emergentes — nós as empurramos além dos seus limites conhecidos. A criatividade e o pensamento não convencional nos levam a usar a tecnologia de maneiras que nem seus próprios criadores previram. Ao fazer isso, não apenas construímos produtos melhores — expandimos o que a própria tecnologia é capaz de fazer.">
@@ -334,15 +338,15 @@
         <!-- BLOCO 2: Foco em saúde motora + Ford -->
         <div class="fu">
           <h2 style="margin-bottom:24px;" data-en="Motor Health.<br><span class='indent-line2'>Redefined.</span>" data-pt="Saúde Motora.<br><span class='indent-line2'>Redefinida.</span>">Saúde Motora.<br><span class="indent-line2">Redefinida.</span></h2>
-          <p data-en="We are a deep tech startup developing <strong>intelligent products</strong> based on Industry 4.0 enabling technologies. Our core focus is motor health — transforming rehabilitation, performance, sport and defence through data, replacing assumptions with measurable, objective insights powered by real biodata."
-             data-pt="Somos uma startup de deep tech que desenvolve <strong>produtos inteligentes</strong> baseados nas tecnologias habilitadoras da Indústria 4.0. Nosso foco central é a saúde motora — transformando reabilitação, performance, esporte e defesa por meio de dados, substituindo suposições por insights objetivos e mensuráveis baseados em biodados reais.">
-            Somos uma startup de deep tech que desenvolve <strong>produtos inteligentes</strong> baseados nas tecnologias habilitadoras da Indústria 4.0. Nosso foco central é a saúde motora — transformando reabilitação, performance, esporte e defesa por meio de dados, substituindo suposições por insights objetivos e mensuráveis baseados em biodados reais.
+          <p data-en="We are a deep tech startup developing <strong>intelligent products</strong> based on Industry 4.0 enabling technologies. Our core focus is motor health — transforming rehabilitation, fitness, performance and military through data, replacing assumptions with measurable, objective insights powered by real biodata."
+             data-pt="Somos uma startup de deep tech que desenvolve <strong>produtos inteligentes</strong> baseados nas tecnologias habilitadoras da Indústria 4.0. Nosso foco central é a saúde motora — transformando reabilitação, fitness, performance e defesa militar por meio de dados, substituindo suposições por insights objetivos e mensuráveis baseados em biodados reais.">
+            Somos uma startup de deep tech que desenvolve <strong>produtos inteligentes</strong> baseados nas tecnologias habilitadoras da Indústria 4.0. Nosso foco central é a saúde motora — transformando reabilitação, fitness, performance e defesa militar por meio de dados, substituindo suposições por insights objetivos e mensuráveis baseados em biodados reais.
           </p>
           <div class="ford-callout">
             <div class="bq ford-bq"
-              data-en='<span class="ford-inline-label">As Henry Ford would say...</span>"If I had asked people what they wanted,<br>they would have said faster horses."'
-              data-pt='<span class="ford-inline-label">Como Henry Ford diria...</span>"Se eu tivesse perguntado às pessoas o que queriam,<br>teriam dito cavalos mais rápidos."'>
-              <span class="ford-inline-label">Como Henry Ford diria...</span>"Se eu tivesse perguntado às pessoas o que queriam,<br>teriam dito cavalos mais rápidos."
+              data-en='<span class="ford-inline-label">As Henry Ford would say...</span>"If I had asked people what they wanted,<br><span style="display:inline-block;padding-left:17ch;">they would have said faster horses."</span>'
+              data-pt='<span class="ford-inline-label">Como Henry Ford diria...</span>"Se eu tivesse perguntado às pessoas o que queriam,<br><span style="display:inline-block;padding-left:19.5ch;">teriam dito cavalos mais rápidos."</span>'>
+              <span class="ford-inline-label">Como Henry Ford diria...</span>"Se eu tivesse perguntado às pessoas o que queriam,<br><span style="display:inline-block;padding-left:19.5ch;">teriam dito cavalos mais rápidos."</span>
             </div>
           </div>
         </div>
@@ -392,7 +396,7 @@
         </div>
 
         <div class="stat">
-          <div class="snum"><span class="snum-split">20<span class="snum-op">+</span>10</span></div>
+          <div class="snum"><span class="snum-split">30<span class="snum-op" style="font-size:22px;color:var(--orange);margin:0 4px;">(20+10)</span></span></div>
           <div class="slb"
             data-en="YEARS OF EXPERIENCE<br>20 IN COMMUNICATION<br>10 IN TECHNOLOGY & INDUSTRY 4.0"
             data-pt="ANOS DE EXPERIÊNCIA<br>20 EM COMUNICAÇÃO<br>10 EM TECNOLOGIA E INDÚSTRIA 4.0">
@@ -446,7 +450,7 @@
           <div>
             <div class="proj-logo"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774.19 143.45">
   <path d="M75.41,109.5H17v-54.37h27.12v31.94h31.29c15,0,25.82-8.34,25.82-20.86s-11.21-21.25-25.82-21.25H17l17.21-22.69h41.2c30.51,0,52.55,17.6,52.55,42.77s-22.3,44.46-52.55,44.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M171.91,22.28h51.11c26.47,0,37.42,10.69,37.42,27.12,0,14.99-10.3,25.03-32.73,25.03h-41.46c-6.26,0-9.26,1.83-9.26,6.26v6.39h84.1l-17.34,22.43h-92.83v-28.55c0-15.91,11.47-23.86,32.73-23.86h41.46c6.26,0,9.26-1.69,9.26-6.13s-3-6-9.26-6h-70.54l17.34-22.69Z" style="fill: none; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M171.91,22.28h51.11c26.47,0,37.42,10.69,37.42,27.12,0,14.99-10.3,25.03-32.73,25.03h-41.46c-6.26,0-9.26,1.83-9.26,6.26v6.39h84.1l-17.34,22.43h-92.83v-28.55c0-15.91,11.47-23.86,32.73-23.86h41.46c6.26,0,9.26-1.69,9.26-6.13s-3-6-9.26-6h-70.54l17.34-22.69Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
   <path d="M373.49,77.04c-7.56-13.43-11.08-19.95-14.08-26.21-2.74,6.26-6.26,12.65-13.82,26.08l-13.95,24.77c-3.13,5.61-7.82,9.26-14.86,9.26s-12.78-3.91-15.12-12l-22.17-76.67h26.99l8.21,30.38c2.74,9.78,4.56,16.95,5.87,23.99,2.87-6.13,6.26-12.78,12.26-24.12l11.73-21.9c4.56-8.61,9-9.78,15.39-9.78s11.08,1.17,15.65,9.78l11.6,22.04c6.52,12,9.52,18.12,12.26,23.99,1.43-6.91,3.39-14.34,6-23.99l8.21-30.38h26.34l-22.56,76.67c-2.35,8.08-8.34,12-15.12,12s-11.6-3.52-14.86-9.26l-13.95-24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
   <path d="M581.08,109.5h-58.41v-54.37h27.12v31.94h31.29c15,0,25.82-8.34,25.82-20.86s-11.21-21.25-25.82-21.25h-58.41l17.21-22.69h41.2c30.51,0,52.55,17.6,52.55,42.77s-22.3,44.46-52.55,44.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
   <path d="M685.92,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
@@ -455,7 +459,7 @@
   <path d="M1014.11,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
   <path d="M1042.93,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
   <path d="M1259.77,87.08l-17.47,22.43h-77.06V22.28h26.99v64.8h67.54Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1299.02,22.28h51.11c26.47,0,37.42,10.69,37.42,27.12,0,14.99-10.3,25.03-32.73,25.03h-41.46c-6.26,0-9.26,1.83-9.26,6.26v6.39h84.1l-17.34,22.43h-92.83v-28.55c0-15.91,11.47-23.86,32.73-23.86h41.46c6.26,0,9.26-1.69,9.26-6.13s-3-6-9.26-6h-70.54l17.34-22.69Z" style="fill: none; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1299.02,22.28h51.11c26.47,0,37.42,10.69,37.42,27.12,0,14.99-10.3,25.03-32.73,25.03h-41.46c-6.26,0-9.26,1.83-9.26,6.26v6.39h84.1l-17.34,22.43h-92.83v-28.55c0-15.91,11.47-23.86,32.73-23.86h41.46c6.26,0,9.26-1.69,9.26-6.13s-3-6-9.26-6h-70.54l17.34-22.69Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
   <path d="M1500.61,77.04c-7.56-13.43-11.08-19.95-14.08-26.21-2.74,6.26-6.26,12.65-13.82,26.08l-13.95,24.77c-3.13,5.61-7.82,9.26-14.86,9.26s-12.78-3.91-15.12-12l-22.17-76.67h26.99l8.21,30.38c2.74,9.78,4.56,16.95,5.87,23.99,2.87-6.13,6.26-12.78,12.26-24.12l11.73-21.9c4.56-8.61,9-9.78,15.39-9.78s11.08,1.17,15.65,9.78l11.6,22.04c6.52,12,9.52,18.12,12.26,23.99,1.43-6.91,3.39-14.34,6-23.99l8.21-30.38h26.34l-22.56,76.67c-2.35,8.08-8.34,12-15.12,12s-11.6-3.52-14.86-9.26l-13.95-24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
   <path d="M1616.01,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
   <path d="M1721.62,106.24l-53.46-47.98v51.24h-24.51V37.14c0-11.6,7.04-16.3,14.73-16.3,3.26,0,6.52.78,10.82,4.69l53.46,47.98V22.28h24.64v72.23c0,11.6-7.04,16.43-14.86,16.43-3.39,0-6.65-.78-10.82-4.69Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
@@ -463,9 +467,9 @@
             <div class="ptrl">TRL 4/5 · PROTOTYPE</div>
             <h3 class="sr-only">D2W — DIGITAL2WIN</h3>
             <div class="psub"
-              data-en="LOAD GENERATOR DEVICE · FITNESS / REHAB / SPORT / DEFENCE"
-              data-pt="DISPOSITIVO GERADOR DE CARGA · FITNESS / REABILITAÇÃO / ESPORTE / DEFESA">
-              DISPOSITIVO GERADOR DE CARGA · FITNESS / REABILITAÇÃO / ESPORTE / DEFESA
+              data-en="LOAD GENERATOR DEVICE · REHAB / PERFORMANCE / MILITARY"
+              data-pt="DISPOSITIVO GERADOR DE CARGA · REABILITAÇÃO / PERFORMANCE / MILITAR">
+              DISPOSITIVO GERADOR DE CARGA · REABILITAÇÃO / PERFORMANCE / MILITAR
             </div>
             <p class="pdesc"
               data-en="D2W is a portable, connected load generator device — not merely a sensor, but an actuator. It measures velocity, amplitude, frequency and output power (which varies as a function of load and achieved velocity) in real time, creating a Digital Twin of the user's body in motion."
@@ -473,15 +477,17 @@
               O D2W é um dispositivo portátil e conectado gerador de carga — não apenas um sensor, mas um atuador. Mede em tempo real velocidade, amplitude, frequência e potência (variável em função da carga e da velocidade realizadas), criando um Gêmeo Digital do corpo em movimento.
             </p>
             <div class="ptags">
-              <span class="ptag">IoT</span><span class="ptag">LOAD GENERATOR</span>
-              <span class="ptag">ACTUATOR</span><span class="ptag">REAL-TIME DATA</span>
-              <span class="ptag">DIGITAL TWIN</span><span class="ptag">PORTABLE</span>
+              <span class="ptag">DEVICE</span><span class="ptag">PORTABLE</span>
+              <span class="ptag">IoT</span><span class="ptag">ACTUATOR</span>
+              <span class="ptag">REAL-TIME DATA</span><span class="ptag">AI</span>
+              <span class="ptag">DIGITAL TWIN</span>
             </div>
             <a href="#" class="plink" data-en="EXPLORE D2W" data-pt="EXPLORAR D2W">EXPLORE D2W <span class="arr"></span></a>
             <div class="d2w-img-block">
-            <div class="d2w-img-label" data-en="MUSCULOSKELETAL IMPROVEMENT SYSTEM" data-pt="SISTEMA DE MELHORA MUSCULOESQUELÉTICA">MUSCULOSKELETAL IMPROVEMENT SYSTEM</div>
-            <img class="d2w-img" src="data:image/png;<img class="d2w-img" src="homem.png">
+              <div class="d2w-img-label" data-en="MUSCULOSKELETAL<br>IMPROVEMENT SYSTEM" data-pt="SISTEMA DE MELHORA<br>MUSCULOESQUELÉTICA">MUSCULOSKELETAL<br>IMPROVEMENT SYSTEM</div>
+              <img class="d2w-img" src="homem.png">
             </div>
+          </div>
           <!-- COLUNA DIREITA -->
           <div>
 
@@ -550,57 +556,76 @@
   <path d="M281.04,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55h-81.23l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
   <path d="M417.83,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55h-81.23l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
   <path d="M587.07,71.43c0,26.34-18.12,39.51-54.37,39.51-41.98,0-60.11-13.17-60.11-39.51V22.28h26.86v49.16c0,12.91,5.48,17.08,33.25,17.08,20.73,0,27.25-4.82,27.25-17.08V22.28h27.12v49.16Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M714.86,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: none; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M785.79,56.96l-13.17,16.82h-43.55l13.17-16.82h43.55Z" style="fill: none; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M904.32,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: none; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1025.06,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1156.5,87.08l-17.34,22.43h-43.81c-30.25,0-52.54-19.17-52.54-44.46s22.3-42.77,52.54-42.77h61.15l-17.34,22.69h-43.81c-14.6,0-25.56,8.74-25.56,21.25s10.82,20.86,25.56,20.86h61.15Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1282.98,109.5h-26.86v-33.64h-51.89v33.64h-27.12V22.28h27.12v30.9h51.89v-30.9h26.86v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M714.86,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M785.79,56.96l-13.17,16.82h-43.55l13.17-16.82h43.55Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M904.32,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1025.06,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1156.5,87.08l-17.34,22.43h-43.81c-30.25,0-52.54-19.17-52.54-44.46s22.3-42.77,52.54-42.77h61.15l-17.34,22.69h-43.81c-14.6,0-25.56,8.74-25.56,21.25s10.82,20.86,25.56,20.86h61.15Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1282.98,109.5h-26.86v-33.64h-51.89v33.64h-27.12V22.28h27.12v30.9h51.89v-30.9h26.86v87.23Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
 </svg></div>
             <div class="ptrl">TRL 2/3 · CONCEPT</div>
             <h3 class="sr-only">TISSUE-TECH</h3>
             <div class="psub"
-              data-en="E-TEXTILE WEARABLE · BIOFEEDBACK · EMG / FES"
-              data-pt="WEARABLE E-TÊXTIL · BIOFEEDBACK · EMG / FES">
-              WEARABLE E-TÊXTIL · BIOFEEDBACK · EMG / FES
+              data-en="E-TEXTILE WEARABLE · REHAB / FITNESS / PERFORMANCE / MILITARY"
+              data-pt="WEARABLE E-TÊXTIL · REABILITAÇÃO / FITNESS / PERFORMANCE / MILITAR">
+              WEARABLE E-TÊXTIL · REABILITAÇÃO / FITNESS / PERFORMANCE / MILITAR
             </div>
             <p class="pdesc"
-              data-en="An e-textile nanotech wearable — an intelligent second skin integrated with the Body Operating System (BoS). Reads neuromuscular activity via EMG and actuates through FES electro-stimulation. Invisible technology delivering unlimited human potential across rehabilitation, performance, sport and defence."
-              data-pt="Um wearable e-têxtil nanotecnológico — uma segunda pele inteligente integrada ao Sistema Operacional do Corpo (BoS). Lê a atividade neuromuscular via EMG e atua por estimulação eletrofuncional FES. Tecnologia invisível que libera o potencial humano ilimitado em reabilitação, performance, esporte e defesa.">
-              Um wearable e-têxtil nanotecnológico — uma segunda pele inteligente integrada ao Sistema Operacional do Corpo (BoS). Lê a atividade neuromuscular via EMG e atua por estimulação eletrofuncional FES. Tecnologia invisível que libera o potencial humano ilimitado em reabilitação, performance, esporte e defesa.
+              data-en="An e-textile nanotech wearable — an intelligent second skin integrated with the Body Operating System (BoS). Reads neuromuscular activity via EMG and actuates through FES electro-stimulation. Invisible technology delivering unlimited human potential across rehabilitation, fitness, performance and military."
+              data-pt="Um wearable e-têxtil nanotecnológico — uma segunda pele inteligente integrada ao Sistema Operacional do Corpo (BoS). Lê a atividade neuromuscular via EMG e atua por estimulação eletrofuncional FES. Tecnologia invisível que libera o potencial humano ilimitado em reabilitação, fitness, performance e militares.">
+              Um wearable e-têxtil nanotecnológico — uma segunda pele inteligente integrada ao Sistema Operacional do Corpo (BoS). Lê a atividade neuromuscular via EMG e atua por estimulação eletrofuncional FES. Tecnologia invisível que libera o potencial humano ilimitado em reabilitação, fitness, performance e militares.
             </p>
             <div class="ptags">
-              <span class="ptag">E-TEXTILE</span><span class="ptag">NANOTECH</span>
+              <span class="ptag">WEARABLE</span><span class="ptag">NANOTECH</span>
+              <span class="ptag">E-TEXTILE</span><span class="ptag">IoT</span>
               <span class="ptag">EMG / FES</span><span class="ptag">BIOFEEDBACK</span>
-              <span class="ptag">IoT</span><span class="ptag">BoS</span>
-              <span class="ptag">REHAB</span><span class="ptag">PERFORMANCE</span>
-              <span class="ptag">SPORT</span><span class="ptag">DEFENCE</span>
+              <span class="ptag">AI</span><span class="ptag">BoS</span>
+              <span class="ptag">DIGITAL TWIN</span>
             </div>
             <a href="#" class="plink" data-en="LEARN MORE" data-pt="SAIBA MAIS">LEARN MORE <span class="arr"></span></a>
+            <div class="d2w-img-block tt-img-block">
+              <div class="d2w-img-label" data-en="E-TEXTILE<br>INTELLIGENT SKIN" data-pt="E-TÊXTIL<br>SEGUNDA PELE">E-TEXTILE<br>INTELLIGENT SKIN</div>
+              <img class="d2w-img" src="Tissue_Fibra.png">
+            </div>
           </div>
-          <!-- COLUNA DIREITA (placeholder) -->
+          <!-- COLUNA DIREITA -->
           <div>
             <div class="mvp">
-              <div class="mvpt" data-en="CONCEPT · KEY CAPABILITIES" data-pt="CONCEITO · CAPACIDADES">CONCEITO · CAPACIDADES</div>
+              <div class="mvpt" data-en="NEUROMUSCULAR READING" data-pt="LEITURA NEUROMUSCULAR">LEITURA NEUROMUSCULAR</div>
               <div class="mvpr-tags">
                 <span class="mvp-tag">EMG READING</span>
                 <span class="mvp-tag">FES ACTUATION</span>
                 <span class="mvp-tag">REAL-TIME BIOFEEDBACK</span>
-                <span class="mvp-tag">IoT CONNECTED</span>
+                <span class="mvp-tag">PREDICTIVE ANALYTICS</span>
+                <span class="mvp-tag">INJURY PREVENTION</span>
+              </div>
+            </div>
+            <div class="mvp">
+              <div class="mvpt" data-en="SMART SECOND SKIN" data-pt="SEGUNDA PELE INTELIGENTE">SEGUNDA PELE INTELIGENTE</div>
+              <div class="mvpr-tags">
+                <span class="mvp-tag">NANOTECH WEARABLE</span>
+                <span class="mvp-tag">INVISIBLE SENSORS</span>
+                <span class="mvp-tag">DYNAMIC LOAD OPTIMIZATION</span>
                 <span class="mvp-tag">BoS INTEGRATION</span>
-                <span class="mvp-tag">INVISIBLE WEARABLE</span>
                 <span class="mvp-tag">AI READY</span>
                 <span class="mvp-tag">DIGITAL TWIN</span>
               </div>
             </div>
             <div class="mvp">
+              <div class="mvpt" data-en="PoC · VALIDATED" data-pt="PoC · VALIDADO">PoC · VALIDADO</div>
+              <div class="mvpr-tags">
+                <span class="mvp-tag">BIOFEEDBACK CAPTURE</span>
+                <span class="mvp-tag">PHASE 01 · RESPONSE TRIALS</span>
+                <span class="mvp-tag">EMG/FES PROTOTYPE</span>
+              </div>
+            </div>
+            <div class="mvp">
               <div class="mvpt" data-en="TARGET MARKETS" data-pt="MERCADOS ALVO">MERCADOS ALVO</div>
               <div class="mvpr-tags">
-                <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">REHABILITATION</span>
-                <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">PERFORMANCE</span>
-                <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">SPORT</span>
-                <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">DEFENCE</span>
+                <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">REHAB</span>
                 <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">FITNESS</span>
+                <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">PERFORMANCE</span>
+                <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">MILITARY</span>
               </div>
             </div>
           </div>
@@ -608,20 +633,45 @@
       </div>
       <div class="pc fu">
         <div class="pnum">02</div>
+        <div class="proj-logo"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774.19 143.45">
+  <path d="M97.84,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55H11.92l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M214.02,54.74c7.69,13.43,11.08,19.95,14.08,26.08,2.87-6.13,6.26-12.52,13.95-25.95l13.95-24.77c3.13-5.61,7.82-9.26,14.86-9.26s12.78,3.91,15.12,12l22.04,76.67h-26.86l-8.21-30.38c-2.74-9.91-4.56-16.95-6-23.99-2.87,6.13-6.13,12.78-12.13,24.12l-11.73,21.9c-4.56,8.61-9,9.78-15.52,9.78s-10.95-1.17-15.52-9.78l-11.73-22.04c-6.39-12-9.52-18.12-12.26-23.99-1.3,6.91-3.26,14.21-5.87,23.99l-8.21,30.38h-26.47l22.56-76.67c2.35-8.08,8.47-12,15.25-12s11.6,3.52,14.73,9.26l13.95,24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M366.06,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M612.11,109.5h-36.12l-19.43-23.08h-41.46v23.08h-26.99v-44.59h75.89c8.34,0,14.86-3.78,14.86-9.78,0-6.78-5.61-10.17-14.86-10.17h-75.89l17.6-22.69h56.07c19.82,0,44.85,6.26,44.85,31.16,0,13.56-8.47,24.77-22.82,27.64,3,2.22,6.26,5.35,12.26,11.47l16.04,16.95Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M741.33,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M902.76,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55h-81.23l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1060.01,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1112.95,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1315.71,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+</svg></div>
         <div class="ptrl">TRL 2 · CONCEPT</div>
-        <h3>SMART SEAT</h3>
-        <div class="psub" data-en="G-FORCE SIMULATOR" data-pt="SIMULADOR DE FORÇA G">G-FORCE SIMULATOR</div>
+        <h3 class="sr-only">SMART SEAT</h3>
+        <div class="psub" data-en="G-FORCE SIMULATOR · REHAB / PERFORMANCE" data-pt="SIMULADOR DE FORÇA G · REABILITAÇÃO / PERFORMANCE">G-FORCE SIMULATOR · REABILITAÇÃO / PERFORMANCE</div>
         <p class="pdesc" data-en="An intelligent seat with G-Force simulation — designed for motorsport training, racing simulation and rehabilitation of postural and core muscles under dynamic loading conditions." data-pt="Assento inteligente com simulação de Força G — para treino automobilístico, simulação de corrida e reabilitação de músculos posturais sob carga dinâmica.">An intelligent seat with G-Force simulation — designed for motorsport training, racing simulation and rehabilitation of postural and core muscles under dynamic loading conditions.</p>
-        <div class="ptags"><span class="ptag">G-FORCE</span><span class="ptag">MOTORSPORT</span><span class="ptag">REHAB</span><span class="ptag">SIMULATION</span></div>
+        <div class="ptags"><span class="ptag">DEVICE</span><span class="ptag">G-FORCE</span><span class="ptag">SIMULATION</span><span class="ptag">MOTORSPORT</span><span class="ptag">REHAB</span><span class="ptag">PERFORMANCE</span></div>
         <a href="#" class="plink" data-en="LEARN MORE" data-pt="SAIBA MAIS">LEARN MORE <span class="arr"></span></a>
       </div>
       <div class="pc fu">
         <div class="pnum">03</div>
+        <div class="proj-logo"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774.19 143.45">
+  <path d="M97.84,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55H11.92l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M214.02,54.74c7.69,13.43,11.08,19.95,14.08,26.08,2.87-6.13,6.26-12.52,13.95-25.95l13.95-24.77c3.13-5.61,7.82-9.26,14.86-9.26s12.78,3.91,15.12,12l22.04,76.67h-26.86l-8.21-30.38c-2.74-9.91-4.56-16.95-6-23.99-2.87,6.13-6.13,12.78-12.13,24.12l-11.73,21.9c-4.56,8.61-9,9.78-15.52,9.78s-10.95-1.17-15.52-9.78l-11.73-22.04c-6.39-12-9.52-18.12-12.26-23.99-1.3,6.91-3.26,14.21-5.87,23.99l-8.21,30.38h-26.47l22.56-76.67c2.35-8.08,8.47-12,15.25-12s11.6,3.52,14.73,9.26l13.95,24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M366.06,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M612.11,109.5h-36.12l-19.43-23.08h-41.46v23.08h-26.99v-44.59h75.89c8.34,0,14.86-3.78,14.86-9.78,0-6.78-5.61-10.17-14.86-10.17h-75.89l17.6-22.69h56.07c19.82,0,44.85,6.26,44.85,31.16,0,13.56-8.47,24.77-22.82,27.64,3,2.22,6.26,5.35,12.26,11.47l16.04,16.95Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M741.33,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M934.05,84.08c0,14.47-7.95,25.43-35.46,25.43h-76.67v-53.07h77.19c3.91,0,7.56-1.43,7.56-5.87s-3.78-5.61-7.56-5.61h-77.19l18.25-22.69h57.76c20.86,0,34.29,8.08,34.29,24.12,0,10.3-5.87,16.04-11.87,18.25,7.56,2.22,13.69,9,13.69,19.43ZM849.04,75.08v12h49.68c5.87,0,8.34-2.09,8.34-6.13,0-3.78-2.48-5.87-8.34-5.87h-49.68Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M986.21,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1124.29,109.5h-40.81l-26.34-22.95c-9-7.82-13.17-11.6-16.17-14.6.13,4.04.39,8.34.39,12.52v25.03h-27.12V22.28h27.12v20.21c0,5.35-.26,10.69-.52,15.26,3.39-3.13,8.08-7.56,16.04-14.21l25.17-21.25h39.12l-33.38,25.03c-11.6,8.74-16.95,12.65-22.56,16.04,4.96,3.39,11.74,8.21,22.95,17.34l36.12,28.82Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1245.69,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1438.28,87.08l-17.34,22.43h-43.81c-30.25,0-52.54-19.17-52.54-44.46s22.3-42.77,52.54-42.77h61.15l-17.34,22.69h-43.81c-14.6,0-25.56,8.74-25.56,21.25s10.82,20.86,25.56,20.86h61.15Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1485.22,22.28l39.25,57.89,40.94-57.89h31.81l-55.81,78.88c-3.78,5.08-9.13,9.78-17.47,9.78s-13.43-4.3-17.21-9.78l-54.63-78.88h33.12Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1726.44,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+</svg></div>
         <div class="ptrl">TRL 2/3 · CONCEPT</div>
-        <h3>SMART BIKE CVT</h3>
-        <div class="psub" data-en="AUTOMATIC TRANSMISSION · BIO-FEEDBACK" data-pt="TRANSMISSÃO AUTOMÁTICA · BIO-FEEDBACK">AUTOMATIC TRANSMISSION · BIO-FEEDBACK</div>
+        <h3 class="sr-only">SMART BIKE CVT</h3>
+        <div class="psub" data-en="AUTOMATIC TRANSMISSION · REHAB / FITNESS / PERFORMANCE" data-pt="TRANSMISSÃO AUTOMÁTICA · REABILITAÇÃO / FITNESS / PERFORMANCE">AUTOMATIC TRANSMISSION · REHAB / FITNESS / PERFORMANCE</div>
         <p class="pdesc" data-en="A CVT-type automatic transmission for bicycles that adapts gear ratios in real-time based on the rider's biofeedback — cadence, power output and physiological response — for optimal performance and rehabilitation." data-pt="Transmissão automática tipo CVT para bicicletas que adapta as relações em tempo real com base no biofeedback do ciclista — cadência, potência e resposta fisiológica.">A CVT-type automatic transmission for bicycles that adapts gear ratios in real-time based on the rider's biofeedback — cadence, power output and physiological response — for optimal performance and rehabilitation.</p>
-        <div class="ptags"><span class="ptag">CVT</span><span class="ptag">BIOFEEDBACK</span><span class="ptag">CYCLING</span><span class="ptag">SMART GEAR</span></div>
+        <div class="ptags"><span class="ptag">DEVICE</span><span class="ptag">CVT</span><span class="ptag">IoT</span><span class="ptag">BIOFEEDBACK</span><span class="ptag">REAL-TIME DATA</span><span class="ptag">AI</span><span class="ptag">REHAB</span><span class="ptag">FITNESS</span><span class="ptag">PERFORMANCE</span></div>
         <a href="#" class="plink" data-en="LEARN MORE" data-pt="SAIBA MAIS">LEARN MORE <span class="arr"></span></a>
       </div>
     </div>
