@@ -40,19 +40,23 @@
   .nav-links a:hover{color:var(--blue);}
 
   /* HERO */
-  #hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:120px 60px 80px;overflow:hidden;}
+  #hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 60px 80px;overflow:hidden;}
   .hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 75% 50%,rgba(11,24,40,0.7),transparent 70%),radial-gradient(ellipse 40% 50% at 15% 85%,rgba(255,103,29,0.06),transparent 60%),radial-gradient(ellipse 50% 40% at 80% 10%,rgba(133,198,235,0.05),transparent 60%);}
   .scanline{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);opacity:0.2;animation:scan 10s linear infinite;}
   @keyframes scan{0%{top:-1px}100%{top:100%}}
   .hero-stripe{position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--orange) 30%,var(--blue) 70%,transparent);opacity:0.35;animation:stripe 7s ease-in-out infinite alternate;}
   @keyframes stripe{0%{top:25%}100%{top:75%}}
-  .hero-content{position:relative;z-index:2;max-width:720px;}
-  .hero-eyebrow{display:flex;align-items:center;gap:12px;font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:10px;letter-spacing:4px;color:var(--orange);margin-bottom:28px;}
-  .hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--orange);}
+  .hero-content{position:relative;z-index:2;max-width:720px;text-align:center;display:flex;flex-direction:column;align-items:center;}
+  .hero-eyebrow{display:flex;align-items:center;justify-content:center;gap:24px;font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:clamp(11px,1.2vw,14px);letter-spacing:4px;color:var(--orange);margin-top:2em;margin-bottom:36px;text-transform:uppercase;width:min(644px,88vw);}
+  .hero-eyebrow::before{display:none;}
+  .ey-left{white-space:nowrap;}
+  .ey-right{white-space:nowrap;}
+  .ey-sep{color:var(--orange);}
   h1{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:clamp(56px,8vw,108px);line-height:0.88;letter-spacing:-3px;margin-bottom:14px;}
   h1 .outline{color:transparent;-webkit-text-stroke:1.5px rgba(133,198,235,0.35);}
-  .hero-tagline{display:flex;align-items:center;justify-content:flex-end;gap:14px;width:min(644px,88vw);padding-right:1em;font-family:'Nunito Sans',sans-serif;font-weight:300;font-size:clamp(14px,1.6vw,20px);letter-spacing:5px;color:var(--white);margin-bottom:16px;text-transform:uppercase;}
-  .tl-word{color:var(--white);}
+  .hero-tagline{width:min(644px,88vw);padding-right:1em;font-family:'Nunito Sans',sans-serif;font-weight:300;font-size:clamp(14px,1.6vw,20px);letter-spacing:5px;color:var(--white);margin-bottom:16px;text-transform:uppercase;text-align:right;}
+  .tl-ff{white-space:nowrap;}
+  .tl-future{white-space:nowrap;display:inline-flex;align-items:center;gap:10px;}
   .hero-subtitle{font-family:'Plus Jakarta Sans',sans-serif;font-weight:300;font-size:clamp(14px,1.5vw,19px);letter-spacing:5px;color:var(--orange);text-transform:uppercase;margin-bottom:36px;}
   .hero-eyebrow{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:clamp(11px,1.2vw,14px);letter-spacing:4px;color:var(--orange);margin-top:2em;margin-bottom:36px;text-transform:uppercase;}
   .ff-arrows{display:inline-flex;gap:3px;}
@@ -217,14 +221,55 @@
   /* ANIM */
   .fu{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
   .fu.vis{opacity:1;transform:translateY(0);}
+  @media(prefers-reduced-motion:reduce){.fu{opacity:1;transform:none;}}
 
   @media(max-width:900px){
     nav{padding:14px 20px;} .nav-links{display:none;}
-    .si{padding:60px 20px;} #hero{padding:100px 20px 60px;}
+    .si{padding:60px 20px;} #hero{padding:100px 20px 60px;justify-content:center;}
     .about-grid,.tech-grid,.pg,.rg,.cg,.fg{grid-template-columns:1fr;gap:32px;}
     .pc.feat .pi{grid-template-columns:1fr;}
     .lang-toggle{margin-left:16px;}
     footer{flex-direction:column;gap:10px;padding:20px;text-align:center;}
+
+    /* CENTRALIZAÇÃO MOBILE */
+    h2{text-align:center;}
+    .indent-line{padding-left:0;}
+    .indent-line2{padding-left:0;}
+    .hero-content{text-align:center;margin-left:auto;margin-right:auto;display:flex;flex-direction:column;align-items:center;}
+    .hero-logo{width:90vw;max-width:100%;}
+    .hero-eyebrow{justify-content:space-between;width:100%;flex-wrap:wrap;gap:4px;}
+    .hero-eyebrow::before{display:none;}
+    .ey-left{flex:0 0 100%;text-align:left;}
+    .ey-sep{display:none;}
+    .ey-right{flex:0 0 100%;text-align:right;}
+    .hero-tagline{text-align:center;padding-right:0;width:100%;font-size:clamp(10px,3.5vw,16px);letter-spacing:3px;}
+    .hero-subtitle{text-align:center;}
+    .hero-desc{text-align:center;width:90vw;max-width:100%;margin-left:auto;margin-right:auto;}
+    .hero-badges{justify-content:center;width:100%;}
+    .hero-locs{justify-content:center;width:100%;}
+    .slbl{justify-content:center;}
+    .about-tagline-b{text-align:center;}
+    .about-tagline-c{text-align:center;}
+    .bq{text-align:center;border-left:none;border-top:3px solid var(--orange);padding:12px 0;}
+    .ford-bq span[style]{padding-left:0 !important;display:inline;}
+    .ford-bq br{display:none;}
+    .ford-inline-label{text-align:center;display:block;}
+    .stat{text-align:center;}
+    .snum{justify-content:center;}
+    .tech-intro{text-align:center;}
+    .trl-lbl{text-align:center;}
+    .psub{text-align:center;}
+    .pdesc{text-align:center;}
+    .ptags{justify-content:center;}
+    .d2w-img-block{flex-direction:column;align-items:center;bottom:0;}
+    .d2w-img-label{text-align:center;}
+    .founder-logo{margin:0 auto 12px;}
+    .frole{text-align:center;}
+    .bcta{text-align:center;}
+    .clist{align-items:center;}
+    .addr{text-align:center;border-left:none;border-top:2px solid var(--border);padding-left:0;padding-top:20px;}
+    .rc{text-align:center;}
+    .flogo{width:100%;}
   }
 </style>
 </head>
@@ -286,14 +331,12 @@
 
     <!-- SLOGAN com setas -->
     <div class="hero-tagline">
-      <span class="tl-word">Fast Forward</span>
-      <svg class="seta-icon" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
-      <span class="tl-word">to the Future</span>
+      <span class="tl-ff">Fast Forward</span> <span class="tl-future"><svg class="seta-icon" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg> to the Future</span>
     </div>
 
     <!-- EYEBROW -->
     <div class="hero-eyebrow">
-      <span data-en="DEEP TECH STARTUP &nbsp;&nbsp; Born from the Future" data-pt="STARTUP DEEP TECH &nbsp;&nbsp; Nascemos do Futuro">STARTUP DEEP TECH &nbsp;&nbsp; Nascemos do Futuro</span>
+      <span class="ey-left" data-en="DEEP TECH STARTUP" data-pt="STARTUP DEEP TECH">STARTUP DEEP TECH</span><span class="ey-sep"> — </span><span class="ey-right" data-en="Born from the Future" data-pt="Nascemos do Futuro">Nascemos do Futuro</span>
     </div>
 
     <!-- DESC -->
@@ -307,7 +350,7 @@
     <div class="hero-badges">
       <div class="badge o" data-en="VOUCHERS FOR STARTUPS — APPROVED 2025" data-pt="VOUCHERS FOR STARTUPS — APROVADO 2025">VOUCHERS FOR STARTUPS — APROVADO 2025</div>
       <div class="badge o" data-en="STARTUP PORTUGAL CERTIFIED · 2026" data-pt="STARTUP PORTUGAL CERTIFICADA · 2026">STARTUP PORTUGAL CERTIFICADA · 2026</div>
-      <div class="badge" data-en="MEMBER · TAGUSPARK INCUBATOR · OEIRAS VALLEY" data-pt="MEMBRO · INCUBADORA TAGUSPARK · OEIRAS VALLEY">MEMBRO · INCUBADORA TAGUSPARK · OEIRAS VALLEY</div>
+      <div class="badge" data-en="MEMBER · TAGUSPARK INCUBATOR · <span style='white-space:nowrap;'>OEIRAS VALLEY</span>" data-pt="MEMBRO · INCUBADORA TAGUSPARK · <span style='white-space:nowrap;'>OEIRAS VALLEY</span>">MEMBRO · INCUBADORA TAGUSPARK · <span style="white-space:nowrap;">OEIRAS VALLEY</span></div>
     </div>
 
     <!-- LOCALIZAÇÕES com seta SVG -->
@@ -776,7 +819,7 @@
   </svg>
   <div class="fcopy">© 2025 TWIN FACTORY LDA · ALL RIGHTS RESERVED</div>
 </footer>
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   window.setLang = function(l){
     document.getElementById('btn-en').classList.toggle('active',l==='en');
     document.getElementById('btn-pt').classList.toggle('active',l==='pt');
@@ -794,15 +837,19 @@
       curR.style.transform='translate('+(rx-15)+'px,'+(ry-15)+'px)';
       requestAnimationFrame(loop);
     })();
-    var obs=new IntersectionObserver(function(entries){
+        var obs=new IntersectionObserver(function(entries){
       entries.forEach(function(e,i){
         if(e.isIntersecting){
           setTimeout(function(){e.target.classList.add('vis');},i*70);
           obs.unobserve(e.target);
         }
       });
-    },{threshold:0.08});
-    document.querySelectorAll('.fu').forEach(function(el){obs.observe(el);});
+    },{threshold:0.01,rootMargin:'0px 0px -10px 0px'});
+    document.querySelectorAll('.fu').forEach(function(el){
+      var r=el.getBoundingClientRect();
+      if(r.top < window.innerHeight){el.classList.add('vis');}
+      else{obs.observe(el);}
+    });
   });
 </script>
 </body>
