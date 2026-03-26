@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TwinFactory — Fast Forward to the Future</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2385C6EB'/><path d='M18.5 16L10 9.5v4.2l5.2 2.3L10 18.3v4.2L18.5 16z' fill='%23FF671D'/><path d='M23.5 16L15 9.5v4.2l5.2 2.3L15 18.3v4.2L23.5 16z' fill='%23FF671D' opacity='.5'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -878,7 +879,9 @@ body.lang-pt .applications-headline-pt{display:block;font-size:clamp(38px,4vw,54
   color:var(--orange);padding:7px 16px;
   margin-bottom:20px;text-transform:uppercase;
 }
-.psub{font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:11px;letter-spacing:2px;color:var(--text-hi);margin-bottom:20px;margin-left:16px;text-transform:uppercase;line-height:1.6;}
+.psub{font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:11px;letter-spacing:2px;color:var(--text-hi);margin-bottom:20px;margin-left:16px;text-transform:uppercase;line-height:1.8;}
+.psub-markets{color:var(--blue);font-weight:700;display:block;letter-spacing:1.5px;}
+.pcoming{display:inline-block;font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:8px;letter-spacing:3px;color:var(--orange);border:1px solid rgba(255,103,29,0.4);padding:3px 8px;border-radius:3px;margin-left:16px;margin-bottom:12px;text-transform:uppercase;}
 .ptags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;margin-top:auto;padding-top:20px;margin-left:16px;}
 .ptag{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:9px;letter-spacing:1.5px;color:var(--text-mid);border:1px solid rgba(133,198,235,0.2);padding:5px 10px;text-transform:uppercase;}
 .plink{
@@ -896,12 +899,47 @@ body.lang-pt .applications-headline-pt{display:block;font-size:clamp(38px,4vw,54
 
 /* ── RECOGNITION ── */
 #recognition{border-top:1px solid var(--border);}
-.rg{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
-.rc{background:var(--card-bg);border:1px solid var(--border);padding:36px;transition:border-color 0.3s;}
+.rec-group{margin-bottom:32px;}
+.rec-group:last-child{margin-bottom:0;}
+.rec-group-label{display:flex;align-items:center;gap:16px;margin-bottom:4px;}
+.rec-group-label span{font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:9px;letter-spacing:5px;color:var(--orange);white-space:nowrap;}
+.rec-group-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.rg{display:grid;gap:4px;}
+.rg-2{grid-template-columns:repeat(2,1fr);}
+.rg-5{grid-template-columns:repeat(5,1fr);gap:4px;}
+.rg-3{grid-template-columns:repeat(3,1fr);}
+/* Brazil cards */
+.rg-2 .rc{background:var(--card-bg);border:1px solid var(--border);padding:24px 24px 20px;transition:border-color 0.3s;display:flex;flex-direction:column;gap:0;}
+.rg-2 .rc-top{min-height:52px;}
+/* Event cards */
+.rg-5 .rc{background:var(--card-bg);border:1px solid var(--border);padding:16px 16px 14px;transition:border-color 0.3s;display:flex;flex-direction:column;gap:0;}
+/* Portugal cards */
+.rg-3 .rc{background:var(--card-bg);border:1px solid var(--border);padding:20px 22px 18px;transition:border-color 0.3s;display:flex;flex-direction:column;gap:0;}
 .rc:hover{border-color:var(--border-h);}
-.ri{font-size:28px;margin-bottom:20px;color:var(--blue);}
-.rc h3{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:16px;letter-spacing:1px;margin-bottom:10px;}
-.rc p{font-size:13px;color:var(--gray);line-height:1.7;}
+/* rc-top: logo ao topo, badge ao topo */
+.rc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;gap:12px;}
+/* logo sobe: remove qualquer margin auto vertical */
+.rc-logo{height:44px;width:auto;max-width:180px;object-fit:contain;object-position:left top;opacity:0.85;transition:opacity 0.3s;margin-top:0;}
+.rc:hover .rc-logo{opacity:1;}
+.rc-logo-sq{height:64px;}
+.rc-logo-md{height:52px;}
+.rc-logo-sm{height:34px;}
+.rc-badge{font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:8px;letter-spacing:3px;padding:4px 8px;border-radius:3px;white-space:nowrap;flex-shrink:0;}
+.rc-badge.funding{color:var(--orange);border:1px solid rgba(255,103,29,0.35);}
+.rc-badge.event{color:var(--blue);border:1px solid var(--border);}
+.rc-badge.ecosystem{color:#7dd5a0;border:1px solid rgba(125,213,160,0.3);}
+/* TRL + year na mesma linha, alinhados pela base */
+.rc-meta{display:flex;align-items:flex-end;gap:16px;margin-bottom:6px;}
+.rc-year{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:24px;color:var(--blue);line-height:1;}
+.rc-trl{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:24px;color:var(--blue);line-height:1;display:flex;align-items:center;gap:4px;}
+.rc-trl-br{color:var(--gray);font-weight:400;}
+.rc-trl-arrow{display:inline-flex;align-items:center;margin:0 1px;}
+.rc-trl-arrow svg{width:13px;height:auto;}
+.rc-impact{font-family:'Nunito Sans',sans-serif;font-size:12px;color:var(--text-mid);line-height:1.6;}
+.rc-impact strong{color:var(--white);font-weight:700;}
+.rc-loc{font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:8px;letter-spacing:3px;color:var(--gray);margin-top:auto;padding-top:10px;text-transform:uppercase;}
+.rec-divider{width:100%;height:1px;background:var(--border);margin:32px 0;}
+.rec-cta-wrap{text-align:center;padding-top:40px;}
 
 /* ── ABOUT ── */
 #about{border-top:1px solid var(--border);}
@@ -1086,7 +1124,9 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
   .frole{text-align:center;}
 
   /* recognition */
-  .rc{text-align:center;}
+  .rg-2,.rg-3,.rg-5{grid-template-columns:1fr;}
+  .rc-top{flex-wrap:wrap;}
+  .rec-group-label span{font-size:8px;letter-spacing:3px;}
 
   /* contact */
   .bcta{text-align:center;}
@@ -1579,9 +1619,9 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
 </svg></div>
             <div class="ptrl">TRL 4/5 · PROTOTYPE</div>
             <div class="psub"
-              data-en="LOAD GENERATOR DEVICE · REHAB / FITNESS / PERFORMANCE / MILITARY"
-              data-pt="DISPOSITIVO GERADOR DE CARGA · REABILITAÇÃO / FITNESS / PERFORMANCE / DEFESA MILITAR">
-              LOAD GENERATOR DEVICE · REHAB / FITNESS / PERFORMANCE / MILITARY</div>
+              data-en="LOAD GENERATOR DEVICE<br><span class='psub-markets'>· REHAB&nbsp;&nbsp;· FITNESS&nbsp;&nbsp;· PERFORMANCE&nbsp;&nbsp;· MILITARY</span>"
+              data-pt="DISPOSITIVO GERADOR DE CARGA<br><span class='psub-markets'>· REABILITAÇÃO&nbsp;&nbsp;· FITNESS&nbsp;&nbsp;· PERFORMANCE&nbsp;&nbsp;· DEFESA MILITAR</span>">
+              LOAD GENERATOR DEVICE<br><span class="psub-markets">· REHAB&nbsp;&nbsp;· FITNESS&nbsp;&nbsp;· PERFORMANCE&nbsp;&nbsp;· MILITARY</span></div>
             <div class="ptags">
               <span class="ptag">DEVICE</span><span class="ptag">PORTABLE</span>
               <span class="ptag">IoT</span><span class="ptag">ACTUATOR</span>
@@ -1620,9 +1660,9 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
 </svg></div>
             <div class="ptrl">TRL 2/3 · CONCEPT</div>
             <div class="psub"
-              data-en="E-TEXTILE WEARABLE · REHAB / FITNESS / PERFORMANCE / MILITARY"
-              data-pt="WEARABLE E-TÊXTIL · REABILITAÇÃO / FITNESS / PERFORMANCE / DEFESA MILITAR">
-              E-TEXTILE WEARABLE · REHAB / FITNESS / PERFORMANCE / MILITARY</div>
+              data-en="E-TEXTILE WEARABLE<br><span class='psub-markets'>· REHAB&nbsp;&nbsp;· FITNESS&nbsp;&nbsp;· PERFORMANCE&nbsp;&nbsp;· MILITARY</span>"
+              data-pt="WEARABLE E-TÊXTIL<br><span class='psub-markets'>· REABILITAÇÃO&nbsp;&nbsp;· FITNESS&nbsp;&nbsp;· PERFORMANCE&nbsp;&nbsp;· DEFESA MILITAR</span>">
+              E-TEXTILE WEARABLE<br><span class="psub-markets">· REHAB&nbsp;&nbsp;· FITNESS&nbsp;&nbsp;· PERFORMANCE&nbsp;&nbsp;· MILITARY</span></div>
             <div class="ptags">
               <span class="ptag">DEVICE [e-Textile · Nanotech]</span><span class="ptag">WEARABLE</span>
               <span class="ptag">IoT</span><span class="ptag">EMG / FES</span>
@@ -1661,10 +1701,11 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
   <path d="M1726.44,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
 </svg></div>
             <div class="ptrl">TRL 2/3 · CONCEPT</div>
+            <span class="pcoming" data-en="COMING SOON" data-pt="EM BREVE">COMING SOON</span>
             <div class="psub"
-              data-en="AUTOMATIC TRANSMISSION · REHAB / FITNESS / PERFORMANCE"
-              data-pt="TRANSMISSÃO AUTOMÁTICA · REABILITAÇÃO / FITNESS / PERFORMANCE">
-              AUTOMATIC TRANSMISSION · REHAB / FITNESS / PERFORMANCE</div>
+              data-en="AUTOMATIC TRANSMISSION<br><span class='psub-markets'>· REHAB&nbsp;&nbsp;· FITNESS&nbsp;&nbsp;· PERFORMANCE</span>"
+              data-pt="TRANSMISSÃO AUTOMÁTICA<br><span class='psub-markets'>· REABILITAÇÃO&nbsp;&nbsp;· FITNESS&nbsp;&nbsp;· PERFORMANCE</span>">
+              AUTOMATIC TRANSMISSION<br><span class="psub-markets">· REHAB&nbsp;&nbsp;· FITNESS&nbsp;&nbsp;· PERFORMANCE</span></div>
             <div class="ptags">
               <span class="ptag">DEVICE</span><span class="ptag">IoT</span>
               <span class="ptag">CVT</span><span class="ptag">BIOFEEDBACK</span>
@@ -1698,10 +1739,11 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
   <path d="M1315.71,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
 </svg></div>
             <div class="ptrl">TRL 2 · CONCEPT</div>
+            <span class="pcoming" data-en="COMING SOON" data-pt="EM BREVE">COMING SOON</span>
             <div class="psub"
-              data-en="G-FORCE SIMULATOR · REHAB / PERFORMANCE"
-              data-pt="SIMULADOR DE FORÇA G · REABILITAÇÃO / PERFORMANCE">
-              G-FORCE SIMULATOR · REHAB / PERFORMANCE</div>
+              data-en="G-FORCE SIMULATOR<br><span class='psub-markets'>· REHAB&nbsp;&nbsp;· PERFORMANCE&nbsp;&nbsp;· GAMING&nbsp;&nbsp;· TRAINING &amp; SIMULATION</span>"
+              data-pt="SIMULADOR DE FORÇA G<br><span class='psub-markets'>· REABILITAÇÃO&nbsp;&nbsp;· PERFORMANCE&nbsp;&nbsp;· GAMING&nbsp;&nbsp;· TREINO &amp; SIMULAÇÃO</span>">
+              G-FORCE SIMULATOR<br><span class="psub-markets">· REHAB&nbsp;&nbsp;· PERFORMANCE&nbsp;&nbsp;· GAMING&nbsp;&nbsp;· TRAINING &amp; SIMULATION</span></div>
             <div class="ptags">
               <span class="ptag">DEVICE</span><span class="ptag">IoT</span>
               <span class="ptag">G-FORCE</span><span class="ptag">SIMULATION</span><span class="ptag">AI</span>
@@ -1733,11 +1775,142 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
   <div class="si">
     <div class="slbl" data-en="RECOGNITION & ECOSYSTEM" data-pt="RECONHECIMENTO & ECOSSISTEMA">RECOGNITION & ECOSYSTEM</div>
     <h2 data-en="Validated by<br>the Ecosystem." data-pt="Validados pelo<br>Ecossistema.">Validated by<br>the Ecosystem.</h2>
-    <div class="rg">
-      <div class="rc fu"><div class="ri">✦</div><h3 data-en="VOUCHERS FOR STARTUPS" data-pt="VOUCHERS FOR STARTUPS">VOUCHERS FOR STARTUPS</h3><p data-en="Approved 2025 — New Digital/Technological Products. Funded by the Portuguese government to accelerate deep tech innovation." data-pt="Aprovado 2025 — Novos Produtos Digitais/Tecnológicos. Financiado pelo governo português para acelerar a inovação deep tech.">Approved 2025 — New Digital/Technological Products. Funded by the Portuguese government to accelerate deep tech innovation.</p></div>
-      <div class="rc fu"><div class="ri">◈</div><h3 data-en="STARTUP PORTUGAL" data-pt="STARTUP PORTUGAL">STARTUP PORTUGAL</h3><p data-en="Certified within the national startup ecosystem recognition programme, validating the technology concept and market potential." data-pt="Certificada pelo programa nacional de reconhecimento do ecossistema de startups, validando o conceito tecnológico e o potencial de mercado.">Certified within the national startup ecosystem recognition programme, validating the technology concept and market potential.</p></div>
-      <div class="rc fu"><div class="ri">⬡</div><h3 data-en="TAGUSPARK INCUBATOR" data-pt="INCUBADORA TAGUSPARK">TAGUSPARK INCUBATOR</h3><p data-en="Member of Taguspark — Oeiras Valley, one of Portugal's leading technology parks and part of the European innovation ecosystem." data-pt="Membro do Taguspark — Oeiras Valley, um dos principais parques tecnológicos de Portugal e parte do ecossistema europeu de inovação.">Member of Taguspark — Oeiras Valley, one of Portugal's leading technology parks and part of the European innovation ecosystem.</p></div>
+
+    <!-- GRUPO 1: BRASIL -->
+    <div class="rec-group fu">
+      <div class="rec-group-label"><span data-en="🇧🇷 BRAZIL · ORIGIN" data-pt="🇧🇷 BRASIL · ORIGEM">🇧🇷 BRAZIL · ORIGIN</span></div>
+      <div class="rg rg-2">
+
+        <div class="rc">
+          <div class="rc-top">
+            <img src="fapesp.png" alt="FAPESP" class="rc-logo rc-logo-md">
+            <span class="rc-badge funding" data-en="RESEARCH FUNDING" data-pt="FOMENTO À PESQUISA">RESEARCH FUNDING</span>
+          </div>
+          <div class="rc-meta">
+            <div class="rc-trl">TRL <span class="rc-trl-br">[</span>1<span class="rc-trl-arrow"><svg viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg></span>5<span class="rc-trl-br">]</span></div>
+            <div class="rc-year">2021 / 2024</div>
+          </div>
+          <div class="rc-impact" data-en="Scientific foundation of the D2W technology.<br>
+<strong>Full R&D journey supported</strong> — from proof of concept to validated prototype." data-pt="Base científica da tecnologia D2W.<br>
+<strong>Toda a jornada de P&D apoiada</strong> — do conceito ao protótipo validado.">Scientific foundation of the D2W technology.<br>
+<strong>Full R&D journey supported</strong> — from proof of concept to validated prototype.</div>
+          <div class="rc-loc">São Paulo, Brasil</div>
+        </div>
+
+        <div class="rc">
+          <div class="rc-top">
+            <img src="Apex.png" alt="Apex Brasil" class="rc-logo rc-logo-md">
+            <span class="rc-badge funding" data-en="EXPORT PROMOTION" data-pt="PROMOÇÃO DE EXPORTAÇÃO">EXPORT PROMOTION</span>
+          </div>
+          <div class="rc-meta">
+            <div class="rc-year">2022 / 2023</div>
+          </div>
+          <div class="rc-impact" data-en="International roadmap support for D2W.<br><strong>5 global events:</strong> Dubai · Munich · Lisbon · Madrid · Paris." data-pt="Apoio ao road map internacional do D2W.<br><strong>5 eventos globais:</strong> Dubai · Munique · Lisboa · Madrid · Paris.">Apoio ao road map internacional do D2W.<br><strong>5 eventos globais:</strong> Dubai · Munique · Lisboa · Madrid · Paris.</div>
+          <div class="rc-loc">Brasil · Global</div>
+        </div>
+
+      </div>
     </div>
+
+    <!-- GRUPO 2: EVENTOS GLOBAIS -->
+    <div class="rec-group fu">
+      <div class="rec-group-label"><span data-en="🌍 GLOBAL EVENTS · MARKET INVESTIGATION" data-pt="🌍 EVENTOS GLOBAIS · INVESTIGAÇÃO DE MERCADO">🌍 GLOBAL EVENTS · MARKET INVESTIGATION</span></div>
+      <div class="rg rg-5">
+
+        <div class="rc">
+          <div class="rc-top">
+            <img src="Gitex.png" alt="GITEX Global" class="rc-logo rc-logo-sq">
+            <span class="rc-badge event">2022</span>
+          </div>
+          <div class="rc-impact" data-en="World's largest tech event. D2W presented to global tech leaders." data-pt="Maior evento de tecnologia do mundo. D2W apresentado a líderes globais.">World's largest tech event. D2W presented to global tech leaders.</div>
+          <div class="rc-loc">Dubai · UAE</div>
+        </div>
+
+        <div class="rc">
+          <div class="rc-top">
+            <img src="Ispo.png" alt="ISPO Munich" class="rc-logo rc-logo-sq">
+            <span class="rc-badge event">2022</span>
+          </div>
+          <div class="rc-impact" data-en="Global sports & fitness industry. D2W positioned in performance & rehabilitation markets." data-pt="Maior feira de fitness e esportes. D2W posicionado em performance e reabilitação.">Global sports & fitness industry. D2W positioned in performance & rehabilitation markets.</div>
+          <div class="rc-loc">Munich · DE</div>
+        </div>
+
+        <div class="rc">
+          <div class="rc-top">
+            <img src="web.png" alt="Web Summit" class="rc-logo rc-logo-sq">
+            <span class="rc-badge event">2022–23</span>
+          </div>
+          <div class="rc-impact" data-en="Two consecutive editions. D2W validated within the global deep tech startup ecosystem." data-pt="Duas edições consecutivas. D2W validado no ecossistema global de startups deep tech.">Two consecutive editions. D2W validated within the global deep tech startup ecosystem.</div>
+          <div class="rc-loc">Lisbon · PT</div>
+        </div>
+
+        <div class="rc">
+          <div class="rc-top">
+            <img src="South.png" alt="South Summit" class="rc-logo rc-logo-sq">
+            <span class="rc-badge event">2023</span>
+          </div>
+          <div class="rc-impact" data-en="Top European startup competition. D2W recognized among the most innovative emerging technologies." data-pt="Principal competição europeia de startups. D2W reconhecido entre as tecnologias mais inovadoras.">Top European startup competition. D2W recognized among the most innovative emerging technologies.</div>
+          <div class="rc-loc">Madrid · ES</div>
+        </div>
+
+        <div class="rc">
+          <div class="rc-top">
+            <img src="Viva.png" alt="Viva Technology" class="rc-logo rc-logo-md">
+            <span class="rc-badge event">2023</span>
+          </div>
+          <div class="rc-impact" data-en="Europe's leading deep tech & innovation summit. D2W showcased to investors and industry leaders." data-pt="Principal cúpula europeia de deep tech. D2W apresentado a investidores e líderes da indústria.">Europe's leading deep tech & innovation summit. D2W showcased to investors and industry leaders.</div>
+          <div class="rc-loc">Paris · FR</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- GRUPO 3: PORTUGAL -->
+    <div class="rec-group fu">
+      <div class="rec-group-label"><span data-en="🇵🇹 PORTUGAL · TWIN FACTORY FOUNDED IN PORTUGAL / EU" data-pt="🇵🇹 PORTUGAL · FUNDAÇÃO DA TWIN FACTORY EM PORTUGAL / UE">🇵🇹 PORTUGAL · TWIN FACTORY FOUNDED IN PORTUGAL / EU</span></div>
+      <div class="rg rg-3">
+
+        <div class="rc">
+          <div class="rc-top">
+            <img src="StartupVoucher.png" alt="Startup Voucher" class="rc-logo">
+            <span class="rc-badge funding" data-en="GOV FUNDING · 2025" data-pt="FOMENTO GOV · 2025">GOV FUNDING · 2025</span>
+          </div>
+          <div class="rc-meta"><div class="rc-year">2025</div></div>
+          <div class="rc-impact" data-en="Approved for <strong>New Digital/Technological Products</strong>.<br>Government-backed acceleration of deep tech innovation." data-pt="Aprovado para <strong>Novos Produtos Digitais/Tecnológicos</strong>.<br>Aceleração de inovação deep tech com apoio governamental.">Approved for <strong>New Digital/Technological Products</strong>.<br>Government-backed acceleration of deep tech innovation.</div>
+          <div class="rc-loc">Portugal</div>
+        </div>
+
+        <div class="rc">
+          <div class="rc-top">
+            <img src="StartupPortugal.png" alt="Startup Portugal" class="rc-logo">
+            <span class="rc-badge ecosystem" data-en="CERTIFIED · 2026" data-pt="CERTIFICADA · 2026">CERTIFIED · 2026</span>
+          </div>
+          <div class="rc-meta"><div class="rc-year">2026</div></div>
+          <div class="rc-impact" data-en="Certified within the national startup recognition programme. <strong>Technology concept and market potential validated</strong> by the Portuguese ecosystem." data-pt="Certificada pelo programa nacional de reconhecimento. <strong>Conceito tecnológico e potencial de mercado validados</strong> pelo ecossistema português.">Certified within the national startup recognition programme. <strong>Technology concept and market potential validated</strong> by the Portuguese ecosystem.</div>
+          <div class="rc-loc">Portugal</div>
+        </div>
+
+        <div class="rc">
+          <div class="rc-top">
+            <img src="tagus.png" alt="Taguspark" class="rc-logo rc-logo-md">
+            <span class="rc-badge ecosystem" data-en="INCUBATED" data-pt="INCUBADA">INCUBATED</span>
+          </div>
+          <div class="rc-impact" data-en="Member of <strong>Taguspark — Oeiras Valley</strong>, one of Portugal's leading technology parks and part of the European innovation network." data-pt="Membro do <strong>Taguspark — Oeiras Valley</strong>, um dos principais parques tecnológicos de Portugal e parte da rede europeia de inovação.">Member of <strong>Taguspark — Oeiras Valley</strong>, one of Portugal's leading technology parks and part of the European innovation network.</div>
+          <div class="rc-loc">Oeiras · Portugal</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- divider + CTA -->
+    <div class="rec-divider"></div>
+    <div class="rec-cta-wrap">
+      <a href="#about" class="hero-btn hero-btn-secondary">
+        <span data-en="ABOUT TWIN FACTORY" data-pt="SOBRE A TWIN FACTORY">ABOUT TWIN FACTORY</span>
+        <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+      </a>
+    </div>
+
   </div>
 </section>
 
@@ -1911,7 +2084,7 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
     <path d="M1584.2,116.1h-42.5l-22.8-27.1h-48.7v27.1h-31.7v-52.4h89.2c9.8,0,17.5-4.4,17.5-11.5s-6.6-12-17.5-12h-89.2l20.7-26.7h65.9c23.3,0,52.7,7.4,52.7,36.6s-10,29.1-26.8,32.5c3.5,2.6,7.4,6.3,14.4,13.5l18.9,19.9Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
     <path d="M1741.6,13.6l-60.9,68.7v33.9h-31.9v-34l-62.5-68.5h40.8l24.5,28.5c3.2,3.7,11.8,13,14,16.1,2-2.9,5.5-7.4,12.9-16.2l23.3-28.4h39.9Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
   </svg>
-  <div class="fcopy">© 2026 TWIN FACTORY LDA · ALL RIGHTS RESERVED</div>
+  <div class="fcopy">© 2026 TWIN FACTORY · ALL RIGHTS RESERVED</div>
 </footer>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   function splitHeadlineAfterFirstComma(text){
