@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TwinFactory — Projects in Development</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800;900&family=Nunito+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+:root{
+  --bg:#07111F;--blue:#85C6EB;--orange:#FF671D;
+  --gray:#57677F;--white:#FFFFFF;
+  --card-bg:#0B1828;--border:rgba(133,198,235,0.12);
+  --border-h:rgba(133,198,235,0.28);
+}
+body{
+  background:var(--bg);color:var(--white);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(133,198,235,0.022) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(133,198,235,0.022) 1px,transparent 1px);
+  background-size:64px 64px;
+  pointer-events:none;z-index:0;
+}
+.glow{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 40%,rgba(133,198,235,0.06),transparent 65%),
+    radial-gradient(ellipse 30% 30% at 15% 80%,rgba(255,103,29,0.06),transparent 60%);
+}
+/* NAV */
+nav{
+  position:relative;z-index:10;
+  padding:24px 60px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--border);
+}
+.nav-logo svg{height:20px;width:auto;display:block;}
+.nav-back{
+  font-family:'Nunito Sans',sans-serif;font-weight:800;
+  font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gray);text-decoration:none;
+  display:flex;align-items:center;gap:8px;
+  transition:color 0.2s;
+}
+.nav-back:hover{color:var(--blue);}
+.nav-back::before{content:'←';font-size:12px;}
+/* MAIN */
+main{
+  position:relative;z-index:1;
+  flex:1;
+  display:flex;flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:80px 60px;
+  gap:64px;
+}
+/* EYEBROW */
+.eyebrow{
+  text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+}
+.eyebrow-lbl{
+  font-family:'Nunito Sans',sans-serif;font-weight:800;
+  font-size:9px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--orange);
+  display:flex;align-items:center;gap:12px;
+}
+.eyebrow-lbl::before,.eyebrow-lbl::after{content:'';width:22px;height:1px;background:var(--orange);}
+.eyebrow-title{
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;
+  font-size:clamp(36px,5vw,64px);letter-spacing:-2px;line-height:1;
+}
+.eyebrow-sub{
+  font-family:'Nunito Sans',sans-serif;font-weight:700;
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gray);margin-top:4px;
+}
+/* PROJECTS GRID */
+.projects-grid{
+  width:100%;max-width:1200px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:2px;
+}
+.proj-card{
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  padding:36px 28px 32px;
+  display:flex;flex-direction:column;align-items:flex-start;
+  gap:16px;
+  position:relative;overflow:hidden;
+  transition:border-color 0.3s,transform 0.3s;
+}
+.proj-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--orange),var(--blue));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.4s;
+}
+.proj-card:hover{border-color:var(--border-h);transform:translateY(-4px);}
+.proj-card:hover::before{transform:scaleX(1);}
+.proj-num{
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;
+  font-size:72px;color:rgba(255,255,255,0.05);
+  position:absolute;top:8px;right:16px;line-height:1;
+  pointer-events:none;
+}
+.proj-logo-wrap{width:100%;}
+.proj-logo-wrap svg{width:100%;height:auto;display:block;max-height:24px;}
+.proj-trl{
+  display:inline-block;
+  border:1px solid rgba(255,103,29,0.4);
+  font-family:'Nunito Sans',sans-serif;font-weight:800;
+  font-size:8px;letter-spacing:3px;color:var(--orange);
+  padding:3px 10px;text-transform:uppercase;
+}
+.proj-name{
+  font-family:'Nunito Sans',sans-serif;font-weight:700;
+  font-size:9px;letter-spacing:3px;color:var(--blue);
+  text-transform:uppercase;line-height:1.5;
+}
+/* FOOTER */
+footer{
+  position:relative;z-index:1;
+  padding:32px 60px;
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:16px;
+}
+.flogo{width:min(480px,70vw);height:auto;display:block;opacity:0.18;}
+.fcopy{
+  font-family:'Nunito Sans',sans-serif;font-weight:700;
+  font-size:9px;letter-spacing:3px;color:var(--gray);
+  text-transform:uppercase;text-align:center;
+}
+@media(max-width:900px){
+  nav{padding:20px 24px;}
+  main{padding:60px 24px;gap:48px;}
+  .projects-grid{grid-template-columns:repeat(2,1fr);}
+  footer{padding:24px;}
+}
+@media(max-width:500px){
+  .projects-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+
+<nav>
+  <a href="https://twinfactory.cc" class="nav-logo">
+    <svg viewBox="0 0 1774.2 143.4" xmlns="http://www.w3.org/2000/svg">
+      <path d="M168.5,13.6l-20.5,26.7h-36.6v75.9h-31.7V40.3H31.5l20.5-26.7h116.5Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+      <path d="M294.2,78c-8.9-15.8-13-23.5-16.6-30.8-3.2,7.4-7.4,14.9-16.2,30.7l-16.4,29.1c-3.7,6.6-9.2,10.9-17.5,10.9s-15-4.6-17.8-14.1l-26.1-90.1h31.7l9.7,35.7c3.2,11.5,5.4,19.9,6.9,28.2,3.4-7.2,7.4-15,14.4-28.4l13.8-25.8c5.4-10.1,10.6-11.5,18.1-11.5s13,1.4,18.4,11.5l13.6,25.9c7.7,14.1,11.2,21.3,14.4,28.2,1.7-8.1,4-16.9,7.1-28.2l9.7-35.7h31l-26.5,90.1c-2.8,9.5-9.8,14.1-17.8,14.1s-13.6-4.1-17.5-10.9l-16.4-29Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+      <path d="M429.9,116.1h-31.7V13.6h31.7v102.6Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+      <path d="M554.1,112.3l-62.8-56.4v60.2h-28.8V31.1c0-13.6,8.3-19.2,17.3-19.2s7.7.9,12.7,5.5l62.8,56.4V13.6h29v84.9c0,13.6-8.3,19.3-17.5,19.3s-7.8-.9-12.7-5.5Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+      <path d="M803,13.6l-20.5,26.7h-62.5v13.3h77.3l-19.3,25h-57.9v37.6h-31.9V13.6h115Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+      <path d="M844.4,116.1l19.2-26.4h25.8c6.1,0,13.3,0,18.2.3-2.8-3.7-7.1-10-10.4-14.9l-18.4-27.1-48.1,68.1h-37.6l65.8-92.7c4.3-6,10.6-11.5,20.5-11.5s15.8,5.1,20.2,11.5l64.1,92.7h-119.3Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+      <path d="M1102.9,89.8l-20.4,26.4h-51.5c-35.6,0-61.8-22.5-61.8-52.3s26.2-50.3,61.8-50.3h71.9l-20.4,26.7h-51.5c-17.2,0-30,10.3-30,25s12.7,24.5,30,24.5h71.9Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+      <path d="M1254.5,13.6l-20.5,26.7h-36.6v75.9h-31.7V40.3h-48.1l20.5-26.7h116.5Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+      <path d="M1409.4,64.8c0,36.6-25.1,53-75,53s-75-16.4-75-53,25-52.9,75-52.9,75,16.2,75,52.9ZM1377.9,64.8c0-22.1-11.5-26.2-43.4-26.2s-43.4,4.1-43.4,26.2,11.5,26.4,43.4,26.4,43.4-4.3,43.4-26.4Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+      <path d="M1584.2,116.1h-42.5l-22.8-27.1h-48.7v27.1h-31.7v-52.4h89.2c9.8,0,17.5-4.4,17.5-11.5s-6.6-12-17.5-12h-89.2l20.7-26.7h65.9c23.3,0,52.7,7.4,52.7,36.6s-10,29.1-26.8,32.5c3.5,2.6,7.4,6.3,14.4,13.5l18.9,19.9Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+      <path d="M1741.6,13.6l-60.9,68.7v33.9h-31.9v-34l-62.5-68.5h40.8l24.5,28.5c3.2,3.7,11.8,13,14,16.1,2-2.9,5.5-7.4,12.9-16.2l23.3-28.4h39.9Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    </svg>
+  </a>
+  <a href="https://twinfactory.cc" class="nav-back">Back to main site</a>
+</nav>
+
+<main>
+  <div class="eyebrow">
+    <div class="eyebrow-lbl">R&amp;D PORTFOLIO</div>
+    <div class="eyebrow-title">COMING SOON</div>
+    <div class="eyebrow-sub">4 Projects in Parallel Development</div>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- D2W -->
+    <div class="proj-card">
+      <div class="proj-num">04</div>
+      <div class="proj-logo-wrap"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1876.44 143.45">
+  <path d="M80.61,109.5H22.2v-54.37h27.12v31.94h31.29c15,0,25.82-8.34,25.82-20.86s-11.21-21.25-25.82-21.25H22.2l17.21-22.69h41.2c30.51,0,52.55,17.6,52.55,42.77s-22.3,44.46-52.55,44.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M185.45,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M267.33,55h55.81v54.5h-59.85c-30.25,0-52.54-19.17-52.54-44.46s22.3-42.77,52.54-42.77h62.46l-17.47,22.69h-44.98c-14.6,0-25.69,8.87-25.69,21.25s10.69,20.86,25.69,20.86h32.99v-12.65h-45.11l16.17-19.43Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M377.26,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M513.64,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M542.46,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M759.3,87.08l-17.47,22.43h-77.06V22.28h26.99v64.8h67.54Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M798.56,22.28h51.11c26.47,0,37.42,10.69,37.42,27.12,0,14.99-10.3,25.03-32.73,25.03h-41.46c-6.26,0-9.26,1.83-9.26,6.26v6.39h84.1l-17.34,22.43h-92.83v-28.55c0-15.91,11.47-23.86,32.73-23.86h41.46c6.26,0,9.26-1.69,9.26-6.13s-3-6-9.26-6h-70.54l17.34-22.69Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1000.14,77.04c-7.56-13.43-11.08-19.95-14.08-26.21-2.74,6.26-6.26,12.65-13.82,26.08l-13.95,24.77c-3.13,5.61-7.82,9.26-14.86,9.26s-12.78-3.91-15.12-12l-22.17-76.67h26.99l8.21,30.38c2.74,9.78,4.56,16.95,5.87,23.99,2.87-6.13,6.26-12.78,12.26-24.12l11.73-21.9c4.56-8.61,9-9.78,15.39-9.78s11.08,1.17,15.65,9.78l11.6,22.04c6.52,12,9.52,18.12,12.26,23.99,1.43-6.91,3.39-14.34,6-23.99l8.21-30.38h26.34l-22.56,76.67c-2.35,8.08-8.34,12-15.12,12s-11.6-3.52-14.86-9.26l-13.95-24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1115.54,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1221.16,106.24l-53.46-47.98v51.24h-24.51V37.14c0-11.6,7.04-16.3,14.73-16.3,3.26,0,6.52.78,10.82,4.69l53.46,47.98V22.28h24.64v72.23c0,11.6-7.04,16.43-14.86,16.43-3.39,0-6.65-.78-10.82-4.69Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1362.24,21.89h-9.26v88.79h9.26v15.65h-25.03V6.11h25.03v15.78Z" style="fill: #85c6eb; stroke: #85c6eb; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1446.21,109.5h-58.41v-54.37h27.12v31.94h31.29c15,0,25.82-8.34,25.82-20.86s-11.21-21.25-25.82-21.25h-58.41l17.21-22.69h41.2c30.51,0,52.55,17.6,52.55,42.77s-22.3,44.46-52.55,44.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1542.71,22.28h51.11c26.47,0,37.42,10.69,37.42,27.12,0,14.99-10.3,25.03-32.73,25.03h-41.46c-6.26,0-9.26,1.83-9.26,6.26v6.39h84.1l-17.34,22.43h-92.83v-28.55c0-15.91,11.47-23.86,32.73-23.86h41.46c6.26,0,9.26-1.69,9.26-6.13s-3-6-9.26-6h-70.54l17.34-22.69Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1744.29,77.04c-7.56-13.43-11.08-19.95-14.08-26.21-2.74,6.26-6.26,12.65-13.82,26.08l-13.95,24.77c-3.13,5.61-7.82,9.26-14.86,9.26s-12.78-3.91-15.12-12l-22.17-76.67h26.99l8.21,30.38c2.74,9.78,4.56,16.95,5.87,23.99,2.87-6.13,6.26-12.78,12.26-24.12l11.73-21.9c4.56-8.61,9-9.78,15.39-9.78s11.08,1.17,15.65,9.78l11.6,22.04c6.52,12,9.52,18.12,12.26,23.99,1.43-6.91,3.39-14.34,6-23.99l8.21-30.38h26.34l-22.56,76.67c-2.35,8.08-8.34,12-15.12,12s-11.6-3.52-14.86-9.26l-13.95-24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1855.13,126.32h-24.9v-15.65h9.26V21.89h-9.26V6.11h24.9v120.22Z" style="fill: #85c6eb; stroke: #85c6eb; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+</svg></div>
+      <div class="proj-trl">TRL 4/5 · PROTOTYPE</div>
+      <div class="proj-name">LOAD GENERATOR DEVICE<br>REHAB · FITNESS · PERFORMANCE · MILITARY</div>
+    </div>
+
+    <!-- TISSUE-TECH -->
+    <div class="proj-card">
+      <div class="proj-num">01</div>
+      <div class="proj-logo-wrap"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774.19 143.45">
+  <path d="M125.35,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96H8.79l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M172.17,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M281.04,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55h-81.23l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M417.83,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55h-81.23l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M587.07,71.43c0,26.34-18.12,39.51-54.37,39.51-41.98,0-60.11-13.17-60.11-39.51V22.28h26.86v49.16c0,12.91,5.48,17.08,33.25,17.08,20.73,0,27.25-4.82,27.25-17.08V22.28h27.12v49.16Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M714.86,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M785.79,56.96l-13.17,16.82h-43.55l13.17-16.82h43.55Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M904.32,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1025.06,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1156.5,87.08l-17.34,22.43h-43.81c-30.25,0-52.54-19.17-52.54-44.46s22.3-42.77,52.54-42.77h61.15l-17.34,22.69h-43.81c-14.6,0-25.56,8.74-25.56,21.25s10.82,20.86,25.56,20.86h61.15Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1282.98,109.5h-26.86v-33.64h-51.89v33.64h-27.12V22.28h27.12v30.9h51.89v-30.9h26.86v87.23Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+</svg></div>
+      <div class="proj-trl">TRL 2/3 · CONCEPT</div>
+      <div class="proj-name">E-TEXTILE WEARABLE<br>REHAB · FITNESS · PERFORMANCE · MILITARY</div>
+    </div>
+
+    <!-- SMART BIKE CVT -->
+    <div class="proj-card">
+      <div class="proj-num">03</div>
+      <div class="proj-logo-wrap"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774.19 143.45">
+  <path d="M97.84,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55H11.92l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M214.02,54.74c7.69,13.43,11.08,19.95,14.08,26.08,2.87-6.13,6.26-12.52,13.95-25.95l13.95-24.77c3.13-5.61,7.82-9.26,14.86-9.26s12.78,3.91,15.12,12l22.04,76.67h-26.86l-8.21-30.38c-2.74-9.91-4.56-16.95-6-23.99-2.87,6.13-6.13,12.78-12.13,24.12l-11.73,21.9c-4.56,8.61-9,9.78-15.52,9.78s-10.95-1.17-15.52-9.78l-11.73-22.04c-6.39-12-9.52-18.12-12.26-23.99-1.3,6.91-3.26,14.21-5.87,23.99l-8.21,30.38h-26.47l22.56-76.67c2.35-8.08,8.47-12,15.25-12s11.6,3.52,14.73,9.26l13.95,24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M366.06,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M612.11,109.5h-36.12l-19.43-23.08h-41.46v23.08h-26.99v-44.59h75.89c8.34,0,14.86-3.78,14.86-9.78,0-6.78-5.61-10.17-14.86-10.17h-75.89l17.6-22.69h56.07c19.82,0,44.85,6.26,44.85,31.16,0,13.56-8.47,24.77-22.82,27.64,3,2.22,6.26,5.35,12.26,11.47l16.04,16.95Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M741.33,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M934.05,84.08c0,14.47-7.95,25.43-35.46,25.43h-76.67v-53.07h77.19c3.91,0,7.56-1.43,7.56-5.87s-3.78-5.61-7.56-5.61h-77.19l18.25-22.69h57.76c20.86,0,34.29,8.08,34.29,24.12,0,10.3-5.87,16.04-11.87,18.25,7.56,2.22,13.69,9,13.69,19.43ZM849.04,75.08v12h49.68c5.87,0,8.34-2.09,8.34-6.13,0-3.78-2.48-5.87-8.34-5.87h-49.68Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M986.21,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1124.29,109.5h-40.81l-26.34-22.95c-9-7.82-13.17-11.6-16.17-14.6.13,4.04.39,8.34.39,12.52v25.03h-27.12V22.28h27.12v20.21c0,5.35-.26,10.69-.52,15.26,3.39-3.13,8.08-7.56,16.04-14.21l25.17-21.25h39.12l-33.38,25.03c-11.6,8.74-16.95,12.65-22.56,16.04,4.96,3.39,11.74,8.21,22.95,17.34l36.12,28.82Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1245.69,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1438.28,87.08l-17.34,22.43h-43.81c-30.25,0-52.54-19.17-52.54-44.46s22.3-42.77,52.54-42.77h61.15l-17.34,22.69h-43.81c-14.6,0-25.56,8.74-25.56,21.25s10.82,20.86,25.56,20.86h61.15Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1485.22,22.28l39.25,57.89,40.94-57.89h31.81l-55.81,78.88c-3.78,5.08-9.13,9.78-17.47,9.78s-13.43-4.3-17.21-9.78l-54.63-78.88h33.12Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1726.44,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+</svg></div>
+      <div class="proj-trl">TRL 2/3 · CONCEPT</div>
+      <div class="proj-name">AUTOMATIC TRANSMISSION<br>REHAB · FITNESS · PERFORMANCE</div>
+    </div>
+
+    <!-- SMART SEAT -->
+    <div class="proj-card">
+      <div class="proj-num">02</div>
+      <div class="proj-logo-wrap"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774.19 143.45">
+  <path d="M97.84,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55H11.92l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M214.02,54.74c7.69,13.43,11.08,19.95,14.08,26.08,2.87-6.13,6.26-12.52,13.95-25.95l13.95-24.77c3.13-5.61,7.82-9.26,14.86-9.26s12.78,3.91,15.12,12l22.04,76.67h-26.86l-8.21-30.38c-2.74-9.91-4.56-16.95-6-23.99-2.87,6.13-6.13,12.78-12.13,24.12l-11.73,21.9c-4.56,8.61-9,9.78-15.52,9.78s-10.95-1.17-15.52-9.78l-11.73-22.04c-6.39-12-9.52-18.12-12.26-23.99-1.3,6.91-3.26,14.21-5.87,23.99l-8.21,30.38h-26.47l22.56-76.67c2.35-8.08,8.47-12,15.25-12s11.6,3.52,14.73,9.26l13.95,24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M366.06,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M612.11,109.5h-36.12l-19.43-23.08h-41.46v23.08h-26.99v-44.59h75.89c8.34,0,14.86-3.78,14.86-9.78,0-6.78-5.61-10.17-14.86-10.17h-75.89l17.6-22.69h56.07c19.82,0,44.85,6.26,44.85,31.16,0,13.56-8.47,24.77-22.82,27.64,3,2.22,6.26,5.35,12.26,11.47l16.04,16.95Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M741.33,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M902.76,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55h-81.23l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1060.01,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1112.95,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1315.71,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+</svg></div>
+      <div class="proj-trl">TRL 2 · CONCEPT</div>
+      <div class="proj-name">G-FORCE SIMULATOR<br>REHAB · PERFORMANCE</div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <svg class="flogo" viewBox="0 0 1774.2 143.4" xmlns="http://www.w3.org/2000/svg">
+    <path d="M168.5,13.6l-20.5,26.7h-36.6v75.9h-31.7V40.3H31.5l20.5-26.7h116.5Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M294.2,78c-8.9-15.8-13-23.5-16.6-30.8-3.2,7.4-7.4,14.9-16.2,30.7l-16.4,29.1c-3.7,6.6-9.2,10.9-17.5,10.9s-15-4.6-17.8-14.1l-26.1-90.1h31.7l9.7,35.7c3.2,11.5,5.4,19.9,6.9,28.2,3.4-7.2,7.4-15,14.4-28.4l13.8-25.8c5.4-10.1,10.6-11.5,18.1-11.5s13,1.4,18.4,11.5l13.6,25.9c7.7,14.1,11.2,21.3,14.4,28.2,1.7-8.1,4-16.9,7.1-28.2l9.7-35.7h31l-26.5,90.1c-2.8,9.5-9.8,14.1-17.8,14.1s-13.6-4.1-17.5-10.9l-16.4-29Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M429.9,116.1h-31.7V13.6h31.7v102.6Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M554.1,112.3l-62.8-56.4v60.2h-28.8V31.1c0-13.6,8.3-19.2,17.3-19.2s7.7.9,12.7,5.5l62.8,56.4V13.6h29v84.9c0,13.6-8.3,19.3-17.5,19.3s-7.8-.9-12.7-5.5Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M803,13.6l-20.5,26.7h-62.5v13.3h77.3l-19.3,25h-57.9v37.6h-31.9V13.6h115Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M844.4,116.1l19.2-26.4h25.8c6.1,0,13.3,0,18.2.3-2.8-3.7-7.1-10-10.4-14.9l-18.4-27.1-48.1,68.1h-37.6l65.8-92.7c4.3-6,10.6-11.5,20.5-11.5s15.8,5.1,20.2,11.5l64.1,92.7h-119.3Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M1102.9,89.8l-20.4,26.4h-51.5c-35.6,0-61.8-22.5-61.8-52.3s26.2-50.3,61.8-50.3h71.9l-20.4,26.7h-51.5c-17.2,0-30,10.3-30,25s12.7,24.5,30,24.5h71.9Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M1254.5,13.6l-20.5,26.7h-36.6v75.9h-31.7V40.3h-48.1l20.5-26.7h116.5Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M1409.4,64.8c0,36.6-25.1,53-75,53s-75-16.4-75-53,25-52.9,75-52.9,75,16.2,75,52.9ZM1377.9,64.8c0-22.1-11.5-26.2-43.4-26.2s-43.4,4.1-43.4,26.2,11.5,26.4,43.4,26.4,43.4-4.3,43.4-26.4Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M1584.2,116.1h-42.5l-22.8-27.1h-48.7v27.1h-31.7v-52.4h89.2c9.8,0,17.5-4.4,17.5-11.5s-6.6-12-17.5-12h-89.2l20.7-26.7h65.9c23.3,0,52.7,7.4,52.7,36.6s-10,29.1-26.8,32.5c3.5,2.6,7.4,6.3,14.4,13.5l18.9,19.9Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M1741.6,13.6l-60.9,68.7v33.9h-31.9v-34l-62.5-68.5h40.8l24.5,28.5c3.2,3.7,11.8,13,14,16.1,2-2.9,5.5-7.4,12.9-16.2l23.3-28.4h39.9Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
+  </svg>
+  <div class="fcopy">© 2026 TWIN FACTORY LDA · ALL RIGHTS RESERVED</div>
+</footer>
+</body>
+</html>

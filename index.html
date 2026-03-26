@@ -3,277 +3,1102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Twin Factory — Fast Forward to the Future</title>
+<title>TwinFactory — Fast Forward to the Future</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg:        #07111F;
-    --blue:      #85C6EB;
-    --orange:    #FF671D;
-    --gray:      #57677F;
-    --white:     #FFFFFF;
-    --card-bg:   #0B1828;
-    --border:    rgba(133,198,235,0.12);
-    --border-h:  rgba(133,198,235,0.3);
-  }
-  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{background:var(--bg);color:var(--white);font-family:'Plus Jakarta Sans',sans-serif;font-weight:400;overflow-x:hidden;cursor:none;}
-  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(133,198,235,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(133,198,235,0.025) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;z-index:0;}
+/* ============================================================
+   TWIN FACTORY — index.html
+   CSS Architecture v1.0 — Clean Refactor
+   Sections: Reset → Tokens → Base → Nav → Hero → Platform →
+             Applications → Technology → D2W → Projects →
+             Recognition → About → Founder → Contact → Footer →
+             Utilities → Media Queries
+   ============================================================ */
 
-  /* CURSOR */
-  .cursor{width:8px;height:8px;background:var(--orange);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;}
-  .cursor-ring{width:30px;height:30px;border:1px solid rgba(133,198,235,0.4);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transition:all 0.13s ease;}
+/* ── RESET ── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
 
-  /* LANG */
-  .lang-toggle{display:flex;gap:3px;margin-left:32px;}
-  .lang-btn{background:none;border:1px solid var(--border);color:var(--gray);font-family:'Nunito Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;padding:5px 10px;cursor:none;transition:all 0.2s;}
-  .lang-btn.active,.lang-btn:hover{border-color:var(--blue);color:var(--blue);}
+/* ── DESIGN TOKENS ── */
+:root{
+  --bg:       #07111F;
+  --blue:     #85C6EB;
+  --orange:   #FF671D;
+  --gray:     #57677F;
+  --white:    #FFFFFF;
+  --card-bg:  #0B1828;
+  --border:   rgba(133,198,235,0.12);
+  --border-h: rgba(133,198,235,0.3);
+  --text-dim: #A9B7C8;
+  --text-mid: #C3CFDB;
+  --text-hi:  #D7E4EF;
+}
 
-  /* NAV */
-  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 60px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(7,17,31,0.97),transparent);backdrop-filter:blur(12px);}
-  .nav-logo{display:flex;align-items:center;height:28px;text-decoration:none;}
-  .nav-logo svg{height:22px;width:auto;}
-  .nav-links{display:flex;gap:32px;list-style:none;}
-  .nav-links a{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:10px;letter-spacing:3px;color:var(--gray);text-decoration:none;text-transform:uppercase;transition:color 0.2s;}
-  .nav-links a:hover{color:var(--blue);}
+/* ── BASE ── */
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:400;
+  cursor:none;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(133,198,235,0.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(133,198,235,0.025) 1px,transparent 1px);
+  background-size:64px 64px;
+  pointer-events:none;
+  z-index:0;
+}
+section{position:relative;z-index:1;}
 
-  /* HERO */
-  #hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 60px 80px;overflow:hidden;}
-  .hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 75% 50%,rgba(11,24,40,0.7),transparent 70%),radial-gradient(ellipse 40% 50% at 15% 85%,rgba(255,103,29,0.06),transparent 60%),radial-gradient(ellipse 50% 40% at 80% 10%,rgba(133,198,235,0.05),transparent 60%);}
-  .scanline{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);opacity:0.2;animation:scan 10s linear infinite;}
-  @keyframes scan{0%{top:-1px}100%{top:100%}}
-  .hero-stripe{position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--orange) 30%,var(--blue) 70%,transparent);opacity:0.35;animation:stripe 7s ease-in-out infinite alternate;}
-  @keyframes stripe{0%{top:25%}100%{top:75%}}
-  .hero-content{position:relative;z-index:2;max-width:720px;text-align:center;display:flex;flex-direction:column;align-items:center;}
-  .hero-eyebrow{display:flex;align-items:center;justify-content:center;gap:24px;font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:clamp(11px,1.2vw,14px);letter-spacing:4px;color:var(--orange);margin-top:2em;margin-bottom:36px;text-transform:uppercase;width:min(644px,88vw);}
-  .hero-eyebrow::before{display:none;}
-  .ey-left{white-space:nowrap;}
-  .ey-right{white-space:nowrap;}
-  .ey-sep{color:var(--orange);}
-  h1{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:clamp(56px,8vw,108px);line-height:0.88;letter-spacing:-3px;margin-bottom:14px;}
-  h1 .outline{color:transparent;-webkit-text-stroke:1.5px rgba(133,198,235,0.35);}
-  .hero-tagline{width:min(644px,88vw);padding-right:1em;font-family:'Nunito Sans',sans-serif;font-weight:300;font-size:clamp(14px,1.6vw,20px);letter-spacing:5px;color:var(--white);margin-bottom:16px;text-transform:uppercase;text-align:right;}
-  .tl-ff{white-space:nowrap;}
-  .tl-future{white-space:nowrap;display:inline-flex;align-items:center;gap:10px;}
-  .hero-subtitle{font-family:'Plus Jakarta Sans',sans-serif;font-weight:300;font-size:clamp(14px,1.5vw,19px);letter-spacing:5px;color:var(--orange);text-transform:uppercase;margin-bottom:36px;}
-  .hero-eyebrow{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:clamp(11px,1.2vw,14px);letter-spacing:4px;color:var(--orange);margin-top:2em;margin-bottom:36px;text-transform:uppercase;}
-  .ff-arrows{display:inline-flex;gap:3px;}
-  .ff-arrows span{display:block;width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:8px solid var(--orange);}
-  .hero-desc{font-size:16px;font-weight:400;line-height:1.85;color:var(--gray);width:min(604px,84vw);max-width:100%;margin-bottom:44px;text-align:justify;margin-left:auto;margin-right:auto;}
-  .hero-badges{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px;justify-content:center;width:min(644px,88vw);}
-  .badge{border:1px solid var(--border);padding:6px 14px;font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:9px;letter-spacing:2px;color:var(--blue);text-transform:uppercase;}
-  .badge.o{border-color:rgba(255,103,29,0.4);color:var(--orange);}
-  .hero-locs{display:flex;align-items:center;gap:16px;font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:10px;letter-spacing:3px;color:var(--gray);width:min(644px,88vw);justify-content:center;}
-  .hero-locs strong{color:var(--blue);}
-  .loc-arr{width:24px;height:1px;background:var(--orange);position:relative;display:inline-block;}
-  .loc-arr::after{content:'';position:absolute;right:-6px;top:-4px;border:5px solid transparent;border-left-color:var(--orange);}
+/* ── CURSOR ── */
+.cursor{
+  width:8px;height:8px;
+  background:var(--orange);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9999;
+}
+.cursor-ring{
+  width:30px;height:30px;
+  border:1px solid rgba(133,198,235,0.4);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9998;
+  transition:all 0.13s ease;
+}
 
-  /* SECTIONS */
-  section{position:relative;z-index:1;}
-  .si{padding:100px 60px;max-width:1400px;margin:0 auto;}
-  .slbl{display:flex;align-items:center;gap:12px;font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:9px;letter-spacing:5px;color:var(--orange);text-transform:uppercase;margin-bottom:16px;}
-  .slbl::before{content:'';width:22px;height:1px;background:var(--orange);}
-  h2{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:clamp(38px,4.5vw,60px);letter-spacing:-1.5px;line-height:1.05;margin-bottom:48px;}
+/* ── LANGUAGE TOGGLE ── */
+.lang-toggle{display:flex;gap:3px;margin-left:32px;}
+.lang-btn{
+  background:none;
+  border:1px solid var(--border);
+  color:var(--gray);
+  font-family:'Nunito Sans',sans-serif;
+  font-size:10px;font-weight:700;
+  letter-spacing:2px;
+  padding:5px 10px;
+  cursor:none;
+  transition:all 0.2s;
+}
+.lang-btn.active,
+.lang-btn:hover{border-color:var(--blue);color:var(--blue);}
 
-  /* ABOUT */
-  #about{border-top:1px solid var(--border);}
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
-  .about-grid p{text-align:left;}
-  .about-block1{margin-bottom:56px;}
-  .about-taglines{margin:20px 0 32px;}
-  .about-tagline-b{font-family:'Nunito Sans',sans-serif;font-weight:300;font-size:clamp(15px,1.4vw,19px);color:var(--blue);line-height:1.5;margin-bottom:8px;font-style:italic;}
-  .about-tagline-c{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:clamp(12px,1.1vw,15px);color:var(--white);letter-spacing:1px;text-align:center;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);white-space:nowrap;}
-  .about-tagline-c em{color:var(--orange);font-style:normal;}
-  .indent-line{display:inline-block;padding-left:2ch;white-space:nowrap;}
-  .indent-line2{display:inline-block;padding-left:3.2ch;}
-  .ford-inline-label{display:block;color:var(--orange);font-style:italic;font-weight:300;font-size:15px;letter-spacing:0;text-transform:none;margin-bottom:0;line-height:1.2;}
-  .ford-bq{font-size:15px;line-height:1.65;}
-  .ford-inline-label{margin-bottom:2px;}
-  .ford-callout{margin-top:24px;}
-  .ford-label{display:none;}
-  .about-text p{font-size:16px;line-height:1.85;color:var(--gray);margin-bottom:20px;text-align:justify;}
-  .about-text strong{color:var(--white);font-weight:700;}
-  .bq{border-left:3px solid var(--orange);padding:12px 0 12px 22px;font-style:italic;font-size:17px;font-weight:300;color:var(--blue);line-height:1.65;margin:28px 0;}
-  .stats{display:flex;flex-direction:column;gap:2px;height:100%;}
-  .stat{background:var(--card-bg);border:1px solid var(--border);padding:28px 24px;transition:border-color 0.3s;flex:1;display:flex;flex-direction:column;justify-content:center;}
-  .stat:hover{border-color:var(--border-h);}
-  .snum{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:62px;color:var(--blue);line-height:1;}
-  .snum sup{font-size:28px;color:var(--orange);}
-  .snum-plus{font-size:1.1em;color:var(--orange);font-style:italic;vertical-align:middle;}
-  .snum-trl{font-size:inherit;color:var(--blue);font-weight:900;}
-  .snum-arrow{font-size:18px;color:var(--orange);font-weight:800;letter-spacing:1px;margin-left:6px;}
-  .snum-split{display:inline-flex;align-items:center;gap:0;}
-  .snum-op{font-size:36px;color:var(--orange);margin:0 4px;line-height:1;align-self:center;}
-  .slb{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;color:var(--gray);margin-top:10px;text-transform:uppercase;line-height:1.8;}
+/* i18n visibility */
+.lang-en-only{display:inherit;}
+.lang-pt-only{display:none;}
+body.lang-pt .lang-en-only{display:none !important;}
+body.lang-pt .lang-pt-only{display:inherit !important;}
+body.lang-en .lang-en-only{display:inherit !important;}
+body.lang-en .lang-pt-only{display:none !important;}
 
-  /* TECH */
-  #technology{background:linear-gradient(to bottom,transparent,rgba(11,24,40,0.4),transparent);}
-  .tech-intro{max-width:640px;font-size:16px;line-height:1.85;color:var(--gray);margin-bottom:56px;}
-  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:56px;}
-  .tc{background:var(--card-bg);border:1px solid var(--border);padding:28px;transition:border-color 0.3s,transform 0.3s;}
-  .tc:hover{border-color:var(--border-h);transform:translateY(-4px);}
-  .tcode{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:36px;color:var(--blue);margin-bottom:12px;line-height:1;}
-  .tc h3{font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;color:var(--white);margin-bottom:10px;text-transform:uppercase;}
-  .tc p{font-size:13px;color:var(--gray);line-height:1.7;}
-  .trl-lbl{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:9px;letter-spacing:4px;color:var(--gray);margin-bottom:10px;text-transform:uppercase;}
-  .trl-bar{display:flex;gap:3px;}
-  .ts{flex:1;height:5px;background:rgba(133,198,235,0.08);}
-  .ts.on{background:var(--blue);}
-  .ts.hl{background:var(--orange);}
+/* ── NAVIGATION ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:18px 60px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(to bottom,rgba(7,17,31,0.97),transparent);
+  backdrop-filter:blur(12px);
+}
+.nav-logo{display:flex;align-items:center;height:28px;text-decoration:none;}
+.nav-logo svg{height:22px;width:auto;}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{
+  font-family:'Nunito Sans',sans-serif;
+  font-weight:700;font-size:10px;
+  letter-spacing:3px;
+  color:var(--gray);
+  text-decoration:none;text-transform:uppercase;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--blue);}
 
-  /* PROJECTS */
-  #projects{border-top:1px solid var(--border);}
-  .pg{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;}
-  .pc{background:var(--card-bg);border:1px solid var(--border);padding:40px 40px 16px;position:relative;overflow:hidden;transition:border-color 0.3s;}
-  .pc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
-  .pc:hover::before{transform:scaleX(1);}
-  .pc:hover{border-color:var(--border-h);}
-  .pnum{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:100px;color:rgba(255,255,255,0.07);position:absolute;top:10px;right:24px;line-height:1;pointer-events:none;transition:color 0.3s;}
-  .pc:hover .pnum{color:rgba(255,255,255,0.12);}
-  .pc.feat .pi > div:first-child{display:flex;flex-direction:column;}
-  .d2w-img-block{display:flex;align-items:center;gap:24px;margin-top:auto;padding-top:28px;position:relative;bottom:37px;}
-  .tt-img-block{position:relative;bottom:37px;}
-  .d2w-img-label{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:22px;letter-spacing:2px;color:var(--orange);text-transform:uppercase;margin-bottom:0;text-align:left;line-height:1.3;flex:1;}
-  .d2w-img{aspect-ratio:1/1;width:100%;max-width:238px;display:block;border-radius:50%;object-fit:cover;border:2px solid rgba(133,198,235,0.3);flex-shrink:0;}
-  .proj-logo{width:min(400px,85%);margin-bottom:16px;}
-  .founder-logo{width:min(480px,100%);margin-bottom:12px;}
-  .founder-logo svg{width:100%;height:auto;display:block;}
-  .proj-logo svg{width:100%;height:auto;display:block;}
-  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
-  .ptrl{display:inline-block;border:1px solid rgba(255,103,29,0.5);font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:8px;letter-spacing:3px;color:var(--orange);padding:4px 10px;margin-bottom:20px;text-transform:uppercase;}
-  .pc h3{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:28px;color:var(--white);margin-bottom:6px;}
-  .psub{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:9px;letter-spacing:3px;color:var(--blue);margin-bottom:20px;text-transform:uppercase;}
-  .pdesc{font-size:14px;line-height:1.75;color:var(--gray);margin-bottom:24px;}
-  .ptags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px;}
-  .ptag{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:8px;letter-spacing:1px;color:var(--gray);border:1px solid var(--border);padding:3px 8px;text-transform:uppercase;}
-  .plink{display:inline-flex;align-items:center;gap:10px;font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:9px;letter-spacing:3px;color:var(--blue);text-decoration:none;text-transform:uppercase;border-bottom:1px solid transparent;transition:border-color 0.2s;}
-  .plink:hover{border-color:var(--blue);}
-  .arr{width:18px;height:1px;background:currentColor;position:relative;display:inline-block;}
-  .arr::after{content:'';position:absolute;right:-5px;top:-4px;border:5px solid transparent;border-left-color:currentColor;}
-  .pc.feat{grid-column:1/-1;}
-  .pc.feat .pi{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
-  .mvp{background:rgba(133,198,235,0.04);border:1px solid var(--border);padding:20px;margin-bottom:2px;}
-  .mvpt{font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:8px;letter-spacing:3px;color:var(--orange);text-transform:uppercase;margin-bottom:14px;}
-  .mvpr{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;font-size:12px;color:var(--gray);font-family:'Nunito Sans',sans-serif;}
-  .mvpr-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
-  .mvp-tag{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:8px;letter-spacing:1px;color:var(--blue);border:1px solid var(--border);padding:3px 8px;text-transform:uppercase;}
-  .poc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  .poc-item{font-family:'Nunito Sans',sans-serif;font-size:11px;color:var(--gray);padding:3px 0;border-bottom:1px solid rgba(133,198,235,0.06);line-height:1.6;}
-  .poc-item::before{content:'✓ ';color:var(--orange);font-weight:700;}
-  .mvpr strong{color:var(--white);font-weight:800;font-size:13px;}
+/* ── SECTION SHELL ── */
+.si{padding:100px 60px;max-width:1400px;margin:0 auto;}
 
-  /* FOUNDER */
-  #founder{border-top:1px solid var(--border);}
-  .fg{display:grid;grid-template-columns:300px 1fr;gap:72px;align-items:start;}
-  .fcard{background:transparent;border:none;aspect-ratio:unset;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;position:relative;overflow:visible;}
-  .fcard-photo-wrap{width:280px;height:280px;flex-shrink:0;margin-bottom:20px;}
-  .fcard-photo{width:100%;height:100%;object-fit:contain;}
-  .fcard-bg{display:none;}
-  .fcard-overlay{display:none;}
-  .fcard-lbl{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:8px;letter-spacing:4px;color:var(--gray);text-transform:uppercase;text-align:center;position:relative;}
-  .fname{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:clamp(36px,4vw,52px);line-height:0.9;letter-spacing:-1px;margin-bottom:6px;}
-  .frole{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:9px;letter-spacing:4px;color:var(--orange);text-transform:uppercase;margin-bottom:32px;}
-  .founder-text p{font-size:15px;line-height:1.85;color:var(--gray);margin-bottom:16px;}
-  .founder-text strong{color:var(--white);font-weight:700;}
+/* Section label [eyebrow] */
+.slbl{
+  display:flex;align-items:center;gap:12px;
+  font-family:'Nunito Sans',sans-serif;
+  font-weight:800;font-size:9px;
+  letter-spacing:5px;
+  color:var(--orange);
+  text-transform:uppercase;
+  margin-bottom:16px;
+}
+.slbl::before{content:'';width:22px;height:1px;background:var(--orange);}
 
-  /* RECOGNITION */
-  #recognition{border-top:1px solid var(--border);}
-  .rg{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
-  .rc{background:var(--card-bg);border:1px solid var(--border);padding:36px;transition:border-color 0.3s;}
-  .rc:hover{border-color:var(--border-h);}
-  .ri{font-size:28px;margin-bottom:20px;color:var(--blue);}
-  .rc h3{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:16px;letter-spacing:1px;margin-bottom:10px;}
-  .rc p{font-size:13px;color:var(--gray);line-height:1.7;}
+/* Section heading */
+h2{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:900;
+  font-size:clamp(38px,4.5vw,60px);
+  letter-spacing:-1.5px;
+  line-height:1.05;
+  margin-bottom:48px;
+}
 
-  /* CONTACT */
-  #contact{border-top:1px solid var(--border);}
-  .cg{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
-  .bcta{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:clamp(24px,2.8vw,38px);line-height:1.15;margin-bottom:32px;}
-  .bcta em{color:var(--orange);font-style:normal;}
-  .clist{display:flex;flex-direction:column;gap:18px;}
-  .ci{display:flex;align-items:center;gap:14px;font-family:'Nunito Sans',sans-serif;font-size:13px;color:var(--gray);}
-  .cdot{width:6px;height:6px;background:var(--orange);border-radius:50%;flex-shrink:0;}
-  .ci a{color:var(--blue);text-decoration:none;font-weight:700;}
-  .ci a:hover{color:var(--white);}
-  .addr{margin-top:32px;border-left:2px solid var(--border);padding-left:20px;}
-  .addr p{font-family:'Nunito Sans',sans-serif;font-size:10px;letter-spacing:2px;color:var(--gray);line-height:2.2;text-transform:uppercase;}
-  .addr a{color:var(--gray);text-decoration:none;transition:color 0.2s;}
-  .addr a:hover{color:var(--blue);}
-  .addr a:hover p{color:var(--blue);}
+/* Arrow utility */
+.arr{width:18px;height:1px;background:currentColor;position:relative;display:inline-block;transition:transform 0.25s ease;}
+.arr::after{content:'';position:absolute;right:-5px;top:-4px;border:5px solid transparent;border-left-color:currentColor;}
+.plink:hover .arr{transform:translateX(4px);}
 
-  /* SETA ICON */
-  .seta-icon{width:16px;height:auto;flex-shrink:0;}
-  .hero-locs .seta-icon{width:22px;}
-  .seta-loc{height:0.9em;width:auto;display:inline-block;vertical-align:middle;}
-  .hero-tagline .seta-icon{width:20px;}
+/* CTA arrows SVG — single definition */
+.cta-arrows{
+  width:18px;height:auto;
+  display:inline-block;
+  vertical-align:middle;
+  transform:translateY(-1px);
+  flex-shrink:0;
+  transition:transform 0.25s ease;
+}
+a:hover .cta-arrows{transform:translateX(4px) translateY(-1px);}
 
-  /* HERO LOGO */
-  .hero-logo{width:min(644px,88vw);margin-bottom:0.5em;}
-  .hero-logo svg{width:100%;height:auto;}
+/* sr-only */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
 
-  /* FOOTER */
-  footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify-content:space-between;align-items:center;}
-  .flogo{width:min(300px,55vw);height:auto;opacity:0.35;}
-  .fcopy{font-family:'Nunito Sans',sans-serif;font-size:9px;letter-spacing:2px;color:rgba(87,103,127,0.5);text-transform:uppercase;}
+/* split-line [JS headline splitting] */
+.split-line{display:block;}
+.split-line + .split-line{margin-top:0.04em;}
 
-  /* ANIM */
-  .fu{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
-  .fu.vis{opacity:1;transform:translateY(0);}
-  @media(prefers-reduced-motion:reduce){.fu{opacity:1;transform:none;}}
+/* Seta icon */
+.seta-icon{width:16px;height:auto;flex-shrink:0;}
+.seta-loc{height:0.9em;width:auto;display:inline-block;vertical-align:middle;transform:translateY(-1px);}
+.hero-locs .seta-icon{width:22px;}
+.hero-tagline .seta-icon{width:20px;}
 
-  @media(max-width:900px){
-    nav{padding:14px 20px;} .nav-links{display:none;}
-    .si{padding:60px 20px;} #hero{padding:100px 20px 60px;justify-content:center;}
-    .about-grid,.tech-grid,.pg,.rg,.cg,.fg{grid-template-columns:1fr;gap:32px;}
-    .pc.feat .pi{grid-template-columns:1fr;}
-    .lang-toggle{margin-left:16px;}
-    footer{flex-direction:column;gap:10px;padding:20px;text-align:center;}
+/* ── HERO ── */
+#hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:140px 60px 72px;
+  overflow:hidden;
+}
+.hero-glow{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 55% 50% at 50% 45%, rgba(133,198,235,0.08), transparent 68%),
+    radial-gradient(ellipse 35% 35% at 18% 78%, rgba(255,103,29,0.08), transparent 62%),
+    radial-gradient(ellipse 30% 28% at 82% 12%, rgba(133,198,235,0.06), transparent 60%);
+}
+.scanline{
+  position:absolute;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--blue),transparent);
+  opacity:0.18;
+  animation:scan 10s linear infinite;
+}
+@keyframes scan{0%{top:-1px}100%{top:100%}}
+.hero-stripe{
+  position:absolute;left:0;right:0;
+  height:3px;
+  background:linear-gradient(90deg,transparent,var(--orange) 30%,var(--blue) 70%,transparent);
+  opacity:0.28;
+  animation:stripe 7s ease-in-out infinite alternate;
+}
+@keyframes stripe{0%{top:24%}100%{top:72%}}
+.hero-content{
+  position:relative;z-index:2;
+  width:min(1400px,100%);
+  text-align:left;
+  display:flex;flex-direction:column;align-items:flex-start;
+}
+.hero-logo{width:min(680px,86vw);margin-bottom:6px;}
+.hero-logo svg{width:100%;height:auto;display:block;}
+.hero-tagline{
+  width:min(680px,86vw);
+  display:flex;justify-content:flex-end;align-items:center;gap:12px;
+  margin:8px 0 30px;
+  padding-right:12px;
+  transform:translateX(-10px);
+  font-family:'Nunito Sans',sans-serif;
+  font-weight:300;
+  font-size:clamp(13px,1.15vw,16px);
+  letter-spacing:3.6px;
+  color:var(--white);
+  text-transform:uppercase;
+  text-align:right;
+  opacity:0.92;
+}
+.tl-future{display:inline-flex;align-items:center;gap:10px;}
+.hero-category{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:24px;
+  font-family:'Nunito Sans',sans-serif;
+  font-weight:800;font-size:11px;
+  letter-spacing:3.4px;
+  color:var(--blue);
+  text-transform:uppercase;
+}
+.hero-category::before{content:'';width:22px;height:1px;background:var(--blue);}
+.hero-category::after{content:none;}
+.hero-title{
+  max-width:680px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:800;
+  font-size:clamp(38px,4.7vw,64px);
+  line-height:1.08;
+  letter-spacing:-1.5px;
+  margin-bottom:20px;
+}
+.hero-subcopy{
+  max-width:620px;width:min(620px,92vw);
+  font-size:clamp(16px,1.12vw,18px);
+  font-weight:400;line-height:1.56;
+  color:var(--text-dim);
+  margin-bottom:24px;
+}
+.hero-domains{
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+  margin-bottom:36px;
+  font-family:'Nunito Sans',sans-serif;
+  font-weight:700;font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--blue);
+  opacity:0.92;
+}
+.hero-actions{
+  display:flex;align-items:center;justify-content:flex-start;
+  gap:14px;flex-wrap:wrap;
+  margin-bottom:24px;
+}
+.hero-note{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  font-family:'Nunito Sans',sans-serif;
+  font-weight:700;font-size:10px;
+  letter-spacing:3px;
+  color:var(--gray);
+  text-transform:uppercase;
+}
+.hero-note .d2w-mark{
+  display:inline-flex;align-items:baseline;gap:0;
+  font-weight:900;font-size:16px;line-height:1;
+  color:var(--white);
+  letter-spacing:1.6px;
+  margin-left:2px;
+}
+.hero-note .d2w-mark .d2w-two{color:var(--orange);}
 
-    /* CENTRALIZAÇÃO MOBILE */
-    h2{text-align:center;}
-    .indent-line{padding-left:0;}
-    .indent-line2{padding-left:0;}
-    .hero-content{text-align:center;margin-left:auto;margin-right:auto;display:flex;flex-direction:column;align-items:center;}
-    .hero-logo{width:90vw;max-width:100%;}
-    .hero-eyebrow{justify-content:space-between;width:100%;flex-wrap:wrap;gap:4px;}
-    .hero-eyebrow::before{display:none;}
-    .ey-left{flex:0 0 100%;text-align:left;}
-    .ey-sep{display:none;}
-    .ey-right{flex:0 0 100%;text-align:right;}
-    .hero-tagline{text-align:center;padding-right:0;width:100%;font-size:clamp(10px,3.5vw,16px);letter-spacing:3px;}
-    .hero-subtitle{text-align:center;}
-    .hero-desc{text-align:center;width:90vw;max-width:100%;margin-left:auto;margin-right:auto;}
-    .hero-badges{justify-content:center;width:100%;}
-    .hero-locs{justify-content:center;width:100%;}
-    .slbl{justify-content:center;}
-    .about-tagline-b{text-align:center;}
-    .about-tagline-c{text-align:center;}
-    .bq{text-align:center;border-left:none;border-top:3px solid var(--orange);padding:12px 0;}
-    .ford-bq span[style]{padding-left:0 !important;display:inline;}
-    .ford-bq br{display:none;}
-    .ford-inline-label{text-align:center;display:block;}
-    .stat{text-align:center;}
-    .snum{justify-content:center;}
-    .tech-intro{text-align:center;}
-    .trl-lbl{text-align:center;}
-    .psub{text-align:center;}
-    .pdesc{text-align:center;}
-    .ptags{justify-content:center;}
-    .d2w-img-block{flex-direction:column;align-items:center;bottom:0;}
-    .d2w-img-label{text-align:center;}
-    .founder-logo{margin:0 auto 12px;}
-    .frole{text-align:center;}
-    .bcta{text-align:center;}
-    .clist{align-items:center;}
-    .addr{text-align:center;border-left:none;border-top:2px solid var(--border);padding-left:0;padding-top:20px;}
-    .rc{text-align:center;}
-    .flogo{width:100%;}
-  }
+/* Hero buttons */
+.hero-btn{
+  min-width:196px;
+  padding:14px 18px;
+  border-radius:999px;
+  text-decoration:none;
+  text-transform:uppercase;
+  letter-spacing:2.5px;
+  font-family:'Nunito Sans',sans-serif;
+  font-size:11px;font-weight:800;
+  transition:transform 0.25s ease,border-color 0.25s ease,background 0.25s ease,color 0.25s ease,box-shadow 0.25s ease;
+}
+.hero-btn .lang-en-only,.hero-btn .lang-pt-only{display:inline;}
+body.lang-pt .hero-btn .lang-en-only{display:none !important;}
+body.lang-pt .hero-btn .lang-pt-only{display:inline !important;}
+body.lang-en .hero-btn .lang-en-only{display:inline !important;}
+body.lang-en .hero-btn .lang-pt-only{display:none !important;}
+body.lang-pt .hero-btn{min-width:182px;padding:14px 16px;}
+
+.hero-btn-primary{
+  background:linear-gradient(135deg,rgba(255,103,29,0.18),rgba(133,198,235,0.10));
+  color:var(--white);
+  border:1px solid rgba(255,103,29,0.45);
+  box-shadow:0 0 0 1px rgba(255,103,29,0.08),0 18px 50px rgba(255,103,29,0.10);
+}
+.hero-btn-primary:hover{
+  transform:translateY(-2px);
+  border-color:rgba(255,103,29,0.8);
+  box-shadow:0 0 0 1px rgba(255,103,29,0.14),0 22px 55px rgba(255,103,29,0.16);
+}
+.hero-btn-secondary{
+  background:rgba(11,24,40,0.38);
+  color:var(--blue);
+  border:1px solid rgba(133,198,235,0.30);
+  backdrop-filter:blur(10px);
+}
+.hero-btn-secondary:hover{
+  transform:translateY(-2px);
+  border-color:rgba(133,198,235,0.68);
+  color:var(--white);
+}
+.hero-btn-platform{
+  background:rgba(11,24,40,0.38);
+  color:var(--orange);
+  border:1px solid rgba(133,198,235,0.30);
+  backdrop-filter:blur(10px);
+}
+.hero-btn-platform:hover{
+  transform:translateY(-2px);
+  border-color:rgba(133,198,235,0.68);
+  color:var(--white);
+}
+.hero-btn .cta-arrows{margin-left:10px;}
+
+/* Hero enter animation */
+.hero-content.is-ready .hero-category,
+.hero-content.is-ready .hero-title,
+.hero-content.is-ready .hero-subcopy,
+.hero-content.is-ready .hero-domains,
+.hero-content.is-ready .hero-actions{animation:heroFadeUp 0.8s ease both;}
+.hero-content.is-ready .hero-title{animation-delay:0.08s;}
+.hero-content.is-ready .hero-subcopy{animation-delay:0.16s;}
+.hero-content.is-ready .hero-domains{animation-delay:0.24s;}
+.hero-content.is-ready .hero-actions{animation-delay:0.32s;}
+@keyframes heroFadeUp{
+  from{opacity:0;transform:translateY(18px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* ── PLATFORM ── */
+#platform{
+  position:relative;
+  overflow:visible;
+  min-height:100vh;
+  padding:0 60px;
+  border-top:1px solid var(--border);
+  background:linear-gradient(to bottom,rgba(11,24,40,0.32),transparent 24%,rgba(11,24,40,0.18));
+}
+#platform .platform-content{
+  position:relative;z-index:2;
+  width:min(1400px,100%);
+  display:flex;flex-direction:column;align-items:flex-start;
+  padding:100px 0 72px;
+  margin:0 auto;
+  min-height:calc(100vh - 240px);
+  justify-content:center;
+}
+.platform-head{
+  width:100%;
+  display:grid;
+  grid-template-columns:minmax(0,1.02fr) minmax(0,0.98fr);
+  gap:56px;align-items:start;
+  margin-bottom:18px;
+}
+.platform-category,
+.platform-stack-kicker{
+  display:flex;align-items:center;gap:12px;
+  font-family:'Nunito Sans',sans-serif;
+  font-weight:800;font-size:11px;
+  letter-spacing:3.4px;text-transform:uppercase;
+}
+.platform-category{color:var(--blue);}
+.platform-category::before{content:'';width:22px;height:1px;background:var(--blue);}
+.platform-stack-kicker{color:var(--text-mid);opacity:0.9;}
+.platform-stack-kicker::before{content:'';width:22px;height:1px;background:rgba(169,183,200,0.72);}
+.platform-main{
+  width:100%;
+  display:grid;
+  grid-template-columns:minmax(0,1.02fr) minmax(0,0.98fr);
+  gap:56px;align-items:start;
+  overflow:visible;
+}
+.platform-copy{max-width:640px;}
+.platform-title{
+  max-width:640px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:800;
+  font-size:clamp(38px,4.7vw,64px);
+  line-height:1.08;letter-spacing:-1.6px;
+  margin-bottom:16px;
+}
+body.lang-pt .platform-title .lang-en-only{display:none !important;}
+body.lang-pt .platform-title .platform-title-pt{display:block !important;}
+body.lang-pt .platform-title .platform-pt-line{display:block;line-height:1.1;}
+body.lang-pt .platform-title .platform-pt-line + .platform-pt-line{margin-top:0.06em;}
+.platform-subcopy{
+  max-width:620px;width:min(620px,92vw);
+  font-size:clamp(16px,1.12vw,18px);
+  font-weight:400;line-height:1.56;
+  color:var(--text-mid);opacity:0.92;
+  margin-bottom:18px;
+}
+.platform-body{
+  max-width:620px;width:min(620px,92vw);
+  font-size:16px;line-height:1.82;
+  color:var(--text-dim);
+}
+.platform-body p + p{margin-top:16px;}
+.platform-actions{margin-top:30px;display:flex;justify-content:flex-start;}
+.platform-cta{display:inline-flex;align-items:center;justify-content:center;}
+.platform-cta .lang-en-only,.platform-cta .lang-pt-only{display:inline;}
+body.lang-pt .platform-cta .lang-en-only{display:none !important;}
+body.lang-pt .platform-cta .lang-pt-only{display:inline !important;}
+body.lang-en .platform-cta .lang-en-only{display:inline !important;}
+body.lang-en .platform-cta .lang-pt-only{display:none !important;}
+.platform-stack-block{
+  width:100%;
+  display:flex;flex-direction:column;align-items:flex-start;
+  overflow:visible;
+}
+.platform-actions .hero-btn-secondary{color:var(--orange);}
+.platform-actions .hero-btn-secondary:hover{color:var(--white);}
+.platform-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;overflow:visible;}
+.platform-card{
+  position:relative;
+  min-height:210px;
+  background:linear-gradient(180deg,rgba(11,24,40,0.96),rgba(11,24,40,0.86));
+  border:1px solid var(--border);
+  padding:24px;
+  transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s;
+  overflow:visible;
+}
+.platform-card::before{
+  content:'';position:absolute;top:0;left:0;
+  width:100%;height:2px;
+  background:linear-gradient(90deg,var(--orange),var(--blue));
+  opacity:0.7;transform:scaleX(0);transform-origin:left;
+  transition:transform 0.3s ease,opacity 0.3s ease;
+}
+.platform-card::after{
+  content:'';position:absolute;
+  inset:auto -40px -40px auto;
+  width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,rgba(133,198,235,0.12),transparent 68%);
+  pointer-events:none;
+}
+.platform-card:hover{border-color:var(--border-h);transform:translateY(-6px) scale(1.02);box-shadow:0 22px 58px rgba(0,0,0,0.18);}
+.platform-card:hover::before{transform:scaleX(1);opacity:1;}
+.platform-card h3{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:800;font-size:24px;
+  letter-spacing:-0.5px;margin-bottom:12px;
+  color:var(--white);
+  display:flex;align-items:center;gap:0.26em;flex-wrap:wrap;
+}
+.platform-card h3 .label{color:var(--white);}
+.platform-card h3 .index-badge{display:inline-flex;align-items:center;gap:0.18em;line-height:1;}
+.platform-card h3 .bracket{color:var(--blue);}
+.platform-card h3 .num{color:var(--orange);font-size:1.18em;position:relative;top:0.03em;}
+.platform-card p{color:var(--blue);opacity:0.9;font-size:0.95rem;line-height:1.6;}
+
+/* ── APPLICATIONS ── */
+#applications-section{
+  min-height:100vh;
+  display:flex;align-items:center;
+  border-top:1px solid var(--border);
+  background:linear-gradient(to bottom,rgba(11,24,40,0.28),transparent 25%,rgba(11,24,40,0.15));
+}
+.applications-layout{display:block;}
+.applications-copy{max-width:760px;}
+.applications-copy .slbl{font-size:11px;letter-spacing:3.4px;color:var(--blue);margin-bottom:24px;}
+.applications-copy .slbl::before{background:var(--blue);}
+.applications-headline-wrap{margin-bottom:24px;}
+.applications-headline{margin-bottom:0;font-size:clamp(39px,4.25vw,58px);line-height:1.02;letter-spacing:-1.3px;}
+.applications-headline .apps-headline-line{display:block;line-height:1.04;}
+.applications-headline .apps-headline-line + .apps-headline-line{display:block;margin-top:0.04em;}
+.applications-headline-en{display:block;}
+.applications-headline-pt{display:none;}
+body.lang-en .applications-headline-en{display:block;}
+body.lang-en .applications-headline-pt{display:none;}
+body.lang-pt .applications-headline-en{display:none;}
+body.lang-pt .applications-headline-pt{display:block;font-size:clamp(38px,4vw,54px);line-height:1.02;letter-spacing:-1px;}
+.apps-intro{max-width:700px;font-size:16px;line-height:1.9;color:var(--text-dim);}
+.applications-cards{margin-top:38px;}
+.apps-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;}
+.app-card{
+  position:relative;
+  min-height:158px;
+  background:linear-gradient(180deg,rgba(11,24,40,0.96),rgba(11,24,40,0.86));
+  border:1px solid var(--border);
+  padding:32px 34px;
+  overflow:visible;
+  transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s;
+}
+.app-card::before{
+  content:'';position:absolute;top:0;left:0;
+  width:100%;height:2px;
+  background:linear-gradient(90deg,var(--orange),var(--blue));
+  opacity:0.7;transform:scaleX(0);transform-origin:left;
+  transition:transform 0.3s ease,opacity 0.3s ease;
+}
+.app-card::after{
+  content:'';position:absolute;
+  inset:auto -40px -40px auto;
+  width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,rgba(133,198,235,0.12),transparent 68%);
+  pointer-events:none;
+}
+.app-card:hover{border-color:var(--border-h);transform:translateY(-6px);box-shadow:0 22px 58px rgba(0,0,0,0.18);}
+.app-card:hover::before{transform:scaleX(1);opacity:1;}
+.app-card h3{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:24px;letter-spacing:-0.5px;margin-bottom:12px;color:var(--white);}
+.app-card p{color:var(--blue);opacity:0.9;font-size:0.95rem;line-height:1.6;}
+.app-cta-card{
+  grid-column:2;grid-row:3;
+  display:flex;justify-content:flex-end;align-items:flex-start;
+  padding-top:clamp(22px,2.2vw,34px);
+}
+.apps-cta{display:inline-flex;flex-direction:row;align-items:center;gap:10px;text-decoration:none;white-space:nowrap;}
+.apps-cta .cta-title{font-weight:800;color:var(--orange);font-family:'Nunito Sans',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;white-space:nowrap;}
+.apps-cta .cta-sub{font-family:'Nunito Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#8FA3B8;white-space:nowrap;}
+.apps-cta .cta-arrows{width:18px;height:auto;flex-shrink:0;transition:transform 0.25s ease;transform:translateY(-1px);}
+.apps-cta:hover .cta-arrows{transform:translateX(4px) translateY(-1px);}
+.apps-cta:hover .cta-title,.apps-cta:hover .cta-sub{color:var(--white);}
+.flagship-cta-row{display:flex;justify-content:flex-start;margin-top:36px;}
+
+/* ── TECHNOLOGY ── */
+#technology{
+  border-top:1px solid var(--border);
+  background:linear-gradient(to bottom,transparent,rgba(11,24,40,0.4),transparent);
+  padding-bottom:20vh;
+}
+#technology .slbl{color:var(--blue);}
+#technology .slbl::before{background:var(--blue);}
+
+/* H2 numbers */
+.tech-num{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;}
+.tech-num.blue{color:var(--blue);}
+.tech-num.orange{color:var(--orange);}
+.tech-h2-en,.tech-h2-pt{display:block;}
+
+/* Intro */
+.tech-intro-grid{display:flex;flex-direction:column;gap:14px;max-width:760px;margin-bottom:56px;}
+.tech-intro-p{font-size:16px;line-height:1.85;color:var(--text-dim);}
+.tech-intro-p-accent{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:600;
+  font-size:clamp(17px,1.4vw,20px);
+  color:var(--white);
+  opacity:0.9;
+}
+
+/* Layer labels */
+.tech-layer-label{
+  font-family:'Nunito Sans',sans-serif;
+  font-weight:800;font-size:9px;
+  letter-spacing:4px;text-transform:uppercase;
+  color:var(--gray);
+  margin-bottom:12px;
+  padding-left:2px;
+}
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:4px;}
+.tech-grid + .tech-layer-label{margin-top:40px;}
+.tc{background:var(--card-bg);border:1px solid var(--border);padding:28px;transition:border-color 0.3s,transform 0.3s;}
+.tc:hover{border-color:var(--border-h);transform:translateY(-4px);}
+.tc-core{border-color:rgba(133,198,235,0.22);}
+.tc-core .tcode{color:var(--orange);}
+.tcode{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:36px;color:var(--blue);margin-bottom:12px;line-height:1;}
+.tc h3{font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;color:var(--white);margin-bottom:10px;text-transform:uppercase;}
+.tc p{font-size:13px;color:var(--gray);line-height:1.7;}
+
+/* TRL */
+.trl-lbl{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:9px;letter-spacing:4px;color:var(--gray);margin-bottom:10px;text-transform:uppercase;}
+.trl-bar{display:flex;gap:3px;}
+.ts{flex:1;height:5px;background:rgba(133,198,235,0.08);transition:background 0.3s ease;}
+.ts.on{background:var(--blue);}
+.ts.hl{background:var(--orange);}
+
+/* BoS Statement */
+.bos-statement{
+  margin:48px 0;
+  padding:40px 48px;
+  background:rgba(11,24,40,0.6);
+  border:1px solid rgba(133,198,235,0.18);
+  border-left:3px solid var(--orange);
+  position:relative;
+}
+.bos-statement::before{
+  content:"";position:absolute;top:0;left:0;
+  width:100%;height:1px;
+  background:linear-gradient(90deg,var(--orange),rgba(133,198,235,0.4),transparent);
+}
+.bos-statement-text{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:700;
+  font-size:clamp(20px,2.2vw,30px);
+  line-height:1.35;
+  letter-spacing:-0.4px;
+  color:var(--white);
+}
+.bos-statement-text em{color:var(--orange);font-style:normal;font-weight:800;}
+.bos-name{color:var(--orange);font-style:normal;font-weight:800;}
+.bos-ref{font-weight:800;font-style:normal;}
+.bos-ref .bos-bracket-char{color:var(--blue);font-size:0.95em;vertical-align:0.08em;}
+.bos-ref .bos-letter{color:var(--orange);}
+/* Remove old granular bos classes */
+.bos-body,.bos-sys,.bos-b,.bos-s{color:var(--orange);font-weight:800;}
+.bos-op,.bos-o{color:var(--blue);font-weight:800;}
+.bos-bracket{color:var(--gray);}
+
+/* TRL Panel */
+.trl-panel{
+  margin-bottom:40px;
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  padding:28px 32px;
+}
+.trl-panel-label{
+  font-family:'Nunito Sans',sans-serif;
+  font-weight:700;font-size:9px;
+  letter-spacing:4px;text-transform:uppercase;
+  color:var(--gray);margin-bottom:20px;
+}
+.trl-panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.trl-product-name{
+  font-family:'Nunito Sans',sans-serif;
+  font-weight:800;font-size:11px;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--white);margin-bottom:10px;
+}
+.trl-product-bar{display:flex;align-items:center;gap:16px;}
+.trl-product-bar .trl-bar{flex:1;}
+.trl-product-value{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:900;font-size:13px;
+  color:var(--gray);white-space:nowrap;
+  letter-spacing:1px;
+}
+.trl-product-value span{color:var(--orange);}
+.tech-cta{margin-top:40px;}
+
+/* ── D2W FLAGSHIP ── */
+#d2w-section{
+  border-top:1px solid var(--border);
+  padding-bottom:20vh;
+  background:
+    radial-gradient(circle at 82% 18%,rgba(133,198,235,0.09),transparent 26%),
+    radial-gradient(circle at 16% 78%,rgba(255,103,29,0.06),transparent 28%),
+    linear-gradient(to bottom,rgba(11,24,40,0.42),transparent 24%,rgba(11,24,40,0.16));
+  position:relative;overflow:hidden;
+}
+#d2w-section::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(133,198,235,0.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(133,198,235,0.02) 1px,transparent 1px);
+  background-size:72px 72px;
+  pointer-events:none;
+}
+.flagship-shell{position:relative;z-index:1;display:flex;flex-direction:column;gap:30px;}
+.flagship-top{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(360px,0.95fr);
+  gap:28px;align-items:start;
+}
+.flagship-copy{display:flex;flex-direction:column;align-items:flex-start;text-align:left;}
+.flagship-copy .slbl{margin-bottom:22px;color:var(--blue);font-size:11px;letter-spacing:3.2px;}
+.flagship-copy .slbl::before{background:var(--blue);}
+.flagship-logo{
+  width:min(430px,100%);
+  margin-bottom:32px;
+  transform:scale(1.2);
+  transform-origin:left center;
+}
+.flagship-logo svg{width:100%;height:auto;display:block;}
+.flagship-bridge{
+  max-width:620px;
+  font-family:'Nunito Sans',sans-serif;
+  font-weight:800;font-size:11px;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--blue);line-height:1.8;
+  margin-bottom:18px;
+}
+.flagship-lead{
+  max-width:680px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:700;
+  font-size:clamp(28px,3.2vw,42px);
+  line-height:1.12;letter-spacing:-0.8px;
+  color:var(--white);
+  margin-bottom:18px;
+}
+#d2w-section .flagship-lead .split-line:first-child{white-space:nowrap;}
+.flagship-body{
+  max-width:700px;
+  font-size:16px;line-height:1.84;
+  color:var(--text-dim);
+  margin-bottom:0;
+}
+.flagship-card{
+  position:relative;
+  background:linear-gradient(180deg,rgba(11,24,40,0.96),rgba(11,24,40,0.86));
+  border:1px solid var(--border);
+  padding:30px 34px 24px;
+  overflow:hidden;
+  transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s;
+  box-shadow:0 16px 44px rgba(0,0,0,0.12);
+}
+.flagship-card::before{
+  content:"";position:absolute;top:0;left:0;
+  width:100%;height:2px;
+  background:linear-gradient(90deg,var(--orange),var(--blue));
+  opacity:0.75;transform:scaleX(0);transform-origin:left;
+  transition:transform 0.45s ease,opacity 0.3s ease;
+}
+.flagship-card::after{
+  content:"";position:absolute;
+  inset:auto -36px -36px auto;
+  width:140px;height:140px;border-radius:50%;
+  background:radial-gradient(circle,rgba(133,198,235,0.13),transparent 68%);
+  pointer-events:none;
+}
+.flagship-card:hover{border-color:var(--border-h);transform:translateY(-6px) scale(1.01);box-shadow:0 22px 58px rgba(0,0,0,0.18);}
+.flagship-card:hover::before{transform:scaleX(1);opacity:1;}
+.flagship-card-title{
+  font-family:'Nunito Sans',sans-serif;
+  font-weight:800;font-size:10px;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--orange);margin-bottom:18px;
+}
+.flagship-points{display:grid;gap:12px;margin-bottom:28px;}
+.flagship-point{
+  display:flex;align-items:flex-start;gap:12px;
+  font-family:'Nunito Sans',sans-serif;
+  font-size:15px;line-height:1.68;
+  color:var(--text-hi);
+}
+.flagship-point::before{
+  content:"";width:8px;height:8px;border-radius:50%;
+  background:var(--orange);
+  margin-top:0.52em;flex-shrink:0;
+  box-shadow:0 0 0 5px rgba(255,103,29,0.08);
+}
+.flagship-trl{
+  display:flex;flex-direction:column;align-items:flex-start;gap:12px;
+  padding-top:24px;
+  border-top:1px solid rgba(133,198,235,0.12);
+}
+.flagship-trl-value{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:900;
+  font-size:clamp(42px,4.6vw,64px);
+  line-height:0.9;letter-spacing:-2px;
+  color:var(--white);
+}
+.flagship-trl-copy{
+  font-family:'Nunito Sans',sans-serif;
+  font-size:12px;line-height:1.8;
+  letter-spacing:2.1px;text-transform:uppercase;
+  color:var(--blue);
+}
+.flagship-bottom{display:flex;flex-direction:column;gap:18px;}
+.flagship-paradigm,
+.flagship-statement-panel{
+  width:100%;max-width:none;
+  background:rgba(11,24,40,0.44);
+  border:1px solid rgba(133,198,235,0.12);
+  padding:26px 36px;
+  position:relative;overflow:visible;
+  transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s;
+}
+.flagship-paradigm::before,
+.flagship-statement-panel::before{
+  content:"";position:absolute;top:0;left:0;
+  width:100%;height:1px;
+  background:linear-gradient(90deg,rgba(255,103,29,0.75),rgba(133,198,235,0.6));
+  opacity:0.7;
+}
+.flagship-paradigm:hover,
+.flagship-statement-panel:hover{
+  border-color:var(--border-h);
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:0 22px 58px rgba(0,0,0,0.18);
+}
+.flagship-kicker{
+  font-family:'Nunito Sans',sans-serif;
+  font-weight:800;font-size:10px;
+  letter-spacing:3.1px;text-transform:uppercase;
+  color:var(--orange);margin-bottom:14px;
+}
+.flagship-paradigm h3{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:800;
+  font-size:clamp(30px,3.2vw,42px);
+  line-height:1.06;letter-spacing:-1px;
+  margin-bottom:18px;max-width:none;
+}
+.flagship-paradigm p{font-size:16px;line-height:1.85;color:var(--text-dim);text-align:left;}
+.flagship-paradigm .paradigm-p2{margin-top:14px;}
+.flagship-statement-panel{
+  display:flex;flex-direction:column;justify-content:space-between;gap:18px;
+}
+.flagship-statement-main{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:800;
+  font-size:clamp(26px,2.8vw,37px);
+  line-height:1.14;letter-spacing:-0.9px;
+  color:var(--white);max-width:none;
+}
+.flagship-statement-main .apps-headline-line{display:block;}
+.flagship-statement-sub{font-size:16px;line-height:1.8;color:var(--text-dim);}
+
+/* ── PROJECTS ── */
+#projects{border-top:1px solid var(--border);padding-bottom:20vh;}
+.pg{display:flex;flex-direction:column;gap:2px;}
+.pc{
+  background:var(--card-bg);border:1px solid var(--border);
+  padding:36px 40px;
+  position:relative;overflow:hidden;
+  transition:border-color 0.3s;
+}
+.pc::before{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--orange),var(--blue));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.4s;
+}
+.pc:hover::before{transform:scaleX(1);}
+.pc:hover{border-color:var(--border-h);}
+.pnum{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:900;font-size:100px;
+  color:rgba(255,255,255,0.055);
+  position:absolute;top:10px;right:24px;
+  line-height:1;pointer-events:none;
+  transition:color 0.3s;
+}
+.pc:hover .pnum{color:rgba(255,255,255,0.1);}
+/* split layout */
+.pc-inner{display:flex;gap:40px;align-items:stretch;}
+.pc-left{flex:1;min-width:0;display:flex;flex-direction:column;}
+.pc-right{
+  width:200px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:16px;
+}
+.pc-right img{
+  width:168px;height:168px;
+  border-radius:50%;object-fit:cover;display:block;
+  border:1px solid rgba(133,198,235,0.18);
+}
+.ptrl{
+  display:inline-block;
+  border:1px solid rgba(255,103,29,0.45);
+  font-family:'Nunito Sans',sans-serif;
+  font-weight:800;font-size:8px;letter-spacing:3px;
+  color:var(--orange);padding:3px 10px;
+  margin-bottom:14px;text-transform:uppercase;
+}
+.psub{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:9px;letter-spacing:3px;color:var(--blue);margin-bottom:18px;text-transform:uppercase;}
+.ptags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:22px;margin-top:auto;padding-top:18px;}
+.ptag{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:8px;letter-spacing:1px;color:var(--gray);border:1px solid var(--border);padding:3px 8px;text-transform:uppercase;}
+.plink{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'Nunito Sans',sans-serif;
+  font-weight:800;font-size:9px;letter-spacing:3px;
+  color:var(--blue);text-decoration:none;text-transform:uppercase;
+  border-bottom:1px solid transparent;transition:border-color 0.2s;
+  margin-top:8px;
+}
+.plink:hover{border-color:var(--blue);}
+.proj-logo{width:min(340px,80%);margin-bottom:14px;}
+.proj-logo svg{width:100%;height:auto;display:block;}
+
+/* ── RECOGNITION ── */
+#recognition{border-top:1px solid var(--border);}
+.rg{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.rc{background:var(--card-bg);border:1px solid var(--border);padding:36px;transition:border-color 0.3s;}
+.rc:hover{border-color:var(--border-h);}
+.ri{font-size:28px;margin-bottom:20px;color:var(--blue);}
+.rc h3{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:16px;letter-spacing:1px;margin-bottom:10px;}
+.rc p{font-size:13px;color:var(--gray);line-height:1.7;}
+
+/* ── ABOUT ── */
+#about{border-top:1px solid var(--border);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.about-grid p{text-align:left;}
+.about-block1{margin-bottom:56px;}
+.about-taglines{margin:20px 0 32px;}
+.about-tagline-b{font-family:'Nunito Sans',sans-serif;font-weight:300;font-size:clamp(15px,1.4vw,19px);color:var(--blue);line-height:1.5;margin-bottom:8px;font-style:italic;}
+.about-tagline-c{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:clamp(12px,1.1vw,15px);color:var(--white);letter-spacing:1px;text-align:center;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);}
+.about-tagline-c em{color:var(--orange);font-style:normal;}
+.indent-line{display:inline-block;padding-left:2ch;}
+.indent-line2{display:inline-block;padding-left:3.2ch;}
+.ford-inline-label{display:block;color:var(--orange);font-style:italic;font-weight:300;font-size:15px;letter-spacing:0;text-transform:none;margin-bottom:2px;line-height:1.2;}
+.ford-bq{font-size:15px;line-height:1.65;}
+.ford-callout{margin-top:24px;}
+.about-text p{font-size:16px;line-height:1.85;color:var(--gray);margin-bottom:20px;text-align:justify;}
+.about-text strong{color:var(--white);font-weight:700;}
+.bq{border-left:3px solid var(--orange);padding:12px 0 12px 22px;font-style:italic;font-size:17px;font-weight:300;color:var(--blue);line-height:1.65;margin:28px 0;}
+.stats{display:flex;flex-direction:column;gap:2px;height:100%;}
+.stat{background:var(--card-bg);border:1px solid var(--border);padding:28px 24px;transition:border-color 0.3s;flex:1;display:flex;flex-direction:column;justify-content:center;}
+.stat:hover{border-color:var(--border-h);}
+.snum{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:62px;color:var(--blue);line-height:1;}
+.snum sup{font-size:28px;color:var(--orange);}
+.snum-plus{font-size:1.1em;color:var(--orange);font-style:italic;vertical-align:middle;transform:translateY(-1px);}
+.snum-trl{font-size:inherit;color:var(--blue);font-weight:900;}
+.snum-arrow{font-size:18px;color:var(--orange);font-weight:800;letter-spacing:1px;margin-left:6px;}
+.snum-split{display:inline-flex;align-items:center;gap:0;}
+.snum-op{font-size:36px;color:var(--orange);margin:0 4px;line-height:1;align-self:center;}
+.slb{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;color:var(--gray);margin-top:10px;text-transform:uppercase;line-height:1.8;}
+
+/* ── FOUNDER ── */
+#founder{border-top:1px solid var(--border);}
+.fg{display:grid;grid-template-columns:300px 1fr;gap:72px;align-items:start;}
+.fcard{background:transparent;border:none;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;position:relative;overflow:visible;}
+.fcard-photo-wrap{width:280px;height:280px;flex-shrink:0;margin-bottom:20px;}
+.fcard-photo{width:100%;height:100%;object-fit:contain;}
+.fcard-lbl{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:8px;letter-spacing:4px;color:var(--gray);text-transform:uppercase;text-align:center;position:relative;}
+.fname{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:clamp(36px,4vw,52px);line-height:0.9;letter-spacing:-1px;margin-bottom:6px;}
+.frole{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:9px;letter-spacing:4px;color:var(--orange);text-transform:uppercase;margin-bottom:32px;}
+.founder-logo{width:min(480px,100%);margin-bottom:12px;}
+.founder-logo svg{width:100%;height:auto;display:block;}
+.founder-text p{font-size:15px;line-height:1.85;color:var(--gray);margin-bottom:16px;}
+.founder-text strong{color:var(--white);font-weight:700;}
+
+/* ── CONTACT ── */
+#contact{border-top:1px solid var(--border);}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.bcta{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:clamp(24px,2.8vw,38px);line-height:1.15;margin-bottom:32px;}
+.bcta em{color:var(--orange);font-style:normal;}
+.clist{display:flex;flex-direction:column;gap:18px;}
+.ci{display:flex;align-items:center;gap:14px;font-family:'Nunito Sans',sans-serif;font-size:13px;color:var(--gray);}
+.cdot{width:6px;height:6px;background:var(--orange);border-radius:50%;flex-shrink:0;}
+.ci a{color:var(--blue);text-decoration:none;font-weight:700;}
+.ci a:hover{color:var(--white);}
+.addr{margin-top:32px;border-left:2px solid var(--border);padding-left:20px;}
+.addr p{font-family:'Nunito Sans',sans-serif;font-size:10px;letter-spacing:2px;color:var(--gray);line-height:2.2;text-transform:uppercase;}
+.addr a{color:var(--gray);text-decoration:none;transition:color 0.2s;}
+.addr a:hover{color:var(--blue);}
+.addr a:hover p{color:var(--blue);}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify-content:space-between;align-items:center;}
+.flogo{width:min(300px,55vw);height:auto;opacity:0.35;}
+.fcopy{font-family:'Nunito Sans',sans-serif;font-size:9px;letter-spacing:2px;color:rgba(87,103,127,0.5);text-transform:uppercase;}
+
+/* ── SCROLL ANIMATION ── */
+.fu{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.fu.vis{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){.fu{opacity:1;transform:none;}}
+
+/* ── MEDIA QUERIES ── */
+
+/* 1100px — D2W top grid collapses */
+@media(max-width:1100px){
+  .flagship-top{grid-template-columns:1fr;gap:30px;}
+  .flagship-card{max-width:none;}
+}
+
+/* 900px — mobile */
+@media(max-width:900px){
+
+  /* nav */
+  nav{padding:14px 20px;}
+  .nav-links{display:none;}
+  .lang-toggle{margin-left:16px;}
+
+  /* section shell */
+  .si{padding:60px 20px;}
+
+  /* footer */
+  footer{flex-direction:column;gap:10px;padding:20px;text-align:center;}
+  .flogo{width:100%;}
+
+  /* grids → single column */
+  .about-grid,
+  .tech-grid,
+  .pg,
+  .rg,
+  .cg,
+  .fg{grid-template-columns:1fr;gap:32px;}
+  .pc-inner{flex-direction:column;}
+  .pc-right{width:100%;height:200px;}
+
+  /* hero */
+  #hero{padding:100px 20px 48px;justify-content:center;}
+  .hero-content{text-align:center;margin:0 auto;align-items:center;}
+  .hero-logo{width:min(86vw,620px);max-width:100%;}
+  .hero-tagline{text-align:center;padding-right:0;transform:none;width:min(86vw,680px);font-size:clamp(10px,3.5vw,16px);letter-spacing:3px;}
+  .hero-category{font-size:9px;letter-spacing:2.4px;padding:9px 12px;}
+  .hero-title{font-size:clamp(40px,11vw,58px);line-height:1.06;letter-spacing:-1.15px;max-width:11ch;}
+  .hero-subcopy{width:min(92vw,620px);text-align:center;font-size:16px;line-height:1.64;}
+  .hero-domains{justify-content:center;font-size:10px;letter-spacing:2.4px;line-height:1.8;margin-bottom:28px;}
+  .hero-actions{width:100%;flex-direction:column;}
+  .hero-btn{width:min(320px,92vw);}
+
+  /* shared */
+  .slbl{justify-content:center;}
+
+  /* platform */
+  #platform{min-height:auto;padding-top:60px;padding-bottom:60px;}
+  #platform .platform-content{min-height:auto;text-align:center;margin:0 auto;align-items:center;padding:60px 0;}
+  .platform-head,.platform-main{grid-template-columns:1fr;gap:32px;}
+  .platform-head{margin-bottom:22px;}
+  .platform-copy{max-width:none;display:flex;flex-direction:column;align-items:center;}
+  .platform-category,.platform-stack-kicker{font-size:9px;letter-spacing:2.4px;}
+  .platform-title{max-width:none;width:min(92vw,680px);font-size:clamp(40px,11vw,58px);line-height:1.06;letter-spacing:-1.15px;}
+  body.lang-pt .platform-title .platform-pt-line{white-space:normal;line-height:1.08;}
+  .platform-subcopy{width:min(92vw,620px);text-align:center;font-size:16px;line-height:1.64;}
+  .platform-body{width:min(92vw,620px);text-align:center;}
+  .platform-stack-block{align-items:stretch;padding-top:0;}
+  .platform-stack-kicker{justify-content:center;width:100%;}
+  .platform-grid{grid-template-columns:1fr;}
+  .platform-card{min-height:auto;text-align:center;}
+
+  /* applications */
+  .applications-copy,.apps-intro{text-align:center;}
+  .applications-cards{margin-top:30px;}
+  .apps-grid{grid-template-columns:1fr;}
+  .app-card{text-align:center;}
+  .app-cta-card{grid-column:auto;grid-row:auto;justify-content:center;align-items:center;padding-top:12px;}
+  .apps-cta{white-space:normal;flex-wrap:wrap;justify-content:center;}
+  .apps-cta .cta-title,.apps-cta .cta-sub{white-space:normal;}
+  body.lang-pt .applications-headline-pt{font-size:clamp(27px,7.4vw,36px);}
+
+  /* d2w */
+  .flagship-copy{align-items:center;text-align:center;}
+  .flagship-logo{transform-origin:center;margin-bottom:28px;}
+  .flagship-bridge,.flagship-body{max-width:none;text-align:center;}
+  .flagship-lead{max-width:none;text-align:center;font-size:clamp(30px,9vw,44px);}
+  #d2w-section .flagship-lead .split-line:first-child{white-space:normal;}
+  .flagship-card{text-align:left;}
+  .flagship-paradigm h3,.flagship-statement-main{max-width:none;}
+  .flagship-paradigm,.flagship-statement-panel{padding:28px 22px;}
+  .flagship-trl{flex-direction:column;align-items:flex-start;gap:10px;}
+  .flagship-statement-sub{white-space:normal;}
+  .flagship-bottom{gap:16px;}
+
+  /* technology */
+  .tech-intro-grid{margin-bottom:36px;}
+  .tech-grid{grid-template-columns:1fr;}
+  .tech-layer-label{text-align:center;}
+  .bos-statement{padding:28px 24px;}
+  .bos-statement-text{font-size:clamp(18px,5vw,24px);}
+  .trl-panel-grid{grid-template-columns:1fr;gap:20px;}
+  .tech-cta{display:flex;justify-content:center;}
+
+  /* projects */
+  .psub{text-align:center;}
+  .ptags{justify-content:center;}
+
+  /* about */
+  .about-tagline-b,.about-tagline-c{text-align:center;}
+  .bq{text-align:center;border-left:none;border-top:3px solid var(--orange);padding:12px 0;}
+  .ford-bq span[style]{padding-left:0 !important;display:inline;}
+  .ford-bq br{display:none;}
+  .ford-inline-label{text-align:center;display:block;}
+  .stat{text-align:center;}
+  .snum{justify-content:center;}
+
+  /* founder */
+  .founder-logo{margin:0 auto 12px;}
+  .frole{text-align:center;}
+
+  /* recognition */
+  .rc{text-align:center;}
+
+  /* contact */
+  .bcta{text-align:center;}
+  .clist{align-items:center;}
+  .addr{text-align:center;border-left:none;border-top:2px solid var(--border);padding-left:0;padding-top:20px;}
+
+  /* i18n block display */
+  .lang-en-only,.lang-pt-only{display:block;}
+  body.lang-en .lang-pt-only{display:none !important;}
+  body.lang-pt .lang-en-only{display:none !important;}
+}
+
 </style>
+
 </head>
-<body>
+<body class="lang-en">
 <div class="cursor" id="cur"></div>
 <div class="cursor-ring" id="curR"></div>
 
@@ -296,7 +1121,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="#about" data-en="ABOUT" data-pt="SOBRE">ABOUT</a></li>
-    <li><a href="#technology" data-en="TECHNOLOGY" data-pt="TECNOLOGIA">TECHNOLOGY</a></li>
+    <li><a href="#platform" data-en="PLATFORM" data-pt="PLATAFORMA">PLATFORM</a></li>
     <li><a href="#projects" data-en="PROJECTS" data-pt="PROJETOS">PROJECTS</a></li>
     <li><a href="#founder" data-en="FOUNDER" data-pt="FUNDADOR">FOUNDER</a></li>
     <li><a href="#contact" data-en="CONTACT" data-pt="CONTATO">CONTACT</a></li>
@@ -312,9 +1137,7 @@
   <div class="hero-glow"></div>
   <div class="scanline"></div>
   <div class="hero-stripe"></div>
-  <div class="hero-content fu">
-
-    <!-- LOGO -->
+  <div class="hero-content fu" id="heroContent">
     <div class="hero-logo"><svg viewBox="0 0 1774.19 143.45" xmlns="http://www.w3.org/2000/svg">
         <path d="M168.52,13.59l-20.54,26.67h-36.64v75.88h-31.73V40.26H31.47l20.54-26.67h116.5Z" style="fill:#fff;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;"/>
         <path d="M294.22,77.97c-8.89-15.79-13.03-23.45-16.56-30.81-3.22,7.36-7.36,14.87-16.25,30.66l-16.4,29.12c-3.68,6.59-9.2,10.88-17.47,10.88s-15.02-4.6-17.78-14.1l-26.06-90.13h31.73l9.66,35.72c3.22,11.5,5.37,19.93,6.9,28.21,3.37-7.2,7.36-15.02,14.41-28.36l13.8-25.75c5.37-10.12,10.58-11.5,18.09-11.5s13.03,1.38,18.4,11.5l13.64,25.91c7.66,14.1,11.19,21.31,14.41,28.21,1.69-8.12,3.99-16.86,7.05-28.21l9.66-35.72h30.96l-26.52,90.13c-2.76,9.5-9.81,14.1-17.78,14.1s-13.64-4.14-17.47-10.88l-16.4-28.97Z" style="fill:#fff;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;"/>
@@ -329,41 +1152,581 @@
         <path d="M1741.64,13.59l-60.86,68.67v33.88h-31.88v-34.03l-62.54-68.52h40.77l24.53,28.51c3.22,3.68,11.8,13.03,13.95,16.1,1.99-2.91,5.52-7.36,12.88-16.25l23.3-28.36h39.86Z" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2.83px;"/>
       </svg></div>
 
-    <!-- SLOGAN com setas -->
     <div class="hero-tagline">
-      <span class="tl-ff">Fast Forward</span> <span class="tl-future"><svg class="seta-icon" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg> to the Future</span>
+      <span class="tl-ff">Fast Forward</span>
+      <span class="tl-future"><svg class="seta-icon" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg> to the Future</span>
     </div>
 
-    <!-- EYEBROW -->
-    <div class="hero-eyebrow">
-      <span class="ey-left" data-en="DEEP TECH STARTUP" data-pt="STARTUP DEEP TECH">STARTUP DEEP TECH</span><span class="ey-sep"> — </span><span class="ey-right" data-en="Born from the Future" data-pt="Nascemos do Futuro">Nascemos do Futuro</span>
+    <div class="hero-category"
+         data-en="HUMAN MOVEMENT INTELLIGENCE"
+         data-pt="HUMAN MOVEMENT INTELLIGENCE">
+      HUMAN MOVEMENT INTELLIGENCE
     </div>
 
-    <!-- DESC -->
-    <p class="hero-desc"
-      data-en="We develop intelligent products with Industry 4.0 enabling technologies — IoT, AI, XR and Digital Twins. With deep tech we connect the human body to the digital world to uniquely transform motor health: rehabilitation, fitness, performance and military defence."
-      data-pt="Desenvolvemos produtos inteligentes com as tecnologias habilitadoras da Indústria 4.0 — IoT, AI, XR e Gêmeos Digitais. Com deep tech conectamos o corpo humano ao mundo digital para transformar, de maneira única, a saúde motora: reabilitação, fitness, performance e defesa militar.">
-      Desenvolvemos produtos inteligentes com as tecnologias habilitadoras da Indústria 4.0 — IoT, AI, XR e Gêmeos Digitais. Com deep tech conectamos o corpo humano ao mundo digital para transformar, de maneira única, a saúde motora: reabilitação, fitness, performance e defesa militar.
+    <h1 class="hero-title"
+        data-en="Digital Twin of Human Movement"
+        data-pt="O Digital Twin do Movimento Humano">
+      Digital Twin of Human Movement
+    </h1>
+
+    <p class="hero-subcopy"
+       data-en="Technology to measure, actuate and optimize human movement."
+       data-pt="Tecnologia para medir, atuar e otimizar o movimento humano.">
+      Technology to measure, actuate and optimize human movement.
     </p>
 
-    <!-- BADGES -->
-    <div class="hero-badges">
-      <div class="badge o" data-en="VOUCHERS FOR STARTUPS — APPROVED 2025" data-pt="VOUCHERS FOR STARTUPS — APROVADO 2025">VOUCHERS FOR STARTUPS — APROVADO 2025</div>
-      <div class="badge o" data-en="STARTUP PORTUGAL CERTIFIED · 2026" data-pt="STARTUP PORTUGAL CERTIFICADA · 2026">STARTUP PORTUGAL CERTIFICADA · 2026</div>
-      <div class="badge" data-en="MEMBER · TAGUSPARK INCUBATOR · <span style='white-space:nowrap;'>OEIRAS VALLEY</span>" data-pt="MEMBRO · INCUBADORA TAGUSPARK · <span style='white-space:nowrap;'>OEIRAS VALLEY</span>">MEMBRO · INCUBADORA TAGUSPARK · <span style="white-space:nowrap;">OEIRAS VALLEY</span></div>
+    <div class="hero-domains"
+         data-en="Rehab • Performance • Fitness • Military"
+         data-pt="Rehab • Performance • Fitness • Military">
+      Rehab • Performance • Fitness • Military
     </div>
 
-    <!-- LOCALIZAÇÕES com seta SVG -->
-    <div class="hero-locs">
-      <strong>SÃO PAULO · BRASIL</strong>
-      <svg class="seta-loc" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
-      <strong>LISBOA · PORTUGAL</strong>
+    <div class="hero-actions">
+      <a href="#platform"
+         class="hero-btn hero-btn-platform"
+         data-en="The Platform"
+         data-pt="A Plataforma">
+        <span class="lang-en-only">The Platform</span>
+        <span class="lang-pt-only">A Plataforma</span>
+        <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+      </a>
+
+      <a href="#d2w-section"
+         class="hero-btn hero-btn-secondary"
+         data-en="Discover the D2W System"
+         data-pt="Descobrir o Sistema D2W">
+        <span data-en="Discover the D2W System" data-pt="Descobrir o Sistema D2W">Discover the D2W System</span>
+        <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+      </a>
     </div>
 
   </div>
 </section>
 
-<!-- ABOUT -->
+<section id="platform">
+  <div class="platform-content">
+    <div class="platform-head fu">
+      <div class="platform-category">HUMAN MOVEMENT INTELLIGENCE</div>
+      <div class="platform-stack-kicker">
+        <span class="lang-en-only">HUMAN MOTION TECHNOLOGY STACK</span>
+        <span class="lang-pt-only">STACK DE TECNOLOGIA DO MOVIMENTO HUMANO</span>
+      </div>
+    </div>
+
+    <div class="platform-main">
+      <div class="platform-copy fu">
+        <h2 class="platform-title">
+          <span class="lang-en-only">Human Motion Technology Platform</span>
+          <span class="lang-pt-only platform-title-pt">Human Motion Technology Platform</span>
+        </h2>
+
+        <p class="platform-subcopy">
+          <span class="lang-en-only">A technological infrastructure that senses, actuates and models human movement — enabling the creation of its digital twin.</span>
+          <span class="lang-pt-only">Uma infraestrutura tecnológica que mede, atua e modela o movimento humano — viabilizando a criação do seu Digital Twin.</span>
+        </p>
+
+        <div class="platform-body">
+          <p>
+            <span class="lang-en-only">It is the engineering layer where sensing, actuation and intelligence converge into one system architecture.</span>
+            <span class="lang-pt-only">É a camada de engenharia onde sensing, actuation e intelligence convergem numa única arquitetura de sistema.</span>
+          </p>
+          <p>
+            <span class="lang-en-only">It creates the technical foundation for scalable applications where data, interaction, modeling and intelligence operate as one stack.</span>
+            <span class="lang-pt-only">Cria a base técnica para aplicações escaláveis, onde dados, interação, modeling e intelligence operam como um único stack.</span>
+          </p>
+        
+        <div class="platform-actions">
+          <a href="#applications-section" class="hero-btn hero-btn-secondary platform-cta">
+            <span class="lang-en-only">Where It Takes Form</span>
+            <span class="lang-pt-only">Onde Ganha Forma</span>
+            <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+          </a>
+        </div>
+</div>
+      </div>
+      <div class="platform-stack-block">
+        <div class="platform-grid fu">
+          <article class="platform-card">
+            <h3><span class="label">Sensing</span><span class="index-badge"><span class="bracket">[</span><span class="num">1</span><span class="bracket">]</span></span></h3>
+            <p>
+              <span class="lang-en-only"><strong>Biomechanical sensing</strong> technologies capture motion, force and neuromuscular signals, creating the data foundation for modeling human movement.</span>
+              <span class="lang-pt-only">Tecnologias de <strong>sensorização biomecânica</strong> captam movimento, força e sinais neuromusculares, criando a base de dados para modelar o movimento humano.</span>
+            </p>
+          </article>
+
+          <article class="platform-card">
+            <h3><span class="label">Actuation</span><span class="index-badge"><span class="bracket">[</span><span class="num">2</span><span class="bracket">]</span></span></h3>
+            <p>
+              <span class="lang-en-only"><strong>Electromechanical actuation</strong> systems interact collaboratively with human movement, modulating force and resistance in real time to guide, adapt and optimize movement dynamics.</span>
+              <span class="lang-pt-only"><strong>Sistemas de atuação eletromecânica</strong> interagem de forma colaborativa com o movimento humano, modulando força e resistência em tempo real para orientar, adaptar e otimizar a dinâmica do movimento.</span>
+            </p>
+          </article>
+
+          <article class="platform-card">
+            <h3><span class="label">Modeling</span><span class="index-badge"><span class="bracket">[</span><span class="num">3</span><span class="bracket">]</span></span></h3>
+            <p>
+              <span class="lang-en-only"><strong>Dynamic 3D biomechanical modeling</strong> transforms movement data into computational representations of the human body, enabling predictive models of motor behavior.</span>
+              <span class="lang-pt-only"><strong>Modelação biomecânica dinâmica em 3D</strong> transforma dados de movimento em representações computacionais do corpo humano, permitindo a construção de modelos preditivos do comportamento motor.</span>
+            </p>
+          </article>
+
+          <article class="platform-card">
+            <h3><span class="label">Intelligence</span><span class="index-badge"><span class="bracket">[</span><span class="num">4</span><span class="bracket">]</span></span></h3>
+            <p>
+              <span class="lang-en-only"><strong>Artificial intelligence</strong> learns movement patterns, anticipates behaviors and optimizes motor performance in real time.</span>
+              <span class="lang-pt-only"><strong>Sistemas de inteligência artificial</strong> aprendem padrões de movimento, antecipam comportamentos e otimizam a performance motora em tempo real.</span>
+            </p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="applications-section">
+  <div class="si">
+    <div class="applications-layout">
+      <div class="applications-copy fu">
+        <div class="slbl" data-en="APPLICATIONS" data-pt="APLICAÇÕES">APPLICATIONS</div>
+        <div class="applications-headline-wrap">
+          <h2 class="applications-headline applications-headline-en"
+            data-en="Where Technology<br>Takes Form"
+            data-pt="Onde a Tecnologia<br>Ganha Forma">
+            Where Technology<br>Takes Form
+          </h2>
+          <h2 class="applications-headline applications-headline-pt"
+            data-en="Where Technology<br>Takes Form"
+            data-pt="Onde a Tecnologia<br>Ganha Forma">
+            Onde a Tecnologia<br>Ganha Forma
+          </h2>
+        </div>
+        <p class="apps-intro"
+          data-en="The platform operates across domains where human movement can be measured, understood and influenced."
+          data-pt="A plataforma opera em domínios onde o movimento humano pode ser medido, compreendido e influenciado.">
+          The platform operates across domains where human movement can be measured, understood and influenced.
+        </p>
+      </div>
+      <div class="applications-cards">
+        <div class="apps-grid">
+          <div class="app-card fu">
+            <h3 data-en="Rehabilitation" data-pt="Reabilitação">Rehabilitation</h3>
+            <p data-en="Recovery becomes precise, guided and quantifiable. The platform enables controlled interaction with movement, transforming rehabilitation into a measurable and adaptive process."
+               data-pt="A reabilitação torna-se precisa, guiada e mensurável. A plataforma permite interação controlada com o movimento, transformando o processo num sistema quantificável e adaptativo.">
+              Recovery becomes precise, guided and quantifiable. The platform enables controlled interaction with movement, transforming rehabilitation into a measurable and adaptive process.
+            </p>
+          </div>
+          <div class="app-card fu">
+            <h3 data-en="Performance &amp; Training" data-pt="Performance &amp; Training">Performance &amp; Training</h3>
+            <p data-en="Human performance becomes measurable, adaptive and continuously optimized. Real-time sensing and actuation dynamically regulate load, movement and response — reducing injury risk and enabling a new paradigm of data-driven training."
+               data-pt="A performance e o treino tornam-se mensuráveis, adaptativos e continuamente otimizados. Sistemas de sensing e actuation regulam carga, movimento e resposta em tempo real — reduzindo o risco de lesão e estabelecendo um novo paradigma de treino orientado por dados.">
+              Human performance becomes measurable, adaptive and continuously optimized. Real-time sensing and actuation dynamically regulate load, movement and response — reducing injury risk and enabling a new paradigm of data-driven training.
+            </p>
+          </div>
+          <div class="app-card fu">
+            <h3 data-en="Fitness &amp; Wellness" data-pt="Fitness &amp; Wellness">Fitness &amp; Wellness</h3>
+            <p data-en="Everyday training becomes structured, responsive and continuously guided. Movement adapts in real time through sensing and actuation — reducing injury risk and enabling a more intelligent approach to physical wellbeing."
+               data-pt="O treino do dia a dia torna-se estruturado, responsivo e continuamente guiado. O movimento adapta-se em tempo real através de sensing e actuation — reduzindo o risco de lesão e permitindo uma abordagem mais inteligente ao bem-estar físico.">
+              Everyday training becomes structured, responsive and continuously guided. Movement adapts in real time through sensing and actuation — reducing injury risk and enabling a more intelligent approach to physical wellbeing.
+            </p>
+          </div>
+          <div class="app-card fu">
+            <h3 data-en="Human Augmentation &amp; Military" data-pt="Human Augmentation &amp; Military">Human Augmentation &amp; Military</h3>
+            <p data-en="Human capability can be extended beyond its natural limits. By integrating sensing, actuation and modeling, the platform enhances strength, control and neuromuscular response in high-demand environments."
+               data-pt="A capacidade humana pode ser expandida para além dos seus limites naturais. Ao integrar sensing, actuation e modeling, a plataforma amplifica força, controle e resposta neuromuscular em contextos de elevada exigência.">
+              Human capability can be extended beyond its natural limits. By integrating sensing, actuation and modeling, the platform enhances strength, control and neuromuscular response in high-demand environments.
+            </p>
+          </div>
+          <div class="app-cta-card fu">
+            <a href="#technology" class="apps-cta">
+              <span class="cta-title">
+                <span data-en="The Stack" data-pt="O Stack">The Stack</span>
+              </span>
+              <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+              <span class="cta-sub">
+                <span data-en="Core enabling technologies" data-pt="Tecnologias habilitadoras centrais">Core enabling technologies</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="technology">
+  <div class="si">
+
+    <div class="slbl" data-en="THE STACK" data-pt="O STACK">THE STACK</div>
+
+    <h2><span class="tech-h2-en lang-en-only"><span class="tech-num blue">06</span> Disciplines.<br><span class="tech-num orange">01</span> Operating System.</span><span class="tech-h2-pt lang-pt-only"><span class="tech-num blue">06</span> Disciplinas.<br><span class="tech-num orange">01</span> Sistema Operacional.</span></h2>
+
+    <div class="tech-intro-grid fu">
+      <p class="tech-intro-p"
+        data-en="In Industry 4.0, value is born from orchestration — not from isolated technologies."
+        data-pt="Na Indústria 4.0, o valor nasce da orquestração — não das tecnologias isoladas.">
+        In Industry 4.0, value is born from orchestration — not from isolated technologies.
+      </p>
+      <p class="tech-intro-p tech-intro-p-accent"
+        data-en="The same principle applies here."
+        data-pt="O mesmo princípio se aplica aqui.">
+        The same principle applies here.
+      </p>
+      <p class="tech-intro-p"
+        data-en="At Twin Factory, six disciplines converge into a single stack. The output is not a list of features — it is the Body Operating System [BoS]: a system that reads, models, simulates and acts on human movement."
+        data-pt="Na Twin Factory, seis disciplinas convergem em um único stack. O resultado não é uma lista de funcionalidades — é o Body Operating System [BoS]: um sistema que lê, modela, simula e atua sobre o movimento do corpo humano.">
+        At Twin Factory, six disciplines converge into a single stack. The output is not a list of features — it is the Body Operating System [BoS]: a system that reads, models, simulates and acts on human movement.
+      </p>
+    </div>
+
+    <div class="tech-layer-label fu" data-en="HARD LAYER — BODY" data-pt="CAMADA HARD — CORPO">HARD LAYER — BODY</div>
+    <div class="tech-grid tech-grid-input">
+
+      <div class="tc fu">
+        <div class="tcode">IoB</div>
+        <h3>INTERNET OF BODY</h3>
+        <p data-en="Movement has never been truly measurable — until sensors became precise enough, connected enough and invisible enough to live on the body. IoB is the evolution of IoT: not things connected, but the human body itself — readable, in real time, anywhere."
+           data-pt="O movimento nunca foi verdadeiramente mensurável — até os sensores se tornarem precisos, conectados e invisíveis o suficiente para existir no corpo. O IoB é a evolução do IoT: não coisas conectadas, mas o próprio corpo humano — legível, em tempo real, em qualquer lugar.">
+          Movement has never been truly measurable — until sensors became precise enough, connected enough and invisible enough to live on the body. IoB is the evolution of IoT: not things connected, but the human body itself — readable, in real time, anywhere.
+        </p>
+      </div>
+
+      <div class="tc fu">
+        <div class="tcode">NANO</div>
+        <h3>NANOTECHNOLOGY</h3>
+        <p data-en="Conventional sensors sit on the body. Nanotechnology becomes the body — fibres engineered at molecular level that sense and stimulate neuromuscular activity without interrupting movement. The textile is the sensor. The skin is the interface."
+           data-pt="Os sensores convencionais ficam sobre o corpo. A nanotecnologia se torna o corpo — fibras tecnológicas desenvolvidas no nível molecular que sentem e estimulam a atividade neuromuscular sem interromper o movimento. O têxtil é o sensor. A pele é a interface.">
+          Conventional sensors sit on the body. Nanotechnology becomes the body — fibres engineered at molecular level that sense and stimulate neuromuscular activity without interrupting movement. The textile is the sensor. The skin is the interface.
+        </p>
+      </div>
+
+      <div class="tc fu">
+        <div class="tcode">COBOT</div>
+        <h3>COLLABORATIVE ROBOT</h3>
+        <p data-en="Not a robot that replaces human movement — a system that works with it. The Cobot doesn't impose, it collaborates: generating load, applying FES stimulation, adjusting resistance in real time. It doesn't do the movement for you. It does it with you — and makes it better."
+           data-pt="Não é um robô que substitui o movimento humano — é um sistema que trabalha com ele. O Cobot não impõe, colabora: gera carga, aplica estimulação FES, ajusta resistência em tempo real. Não faz o movimento por você. Faz junto com você — e o torna melhor.">
+          Not a robot that replaces human movement — a system that works with it. The Cobot doesn't impose, it collaborates: generating load, applying FES stimulation, adjusting resistance in real time. It doesn't do the movement for you. It does it with you — and makes it better.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="tech-layer-label fu" data-en="SOFT LAYER — DIGITAL" data-pt="CAMADA SOFT — DIGITAL">SOFT LAYER — DIGITAL</div>
+    <div class="tech-grid tech-grid-intel">
+
+      <div class="tc fu tc-core">
+        <div class="tcode">AI</div>
+        <h3>ARTIFICIAL INTELLIGENCE</h3>
+        <p data-en="The human body is too complex and too individual for fixed protocols. AI runs millions of simulations to find the optimal intervention — calibrated for your body, at the exact instant of each movement. It anticipates injury, optimises performance and personalises recovery at a scale no human expert can match."
+           data-pt="O corpo humano é complexo e individual demais para protocolos fixos. A AI executa milhões de simulações para encontrar a intervenção ideal — calibrada para o seu corpo, no instante exato de cada movimento. Antecipa lesões, otimiza performance e personaliza a recuperação em uma escala que nenhum especialista humano consegue igualar.">
+          The human body is too complex and too individual for fixed protocols. AI runs millions of simulations to find the optimal intervention — calibrated for your body, at the exact instant of each movement. It anticipates injury, optimises performance and personalises recovery at a scale no human expert can match.
+        </p>
+      </div>
+
+      <div class="tc fu tc-core">
+        <div class="tcode">DT</div>
+        <h3>DIGITAL TWIN</h3>
+        <p data-en="Not a static model — a living bridge. The Digital Twin mediates the continuous loop between the physical and the digital: the real body feeds the virtual model, the virtual model informs the real intervention, the intervention changes the body, and the body feeds the model again. Two worlds in constant dialogue."
+           data-pt="Não é um modelo estático — é uma ponte viva. O Digital Twin é o elo de ligação no loop contínuo entre o físico e o digital: o corpo real alimenta o modelo virtual, o modelo virtual informa a intervenção real, a intervenção muda o corpo, e o corpo volta a alimentar o modelo. Dois mundos em diálogo constante.">
+          Not a static model — a living bridge. The Digital Twin mediates the continuous loop between the physical and the digital: the real body feeds the virtual model, the virtual model informs the real intervention, the intervention changes the body, and the body feeds the model again. Two worlds in constant dialogue.
+        </p>
+      </div>
+
+      <div class="tc fu tc-core">
+        <div class="tcode">XR</div>
+        <h3>EXTENDED REALITY</h3>
+        <p data-en="Data alone doesn't change behaviour. Extended Reality translates invisible biomechanical information into experiences the body can understand, respond to and learn from — making the Digital Twin visible, tangible and actionable in real time."
+           data-pt="Os dados sozinhos não mudam comportamentos. A Realidade Estendida traduz informação biomecânica invisível em experiências que o corpo consegue compreender, responder e aprender — tornando o Digital Twin visível, tangível e acionável em tempo real.">
+          Data alone doesn't change behaviour. Extended Reality translates invisible biomechanical information into experiences the body can understand, respond to and learn from — making the Digital Twin visible, tangible and actionable in real time.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="bos-statement fu">
+      <div class="bos-statement-text">
+        <span class="lang-en-only">The result of this orchestration is the <em class="bos-name">Body Operating System</em> <span class="bos-ref"><span class="bos-bracket-char">[</span><span class="bos-letter">B</span><span class="bos-letter">o</span><span class="bos-letter">S</span><span class="bos-bracket-char">]</span></span> — a platform that doesn't just observe human movement.<br>It acts on it.</span>
+        <span class="lang-pt-only">O resultado dessa orquestração é o <em class="bos-name">Body Operating System</em> <span class="bos-ref"><span class="bos-bracket-char">[</span><span class="bos-letter">B</span><span class="bos-letter">o</span><span class="bos-letter">S</span><span class="bos-bracket-char">]</span></span> — uma plataforma que não se limita a observar o movimento humano.<br>Ela atua sobre ele.</span>
+      </div>
+    </div>
+
+    <div class="trl-panel fu">
+      <div class="trl-panel-label" data-en="NASA TRL METHODOLOGY" data-pt="METODOLOGIA TRL NASA">NASA TRL METHODOLOGY</div>
+      <div class="trl-panel-grid">
+        <div class="trl-product">
+          <div class="trl-product-name">D2W — Digital2Win</div>
+          <div class="trl-product-bar">
+            <div class="trl-bar trl-animate" data-on="4" data-hl="5"><div class="ts"></div><div class="ts"></div><div class="ts"></div><div class="ts"></div><div class="ts"></div><div class="ts"></div><div class="ts"></div><div class="ts"></div><div class="ts"></div></div>
+            <div class="trl-product-value">TRL <span>4/5</span></div>
+          </div>
+        </div>
+        <div class="trl-product">
+          <div class="trl-product-name">Tissue-Tech</div>
+          <div class="trl-product-bar">
+            <div class="trl-bar trl-animate" data-on="2" data-hl="3"><div class="ts"></div><div class="ts"></div><div class="ts"></div><div class="ts"></div><div class="ts"></div><div class="ts"></div><div class="ts"></div><div class="ts"></div><div class="ts"></div></div>
+            <div class="trl-product-value">TRL <span>2/3</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tech-cta fu">
+      <a href="#d2w-section" class="apps-cta">
+        <span class="cta-title">
+          <span data-en="The D2W System" data-pt="O Sistema D2W">The D2W System</span>
+        </span>
+        <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+        <span class="cta-sub">
+          <span data-en="First system built on the platform" data-pt="Primeiro sistema construído na plataforma">First system built on the platform</span>
+        </span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<section id="d2w-section">
+  <div class="si">
+    <div class="flagship-shell">
+      <div class="flagship-top">
+        <div class="flagship-copy fu">
+          <div class="slbl" data-en="MOST ADVANCED SYSTEM IN DEVELOPMENT" data-pt="SISTEMA EM DESENVOLVIMENTO (MAIS AVANÇADO)">SISTEMA EM DESENVOLVIMENTO (MAIS AVANÇADO)</div>
+          <div class="flagship-logo" aria-label="D2W logo">
+            <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1876.44 143.45" role="img" aria-hidden="true">
+  <path d="M80.61,109.5H22.2v-54.37h27.12v31.94h31.29c15,0,25.82-8.34,25.82-20.86s-11.21-21.25-25.82-21.25H22.2l17.21-22.69h41.2c30.51,0,52.55,17.6,52.55,42.77s-22.3,44.46-52.55,44.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M185.45,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M267.33,55h55.81v54.5h-59.85c-30.25,0-52.54-19.17-52.54-44.46s22.3-42.77,52.54-42.77h62.46l-17.47,22.69h-44.98c-14.6,0-25.69,8.87-25.69,21.25s10.69,20.86,25.69,20.86h32.99v-12.65h-45.11l16.17-19.43Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M377.26,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M513.64,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M542.46,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M759.3,87.08l-17.47,22.43h-77.06V22.28h26.99v64.8h67.54Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M798.56,22.28h51.11c26.47,0,37.42,10.69,37.42,27.12,0,14.99-10.3,25.03-32.73,25.03h-41.46c-6.26,0-9.26,1.83-9.26,6.26v6.39h84.1l-17.34,22.43h-92.83v-28.55c0-15.91,11.47-23.86,32.73-23.86h41.46c6.26,0,9.26-1.69,9.26-6.13s-3-6-9.26-6h-70.54l17.34-22.69Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1000.14,77.04c-7.56-13.43-11.08-19.95-14.08-26.21-2.74,6.26-6.26,12.65-13.82,26.08l-13.95,24.77c-3.13,5.61-7.82,9.26-14.86,9.26s-12.78-3.91-15.12-12l-22.17-76.67h26.99l8.21,30.38c2.74,9.78,4.56,16.95,5.87,23.99,2.87-6.13,6.26-12.78,12.26-24.12l11.73-21.9c4.56-8.61,9-9.78,15.39-9.78s11.08,1.17,15.65,9.78l11.6,22.04c6.52,12,9.52,18.12,12.26,23.99,1.43-6.91,3.39-14.34,6-23.99l8.21-30.38h26.34l-22.56,76.67c-2.35,8.08-8.34,12-15.12,12s-11.6-3.52-14.86-9.26l-13.95-24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1115.54,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1221.16,106.24l-53.46-47.98v51.24h-24.51V37.14c0-11.6,7.04-16.3,14.73-16.3,3.26,0,6.52.78,10.82,4.69l53.46,47.98V22.28h24.64v72.23c0,11.6-7.04,16.43-14.86,16.43-3.39,0-6.65-.78-10.82-4.69Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1362.24,21.89h-9.26v88.79h9.26v15.65h-25.03V6.11h25.03v15.78Z" style="fill: #85c6eb; stroke: #85c6eb; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1446.21,109.5h-58.41v-54.37h27.12v31.94h31.29c15,0,25.82-8.34,25.82-20.86s-11.21-21.25-25.82-21.25h-58.41l17.21-22.69h41.2c30.51,0,52.55,17.6,52.55,42.77s-22.3,44.46-52.55,44.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1542.71,22.28h51.11c26.47,0,37.42,10.69,37.42,27.12,0,14.99-10.3,25.03-32.73,25.03h-41.46c-6.26,0-9.26,1.83-9.26,6.26v6.39h84.1l-17.34,22.43h-92.83v-28.55c0-15.91,11.47-23.86,32.73-23.86h41.46c6.26,0,9.26-1.69,9.26-6.13s-3-6-9.26-6h-70.54l17.34-22.69Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1744.29,77.04c-7.56-13.43-11.08-19.95-14.08-26.21-2.74,6.26-6.26,12.65-13.82,26.08l-13.95,24.77c-3.13,5.61-7.82,9.26-14.86,9.26s-12.78-3.91-15.12-12l-22.17-76.67h26.99l8.21,30.38c2.74,9.78,4.56,16.95,5.87,23.99,2.87-6.13,6.26-12.78,12.26-24.12l11.73-21.9c4.56-8.61,9-9.78,15.39-9.78s11.08,1.17,15.65,9.78l11.6,22.04c6.52,12,9.52,18.12,12.26,23.99,1.43-6.91,3.39-14.34,6-23.99l8.21-30.38h26.34l-22.56,76.67c-2.35,8.08-8.34,12-15.12,12s-11.6-3.52-14.86-9.26l-13.95-24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1855.13,126.32h-24.9v-15.65h9.26V21.89h-9.26V6.11h24.9v120.22Z" style="fill: #85c6eb; stroke: #85c6eb; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+</svg>
+          </div>
+          <div class="flagship-bridge" data-en="The first validated system on the platform." data-pt="O primeiro sistema validado da plataforma.">O primeiro sistema validado da plataforma.</div>
+          <p class="flagship-lead js-split-first-colon"
+             data-en="Dynamic load: measures, acts, and adjusts."
+             data-pt="Carga dinâmica: mede, atua e ajusta.">Dynamic load: measures, acts, and adjusts.</p>
+          <p class="flagship-body" data-en="A closed-loop system where sensing, actuation and control operate together in real time — turning movement into data, and data into action." data-pt="Um sistema em loop fechado onde sensing, actuation e control operam em conjunto em tempo real — transformando movimento em dados, e dados em ação.">A closed-loop system where sensing, actuation and control operate together in real time — turning movement into data, and data into action.</p>
+        </div>
+        <div class="flagship-card fu">
+          <div class="flagship-card-title" data-en="System" data-pt="Sistema">Sistema</div>
+          <div class="flagship-points">
+            <div class="flagship-point" data-en="Real-time reading of movement variables, including 3D tracking" data-pt="Leitura em tempo real das variáveis do movimento, incluindo tracking 3D">Leitura em tempo real das variáveis do movimento, incluindo tracking <span class="nowrap">3D</span></div>
+            <div class="flagship-point" data-en="Dynamic generation and adjustment of load" data-pt="Geração e ajuste dinâmico de carga">Geração e ajuste dinâmico de carga</div>
+            <div class="flagship-point" data-en="Continuous interaction between user and system" data-pt="Interação contínua entre usuário e sistema">Interação contínua entre usuário e sistema</div>
+            <div class="flagship-point" data-en="Objective data captured continuously throughout execution" data-pt="Dados objetivos captados continuamente durante toda a execução">Dados objetivos captados continuamente durante toda a execução</div>
+          </div>
+          <div class="flagship-trl">
+            <div class="flagship-trl-value"><span style="color:var(--blue)">TRL [</span><span style="color:var(--orange);position:relative;top:0.08em;">4</span><span style="color:var(--blue)">/</span><span style="color:var(--orange);position:relative;top:0.08em;">5</span><span style="color:var(--blue)">]</span></div>
+            <div class="flagship-trl-copy" data-en="VALIDATED THROUGH REAL PROOF-OF-CONCEPTS" data-pt="VALIDADO POR PROVAS DE CONCEITO REAIS">VALIDADO POR PROVAS DE CONCEITO REAIS</div>
+          </div>
+        </div>
+      </div>
+      <div class="flagship-bottom fu">
+        <div class="flagship-paradigm">
+          <div class="flagship-kicker" data-en="SYSTEM OPERATION" data-pt="OPERAÇÃO DO SISTEMA">OPERAÇÃO DO SISTEMA</div>
+          <h3 data-en="From observing to acting on it." data-pt="De observador a atuador.">From observing to acting on it.</h3>
+          <p class="paradigm-p1" data-en="Conventional systems observe movement. D2W acts on it — introducing load, response and real-time adjustment." data-pt="Os sistemas convencionais observam o movimento. O D2W atua sobre ele — introduzindo carga, resposta e ajuste em tempo real.">Conventional systems observe movement. D2W acts on it — introducing load, response and real-time adjustment.</p>
+          <p class="paradigm-p2" data-en="Movement is no longer only measured. It becomes controlled, and it can be anticipated." data-pt="O movimento deixa de ser apenas medido. Passa a ser controlado, e pode ser antecipado.">Movement is no longer only measured. It becomes controlled, and it can be anticipated.</p>
+        </div>
+        <div class="flagship-statement-panel">
+          <div class="flagship-statement-main" data-en="The Digital Twin of Human Movement. Start here." data-pt="O Digital Twin do Movimento Humano. Começa aqui.">The Digital Twin of Human Movement. Start here.</div>
+          <div class="flagship-statement-sub" data-en="D2W is the first validated system on the platform." data-pt="O D2W é o primeiro sistema validado na plataforma.">D2W is the first validated system on the platform.</div>
+        </div>
+      </div>
+      <div class="flagship-cta-row">
+        <a href="https://twinfactory.cc/projects" class="plink">
+          <span class="label-i18n" data-en="SEE ALL PROJECTS" data-pt="VER TODOS OS PROJETOS">SEE ALL PROJECTS</span>
+          <span class="arr"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="si">
+    <div class="slbl" data-en="R&D PORTFOLIO · 4 PROJECTS IN PARALLEL" data-pt="PORTFÓLIO P&D · 4 PROJETOS EM PARALELO">R&D PORTFOLIO · 4 PROJECTS IN PARALLEL</div>
+    <h2 data-en="Projects in<br>Development." data-pt="Projetos em<br>Desenvolvimento.">Projects in<br>Development.</h2>
+    <div class="pg">
+      <!-- CARD 01 — D2W -->
+      <div class="pc fu">
+        <div class="pnum">04</div>
+        <div class="pc-inner">
+          <div class="pc-left">
+            <div class="proj-logo"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1876.44 143.45">
+  <path d="M80.61,109.5H22.2v-54.37h27.12v31.94h31.29c15,0,25.82-8.34,25.82-20.86s-11.21-21.25-25.82-21.25H22.2l17.21-22.69h41.2c30.51,0,52.55,17.6,52.55,42.77s-22.3,44.46-52.55,44.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M185.45,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M267.33,55h55.81v54.5h-59.85c-30.25,0-52.54-19.17-52.54-44.46s22.3-42.77,52.54-42.77h62.46l-17.47,22.69h-44.98c-14.6,0-25.69,8.87-25.69,21.25s10.69,20.86,25.69,20.86h32.99v-12.65h-45.11l16.17-19.43Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M377.26,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M513.64,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M542.46,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M759.3,87.08l-17.47,22.43h-77.06V22.28h26.99v64.8h67.54Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M798.56,22.28h51.11c26.47,0,37.42,10.69,37.42,27.12,0,14.99-10.3,25.03-32.73,25.03h-41.46c-6.26,0-9.26,1.83-9.26,6.26v6.39h84.1l-17.34,22.43h-92.83v-28.55c0-15.91,11.47-23.86,32.73-23.86h41.46c6.26,0,9.26-1.69,9.26-6.13s-3-6-9.26-6h-70.54l17.34-22.69Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1000.14,77.04c-7.56-13.43-11.08-19.95-14.08-26.21-2.74,6.26-6.26,12.65-13.82,26.08l-13.95,24.77c-3.13,5.61-7.82,9.26-14.86,9.26s-12.78-3.91-15.12-12l-22.17-76.67h26.99l8.21,30.38c2.74,9.78,4.56,16.95,5.87,23.99,2.87-6.13,6.26-12.78,12.26-24.12l11.73-21.9c4.56-8.61,9-9.78,15.39-9.78s11.08,1.17,15.65,9.78l11.6,22.04c6.52,12,9.52,18.12,12.26,23.99,1.43-6.91,3.39-14.34,6-23.99l8.21-30.38h26.34l-22.56,76.67c-2.35,8.08-8.34,12-15.12,12s-11.6-3.52-14.86-9.26l-13.95-24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1115.54,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1221.16,106.24l-53.46-47.98v51.24h-24.51V37.14c0-11.6,7.04-16.3,14.73-16.3,3.26,0,6.52.78,10.82,4.69l53.46,47.98V22.28h24.64v72.23c0,11.6-7.04,16.43-14.86,16.43-3.39,0-6.65-.78-10.82-4.69Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1362.24,21.89h-9.26v88.79h9.26v15.65h-25.03V6.11h25.03v15.78Z" style="fill: #85c6eb; stroke: #85c6eb; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1446.21,109.5h-58.41v-54.37h27.12v31.94h31.29c15,0,25.82-8.34,25.82-20.86s-11.21-21.25-25.82-21.25h-58.41l17.21-22.69h41.2c30.51,0,52.55,17.6,52.55,42.77s-22.3,44.46-52.55,44.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1542.71,22.28h51.11c26.47,0,37.42,10.69,37.42,27.12,0,14.99-10.3,25.03-32.73,25.03h-41.46c-6.26,0-9.26,1.83-9.26,6.26v6.39h84.1l-17.34,22.43h-92.83v-28.55c0-15.91,11.47-23.86,32.73-23.86h41.46c6.26,0,9.26-1.69,9.26-6.13s-3-6-9.26-6h-70.54l17.34-22.69Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1744.29,77.04c-7.56-13.43-11.08-19.95-14.08-26.21-2.74,6.26-6.26,12.65-13.82,26.08l-13.95,24.77c-3.13,5.61-7.82,9.26-14.86,9.26s-12.78-3.91-15.12-12l-22.17-76.67h26.99l8.21,30.38c2.74,9.78,4.56,16.95,5.87,23.99,2.87-6.13,6.26-12.78,12.26-24.12l11.73-21.9c4.56-8.61,9-9.78,15.39-9.78s11.08,1.17,15.65,9.78l11.6,22.04c6.52,12,9.52,18.12,12.26,23.99,1.43-6.91,3.39-14.34,6-23.99l8.21-30.38h26.34l-22.56,76.67c-2.35,8.08-8.34,12-15.12,12s-11.6-3.52-14.86-9.26l-13.95-24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1855.13,126.32h-24.9v-15.65h9.26V21.89h-9.26V6.11h24.9v120.22Z" style="fill: #85c6eb; stroke: #85c6eb; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+</svg></div>
+            <div class="ptrl">TRL 4/5 · PROTOTYPE</div>
+            <div class="psub"
+              data-en="LOAD GENERATOR DEVICE · REHAB / FITNESS / PERFORMANCE / MILITARY"
+              data-pt="DISPOSITIVO GERADOR DE CARGA · REABILITAÇÃO / FITNESS / PERFORMANCE / DEFESA MILITAR">
+              LOAD GENERATOR DEVICE · REHAB / FITNESS / PERFORMANCE / MILITARY</div>
+            <div class="ptags">
+              <span class="ptag">DEVICE</span><span class="ptag">PORTABLE</span>
+              <span class="ptag">IoT</span><span class="ptag">ACTUATOR</span>
+              <span class="ptag">REAL-TIME DATA</span><span class="ptag">AI</span>
+              <span class="ptag">DIGITAL TWIN</span>
+            </div>
+            <a href="https://twinfactory.cc/projects" class="plink"><span class="label-i18n" data-en="EXPLORE D2W" data-pt="EXPLORAR D2W">EXPLORE D2W</span> <span class="arr"></span></a>
+          </div>
+          <div class="pc-right">
+            <img src="homem.png" alt="D2W — Musculoskeletal Improvement System">
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 02 — TISSUE-TECH -->
+      <div class="pc fu">
+        <div class="pnum">01</div>
+        <div class="pc-inner">
+          <div class="pc-left">
+            <div class="proj-logo"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774.19 143.45">
+  <path d="M125.35,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96H8.79l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M172.17,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M281.04,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55h-81.23l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M417.83,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55h-81.23l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M587.07,71.43c0,26.34-18.12,39.51-54.37,39.51-41.98,0-60.11-13.17-60.11-39.51V22.28h26.86v49.16c0,12.91,5.48,17.08,33.25,17.08,20.73,0,27.25-4.82,27.25-17.08V22.28h27.12v49.16Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M714.86,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M785.79,56.96l-13.17,16.82h-43.55l13.17-16.82h43.55Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M904.32,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1025.06,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1156.5,87.08l-17.34,22.43h-43.81c-30.25,0-52.54-19.17-52.54-44.46s22.3-42.77,52.54-42.77h61.15l-17.34,22.69h-43.81c-14.6,0-25.56,8.74-25.56,21.25s10.82,20.86,25.56,20.86h61.15Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1282.98,109.5h-26.86v-33.64h-51.89v33.64h-27.12V22.28h27.12v30.9h51.89v-30.9h26.86v87.23Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+</svg></div>
+            <div class="ptrl">TRL 2/3 · CONCEPT</div>
+            <div class="psub"
+              data-en="E-TEXTILE WEARABLE · REHAB / FITNESS / PERFORMANCE / MILITARY"
+              data-pt="WEARABLE E-TÊXTIL · REABILITAÇÃO / FITNESS / PERFORMANCE / DEFESA MILITAR">
+              E-TEXTILE WEARABLE · REHAB / FITNESS / PERFORMANCE / MILITARY</div>
+            <div class="ptags">
+              <span class="ptag">DEVICE [e-Textile · Nanotech]</span>
+              <span class="ptag">WEARABLE</span>
+              <span class="ptag">IoT</span>
+              <span class="ptag">EMG / FES</span>
+              <span class="ptag">BIOFEEDBACK · REAL-TIME DATA</span>
+              <span class="ptag">AI</span>
+              <span class="ptag">DIGITAL TWIN</span>
+              <span class="ptag">BoS</span>
+            </div>
+            <a href="https://twinfactory.cc/projects" class="plink"><span class="label-i18n" data-en="LEARN MORE" data-pt="SAIBA MAIS">LEARN MORE</span> <span class="arr"></span></a>
+          </div>
+          <div class="pc-right">
+            <img src="Tissue_Fibra.png" alt="Tissue-Tech — E-Textile Intelligent Skin">
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 04 — SMART BIKE CVT -->
+      <div class="pc fu">
+        <div class="pnum">03</div>
+        <div class="pc-inner">
+          <div class="pc-left">
+            <div class="proj-logo"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774.19 143.45">
+  <path d="M97.84,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55H11.92l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M214.02,54.74c7.69,13.43,11.08,19.95,14.08,26.08,2.87-6.13,6.26-12.52,13.95-25.95l13.95-24.77c3.13-5.61,7.82-9.26,14.86-9.26s12.78,3.91,15.12,12l22.04,76.67h-26.86l-8.21-30.38c-2.74-9.91-4.56-16.95-6-23.99-2.87,6.13-6.13,12.78-12.13,24.12l-11.73,21.9c-4.56,8.61-9,9.78-15.52,9.78s-10.95-1.17-15.52-9.78l-11.73-22.04c-6.39-12-9.52-18.12-12.26-23.99-1.3,6.91-3.26,14.21-5.87,23.99l-8.21,30.38h-26.47l22.56-76.67c2.35-8.08,8.47-12,15.25-12s11.6,3.52,14.73,9.26l13.95,24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M366.06,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M612.11,109.5h-36.12l-19.43-23.08h-41.46v23.08h-26.99v-44.59h75.89c8.34,0,14.86-3.78,14.86-9.78,0-6.78-5.61-10.17-14.86-10.17h-75.89l17.6-22.69h56.07c19.82,0,44.85,6.26,44.85,31.16,0,13.56-8.47,24.77-22.82,27.64,3,2.22,6.26,5.35,12.26,11.47l16.04,16.95Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M741.33,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M934.05,84.08c0,14.47-7.95,25.43-35.46,25.43h-76.67v-53.07h77.19c3.91,0,7.56-1.43,7.56-5.87s-3.78-5.61-7.56-5.61h-77.19l18.25-22.69h57.76c20.86,0,34.29,8.08,34.29,24.12,0,10.3-5.87,16.04-11.87,18.25,7.56,2.22,13.69,9,13.69,19.43ZM849.04,75.08v12h49.68c5.87,0,8.34-2.09,8.34-6.13,0-3.78-2.48-5.87-8.34-5.87h-49.68Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M986.21,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1124.29,109.5h-40.81l-26.34-22.95c-9-7.82-13.17-11.6-16.17-14.6.13,4.04.39,8.34.39,12.52v25.03h-27.12V22.28h27.12v20.21c0,5.35-.26,10.69-.52,15.26,3.39-3.13,8.08-7.56,16.04-14.21l25.17-21.25h39.12l-33.38,25.03c-11.6,8.74-16.95,12.65-22.56,16.04,4.96,3.39,11.74,8.21,22.95,17.34l36.12,28.82Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1245.69,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1438.28,87.08l-17.34,22.43h-43.81c-30.25,0-52.54-19.17-52.54-44.46s22.3-42.77,52.54-42.77h61.15l-17.34,22.69h-43.81c-14.6,0-25.56,8.74-25.56,21.25s10.82,20.86,25.56,20.86h61.15Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1485.22,22.28l39.25,57.89,40.94-57.89h31.81l-55.81,78.88c-3.78,5.08-9.13,9.78-17.47,9.78s-13.43-4.3-17.21-9.78l-54.63-78.88h33.12Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1726.44,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+</svg></div>
+            <div class="ptrl">TRL 2/3 · CONCEPT</div>
+            <div class="psub"
+              data-en="AUTOMATIC TRANSMISSION · REHAB / FITNESS / PERFORMANCE"
+              data-pt="TRANSMISSÃO AUTOMÁTICA · REABILITAÇÃO / FITNESS / PERFORMANCE">
+              AUTOMATIC TRANSMISSION · REHAB / FITNESS / PERFORMANCE</div>
+            <div class="ptags">
+              <span class="ptag">DEVICE</span><span class="ptag">CVT</span>
+              <span class="ptag">IoT</span><span class="ptag">BIOFEEDBACK</span>
+              <span class="ptag">REAL-TIME DATA</span><span class="ptag">AI</span>
+              <span class="ptag">REHAB</span><span class="ptag">FITNESS</span><span class="ptag">PERFORMANCE</span>
+            </div>
+            <a href="https://twinfactory.cc/projects" class="plink"><span class="label-i18n" data-en="LEARN MORE" data-pt="SAIBA MAIS">LEARN MORE</span> <span class="arr"></span></a>
+          </div>
+          <div class="pc-right">
+            <img src="bike.png" alt="Smart Bike CVT — Automatic Transmission">
+          </div>
+        </div>
+      </div>
+      <!-- CARD 03 — SMART SEAT -->
+      <div class="pc fu">
+        <div class="pnum">02</div>
+        <div class="pc-inner">
+          <div class="pc-left">
+            <div class="proj-logo"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774.19 143.45">
+  <path d="M97.84,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55H11.92l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M214.02,54.74c7.69,13.43,11.08,19.95,14.08,26.08,2.87-6.13,6.26-12.52,13.95-25.95l13.95-24.77c3.13-5.61,7.82-9.26,14.86-9.26s12.78,3.91,15.12,12l22.04,76.67h-26.86l-8.21-30.38c-2.74-9.91-4.56-16.95-6-23.99-2.87,6.13-6.13,12.78-12.13,24.12l-11.73,21.9c-4.56,8.61-9,9.78-15.52,9.78s-10.95-1.17-15.52-9.78l-11.73-22.04c-6.39-12-9.52-18.12-12.26-23.99-1.3,6.91-3.26,14.21-5.87,23.99l-8.21,30.38h-26.47l22.56-76.67c2.35-8.08,8.47-12,15.25-12s11.6,3.52,14.73,9.26l13.95,24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M366.06,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M612.11,109.5h-36.12l-19.43-23.08h-41.46v23.08h-26.99v-44.59h75.89c8.34,0,14.86-3.78,14.86-9.78,0-6.78-5.61-10.17-14.86-10.17h-75.89l17.6-22.69h56.07c19.82,0,44.85,6.26,44.85,31.16,0,13.56-8.47,24.77-22.82,27.64,3,2.22,6.26,5.35,12.26,11.47l16.04,16.95Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M741.33,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M902.76,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55h-81.23l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1060.01,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1112.95,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+  <path d="M1315.71,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+</svg></div>
+            <div class="ptrl">TRL 2 · CONCEPT</div>
+            <div class="psub"
+              data-en="G-FORCE SIMULATOR · REHAB / PERFORMANCE"
+              data-pt="SIMULADOR DE FORÇA G · REABILITAÇÃO / PERFORMANCE">
+              G-FORCE SIMULATOR · REHAB / PERFORMANCE</div>
+            <div class="ptags">
+              <span class="ptag">DEVICE</span><span class="ptag">G-FORCE</span>
+              <span class="ptag">SIMULATION</span><span class="ptag">MOTORSPORT</span>
+              <span class="ptag">REHAB</span><span class="ptag">PERFORMANCE</span>
+            </div>
+            <a href="https://twinfactory.cc/projects" class="plink"><span class="label-i18n" data-en="LEARN MORE" data-pt="SAIBA MAIS">LEARN MORE</span> <span class="arr"></span></a>
+          </div>
+          <div class="pc-right">
+            <img src="seat.png" alt="Smart Seat — G-Force Simulator">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="recognition">
+  <div class="si">
+    <div class="slbl" data-en="RECOGNITION & ECOSYSTEM" data-pt="RECONHECIMENTO & ECOSSISTEMA">RECOGNITION & ECOSYSTEM</div>
+    <h2 data-en="Validated by<br>the Ecosystem." data-pt="Validados pelo<br>Ecossistema.">Validated by<br>the Ecosystem.</h2>
+    <div class="rg">
+      <div class="rc fu"><div class="ri">✦</div><h3 data-en="VOUCHERS FOR STARTUPS" data-pt="VOUCHERS FOR STARTUPS">VOUCHERS FOR STARTUPS</h3><p data-en="Approved 2025 — New Digital/Technological Products. Funded by the Portuguese government to accelerate deep tech innovation." data-pt="Aprovado 2025 — Novos Produtos Digitais/Tecnológicos. Financiado pelo governo português para acelerar a inovação deep tech.">Approved 2025 — New Digital/Technological Products. Funded by the Portuguese government to accelerate deep tech innovation.</p></div>
+      <div class="rc fu"><div class="ri">◈</div><h3 data-en="STARTUP PORTUGAL" data-pt="STARTUP PORTUGAL">STARTUP PORTUGAL</h3><p data-en="Certified within the national startup ecosystem recognition programme, validating the technology concept and market potential." data-pt="Certificada pelo programa nacional de reconhecimento do ecossistema de startups, validando o conceito tecnológico e o potencial de mercado.">Certified within the national startup ecosystem recognition programme, validating the technology concept and market potential.</p></div>
+      <div class="rc fu"><div class="ri">⬡</div><h3 data-en="TAGUSPARK INCUBATOR" data-pt="INCUBADORA TAGUSPARK">TAGUSPARK INCUBATOR</h3><p data-en="Member of Taguspark — Oeiras Valley, one of Portugal's leading technology parks and part of the European innovation ecosystem." data-pt="Membro do Taguspark — Oeiras Valley, um dos principais parques tecnológicos de Portugal e parte do ecossistema europeu de inovação.">Member of Taguspark — Oeiras Valley, one of Portugal's leading technology parks and part of the European innovation ecosystem.</p></div>
+    </div>
+  </div>
+</section>
+
 <section id="about">
   <div class="si">
     <div class="slbl" data-en="ABOUT US" data-pt="SOBRE NÓS">SOBRE NÓS</div>
@@ -374,7 +1737,7 @@
 
         <!-- BLOCO 1: Technology Driven. Driving Technology. -->
         <div class="fu about-block1">
-          <h2 data-en="Technology Driven.<br><span class='indent-line'>Driving Technology.</span>" data-pt="Technology Driven.<br><span class='indent-line'>Driving Technology.</span>">Technology Driven.<br><span class="indent-line" style="white-space:nowrap;">Driving Technology.</span></h2>
+          <h2 data-en="Technology Driven.<br><span class='indent-line'>Driving Technology.</span>" data-pt="Technology Driven.<br><span class='indent-line'>Driving Technology.</span>">Technology Driven.<br><span class="indent-line">Driving Technology.</span></h2>
           <div class="about-tagline-b"
             data-en="We are driven by emerging technologies — but we also drive technologies forward."
             data-pt="Somos impulsionados pelas tecnologias emergentes — mas também impulsionamos as tecnologias.">
@@ -388,7 +1751,7 @@
 
         <!-- BLOCO 2: Foco em saúde motora + Ford -->
         <div class="fu">
-          <h2 style="margin-bottom:24px;" data-en="Motor Health.<br><span class='indent-line2'>Redefined.</span>" data-pt="Saúde Motora.<br><span class='indent-line2'>Redefinida.</span>">Saúde Motora.<br><span class="indent-line2">Redefinida.</span></h2>
+          <h2 style="margin-bottom:24px;" data-en="Motor Health.<br><span class='indent-line2'>Redefined.</span>" data-pt="Saúde Motora.<br><span class='indent-line2'>Redefinida.</span>">Motor Health.<br><span class="indent-line2">Redefined.</span></h2>
           <p data-en="We are a deep tech startup developing <strong>intelligent products</strong> based on Industry 4.0 enabling technologies. Our core focus is motor health — transforming rehabilitation, fitness, performance and military through data, replacing assumptions with measurable, objective insights powered by real biodata."
              data-pt="Somos uma startup de deep tech que desenvolve <strong>produtos inteligentes</strong> baseados nas tecnologias habilitadoras da Indústria 4.0. Nosso foco central é a saúde motora — transformando reabilitação, fitness, performance e defesa militar por meio de dados, substituindo suposições por insights objetivos e mensuráveis baseados em biodados reais.">
             Somos uma startup de deep tech que desenvolve <strong>produtos inteligentes</strong> baseados nas tecnologias habilitadoras da Indústria 4.0. Nosso foco central é a saúde motora — transformando reabilitação, fitness, performance e defesa militar por meio de dados, substituindo suposições por insights objetivos e mensuráveis baseados em biodados reais.
@@ -466,275 +1829,6 @@
   </div>
 </section>
 
-<!-- TECHNOLOGY -->
-<section id="technology">
-  <div class="si">
-    <div class="slbl" data-en="CORE TECHNOLOGIES" data-pt="TECNOLOGIAS CENTRAIS">CORE TECHNOLOGIES</div>
-    <h2 data-en="The Stack." data-pt="O Stack.">The Stack.</h2>
-    <p class="tech-intro fu" data-en="We leverage the most advanced enabling technologies of Industry 4.0 to create products at the intersection of the digital and physical worlds — what we call the Digital Twin Factory." data-pt="Aproveitamos as tecnologias habilitadoras mais avançadas da Indústria 4.0 para criar produtos na interseção dos mundos digital e físico — o que chamamos de Fábrica de Gêmeos Digitais.">Aproveitamos as tecnologias habilitadoras mais avançadas da Indústria 4.0 para criar produtos na interseção dos mundos digital e físico — o que chamamos de Fábrica de Gêmeos Digitais.</p>
-    <div class="tech-grid">
-      <div class="tc fu"><div class="tcode">IoT</div><h3>INTERNET OF THINGS</h3><p data-en="Connected sensors capturing real-time biodata from the human body in motion, anywhere in the world." data-pt="Sensores conectados capturando biodados em tempo real do corpo humano em movimento, em qualquer lugar.">Connected sensors capturing real-time biodata from the human body in motion, anywhere in the world.</p></div>
-      <div class="tc fu"><div class="tcode">AI</div><h3>ARTIFICIAL INTELLIGENCE</h3><p data-en="Predictive analytics and biomechanical intelligence that anticipates injury, optimises performance and personalises recovery." data-pt="Análise preditiva e inteligência biomecânica que antecipa lesões, otimiza performance e personaliza a recuperação.">Predictive analytics and biomechanical intelligence that anticipates injury, optimises performance and personalises recovery.</p></div>
-      <div class="tc fu"><div class="tcode">XR</div><h3>EXTENDED REALITY</h3><p data-en="Immersive interfaces and real-time 3D avatars that visualise the body's digital twin in action." data-pt="Interfaces imersivas e avatares 3D em tempo real que visualizam o gêmeo digital do corpo em ação.">Immersive interfaces and real-time 3D avatars that visualise the body's digital twin in action.</p></div>
-      <div class="tc fu"><div class="tcode">DT</div><h3>DIGITAL TWINS</h3><p data-en="Virtual replicas enabling real-time monitoring, simulation and optimisation of human movement." data-pt="Réplicas virtuais para monitorização, simulação e otimização do movimento humano em tempo real.">Virtual replicas enabling real-time monitoring, simulation and optimisation of human movement.</p></div>
-      <div class="tc fu"><div class="tcode">5G</div><h3>CONNECTIVITY</h3><p data-en="Ultra-low latency wireless communication enabling real-time control and data transfer anywhere." data-pt="Comunicação sem fio de latência ultra-baixa para controle em tempo real e transferência de dados em qualquer lugar.">Ultra-low latency wireless communication enabling real-time control and data transfer anywhere.</p></div>
-      <div class="tc fu"><div class="tcode">E·T</div><h3>E-TEXTILE / NANOTECH</h3><p data-en="Nanotechnology embedded into fibres creates an intelligent second skin that reads and stimulates muscle activity." data-pt="Nanotecnologia incorporada nas fibras cria uma segunda pele inteligente que lê e estimula a atividade muscular.">Nanotechnology embedded into fibres creates an intelligent second skin that reads and stimulates muscle activity.</p></div>
-    </div>
-    <div class="fu">
-      <div class="trl-lbl" data-en="NASA TRL METHODOLOGY — TISSUE-TECH TRL 2/3 · D2W TRL 4/5" data-pt="METODOLOGIA TRL NASA — TISSUE-TECH TRL 2/3 · D2W TRL 4/5">METODOLOGIA TRL NASA — TISSUE-TECH TRL 2/3 · D2W TRL 4/5</div>
-      <div class="trl-bar"><div class="ts on"></div><div class="ts on"></div><div class="ts on"></div><div class="ts on"></div><div class="ts hl"></div><div class="ts"></div><div class="ts"></div><div class="ts"></div><div class="ts"></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="si">
-    <div class="slbl" data-en="R&D PORTFOLIO" data-pt="PORTFÓLIO P&D">R&D PORTFOLIO</div>
-    <h2 data-en="Projects in<br>Development." data-pt="Projetos em<br>Desenvolvimento.">Projects in<br>Development.</h2>
-    <div class="pg">
-      <div class="pc feat fu">
-        <div class="pnum">04</div>
-        <div class="pi">
-
-          <!-- COLUNA ESQUERDA -->
-          <div>
-            <div class="proj-logo"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1876.44 143.45">
-  <path d="M80.61,109.5H22.2v-54.37h27.12v31.94h31.29c15,0,25.82-8.34,25.82-20.86s-11.21-21.25-25.82-21.25H22.2l17.21-22.69h41.2c30.51,0,52.55,17.6,52.55,42.77s-22.3,44.46-52.55,44.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M185.45,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M267.33,55h55.81v54.5h-59.85c-30.25,0-52.54-19.17-52.54-44.46s22.3-42.77,52.54-42.77h62.46l-17.47,22.69h-44.98c-14.6,0-25.69,8.87-25.69,21.25s10.69,20.86,25.69,20.86h32.99v-12.65h-45.11l16.17-19.43Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M377.26,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M513.64,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M542.46,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M759.3,87.08l-17.47,22.43h-77.06V22.28h26.99v64.8h67.54Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M798.56,22.28h51.11c26.47,0,37.42,10.69,37.42,27.12,0,14.99-10.3,25.03-32.73,25.03h-41.46c-6.26,0-9.26,1.83-9.26,6.26v6.39h84.1l-17.34,22.43h-92.83v-28.55c0-15.91,11.47-23.86,32.73-23.86h41.46c6.26,0,9.26-1.69,9.26-6.13s-3-6-9.26-6h-70.54l17.34-22.69Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1000.14,77.04c-7.56-13.43-11.08-19.95-14.08-26.21-2.74,6.26-6.26,12.65-13.82,26.08l-13.95,24.77c-3.13,5.61-7.82,9.26-14.86,9.26s-12.78-3.91-15.12-12l-22.17-76.67h26.99l8.21,30.38c2.74,9.78,4.56,16.95,5.87,23.99,2.87-6.13,6.26-12.78,12.26-24.12l11.73-21.9c4.56-8.61,9-9.78,15.39-9.78s11.08,1.17,15.65,9.78l11.6,22.04c6.52,12,9.52,18.12,12.26,23.99,1.43-6.91,3.39-14.34,6-23.99l8.21-30.38h26.34l-22.56,76.67c-2.35,8.08-8.34,12-15.12,12s-11.6-3.52-14.86-9.26l-13.95-24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1115.54,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1221.16,106.24l-53.46-47.98v51.24h-24.51V37.14c0-11.6,7.04-16.3,14.73-16.3,3.26,0,6.52.78,10.82,4.69l53.46,47.98V22.28h24.64v72.23c0,11.6-7.04,16.43-14.86,16.43-3.39,0-6.65-.78-10.82-4.69Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1362.24,21.89h-9.26v88.79h9.26v15.65h-25.03V6.11h25.03v15.78Z" style="fill: #85c6eb; stroke: #85c6eb; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1446.21,109.5h-58.41v-54.37h27.12v31.94h31.29c15,0,25.82-8.34,25.82-20.86s-11.21-21.25-25.82-21.25h-58.41l17.21-22.69h41.2c30.51,0,52.55,17.6,52.55,42.77s-22.3,44.46-52.55,44.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1542.71,22.28h51.11c26.47,0,37.42,10.69,37.42,27.12,0,14.99-10.3,25.03-32.73,25.03h-41.46c-6.26,0-9.26,1.83-9.26,6.26v6.39h84.1l-17.34,22.43h-92.83v-28.55c0-15.91,11.47-23.86,32.73-23.86h41.46c6.26,0,9.26-1.69,9.26-6.13s-3-6-9.26-6h-70.54l17.34-22.69Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1744.29,77.04c-7.56-13.43-11.08-19.95-14.08-26.21-2.74,6.26-6.26,12.65-13.82,26.08l-13.95,24.77c-3.13,5.61-7.82,9.26-14.86,9.26s-12.78-3.91-15.12-12l-22.17-76.67h26.99l8.21,30.38c2.74,9.78,4.56,16.95,5.87,23.99,2.87-6.13,6.26-12.78,12.26-24.12l11.73-21.9c4.56-8.61,9-9.78,15.39-9.78s11.08,1.17,15.65,9.78l11.6,22.04c6.52,12,9.52,18.12,12.26,23.99,1.43-6.91,3.39-14.34,6-23.99l8.21-30.38h26.34l-22.56,76.67c-2.35,8.08-8.34,12-15.12,12s-11.6-3.52-14.86-9.26l-13.95-24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1855.13,126.32h-24.9v-15.65h9.26V21.89h-9.26V6.11h24.9v120.22Z" style="fill: #85c6eb; stroke: #85c6eb; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-</svg></svg></div>
-            <div class="ptrl">TRL 4/5 · PROTOTYPE</div>
-            <h3 class="sr-only">D2W — DIGITAL2WIN</h3>
-            <div class="psub"
-              data-en="LOAD GENERATOR DEVICE · REHAB / PERFORMANCE / MILITARY"
-              data-pt="DISPOSITIVO GERADOR DE CARGA · REABILITAÇÃO / PERFORMANCE / MILITAR">
-              DISPOSITIVO GERADOR DE CARGA · REABILITAÇÃO / PERFORMANCE / MILITAR
-            </div>
-            <p class="pdesc"
-              data-en="D2W is a portable, connected load generator device — not merely a sensor, but an actuator. It measures velocity, amplitude, frequency and output power (which varies as a function of load and achieved velocity) in real time, creating a Digital Twin of the user's body in motion."
-              data-pt="O D2W é um dispositivo portátil e conectado gerador de carga — não apenas um sensor, mas um atuador. Mede em tempo real velocidade, amplitude, frequência e potência [variável em função da carga e da velocidade realizadas], criando um Gêmeo Digital do corpo em movimento.">
-              O D2W é um dispositivo portátil e conectado gerador de carga — não apenas um sensor, mas um atuador. Mede em tempo real velocidade, amplitude, frequência e potência [variável em função da carga e da velocidade realizadas], criando um Gêmeo Digital do corpo em movimento.
-            </p>
-            <div class="ptags">
-              <span class="ptag">DEVICE</span><span class="ptag">PORTABLE</span>
-              <span class="ptag">IoT</span><span class="ptag">ACTUATOR</span>
-              <span class="ptag">REAL-TIME DATA</span><span class="ptag">AI</span>
-              <span class="ptag">DIGITAL TWIN</span>
-            </div>
-            <a href="#" class="plink" data-en="EXPLORE D2W" data-pt="EXPLORAR D2W">EXPLORE D2W <span class="arr"></span></a>
-            <div class="d2w-img-block">
-              <div class="d2w-img-label" data-en="MUSCULOSKELETAL<br>IMPROVEMENT SYSTEM" data-pt="SISTEMA DE MELHORA<br>MUSCULOESQUELÉTICA">MUSCULOSKELETAL<br>IMPROVEMENT SYSTEM</div>
-              <img class="d2w-img" src="homem.png">
-            </div>
-          </div>
-          <!-- COLUNA DIREITA -->
-          <div>
-
-            <!-- MVP-01 -->
-            <div class="mvp">
-              <div class="mvpt" data-en="MVP-01 · BASE PRODUCT" data-pt="MVP-01 · PRODUTO BASE">MVP-01 · PRODUTO BASE</div>
-              <div class="mvpr"><span data-en="Load" data-pt="Carga">Carga</span><strong>8 KG</strong></div>
-              <div class="mvpr"><span data-en="Weight" data-pt="Peso">Peso</span><strong>1,2 KG</strong></div>
-              <div class="mvpr-tags">
-                <span class="mvp-tag" data-en="Velocity" data-pt="Velocidade">Velocidade</span>
-                <span class="mvp-tag" data-en="Amplitude" data-pt="Amplitude">Amplitude</span>
-                <span class="mvp-tag" data-en="Frequency" data-pt="Frequência">Frequência</span>
-                <span class="mvp-tag" data-en="Power" data-pt="Potência">Potência</span>
-              </div>
-            </div>
-
-            <!-- MVP-02 -->
-            <div class="mvp">
-              <div class="mvpt" data-en="MVP-02 · CONNECTED + DYNAMIC CONTROL" data-pt="MVP-02 · CONECTADO + CONTROLE DINÂMICO">MVP-02 · CONECTADO + CONTROLE DINÂMICO</div>
-              <div class="mvpr"><span data-en="Load" data-pt="Carga">Carga</span><strong>30 KG</strong></div>
-              <div class="mvpr"><span data-en="Real-time adjustment" data-pt="Ajuste em tempo real">Ajuste em tempo real</span><strong>ECC / CON</strong></div>
-              <div class="mvpr-tags">
-                <span class="mvp-tag" data-en="Velocity" data-pt="Velocidade">Velocidade</span>
-                <span class="mvp-tag" data-en="Amplitude" data-pt="Amplitude">Amplitude</span>
-                <span class="mvp-tag" data-en="Frequency" data-pt="Frequência">Frequência</span>
-                <span class="mvp-tag" data-en="Angle" data-pt="Ângulo">Ângulo</span>
-                <span class="mvp-tag" data-en="Power" data-pt="Potência">Potência</span>
-                <span class="mvp-tag" data-en="Objective Real-time Data" data-pt="Dados Objetivos em Tempo Real">Dados Objetivos em Tempo Real</span>
-                <span class="mvp-tag">AI</span>
-                <span class="mvp-tag" data-en="3D Tracking" data-pt="Tracking 3D">Tracking 3D</span>
-                <span class="mvp-tag">Avatar 3D</span>
-              </div>
-            </div>
-
-            <!-- PoCs -->
-            <div class="mvp poc-grid">
-              <div>
-                <div class="mvpt">PoC [a] · VALIDATED</div>
-                <div class="poc-item">IoT</div>
-                <div class="poc-item" data-en="Portable Device" data-pt="Dispositivo Portátil">Dispositivo Portátil</div>
-                <div class="poc-item" data-en="Real-time Data" data-pt="Dados em Tempo Real">Dados em Tempo Real</div>
-                <div class="poc-item" data-en="Real-time 3D Avatar" data-pt="Avatar 3D em Tempo Real">Avatar 3D em Tempo Real</div>
-              </div>
-              <div>
-                <div class="mvpt">PoC [b] · VALIDATED</div>
-                <div class="poc-item">IoT</div>
-                <div class="poc-item" data-en="Portable Device" data-pt="Dispositivo Portátil">Dispositivo Portátil</div>
-                <div class="poc-item" data-en="Real-time Data" data-pt="Dados em Tempo Real">Dados em Tempo Real</div>
-                <div class="poc-item" data-en="Load Adjustments [round trip]" data-pt="Ajuste de Carga [round trip]">Ajuste de Carga [round trip]</div>
-                <div class="poc-item" data-en="Real-time Remote Control" data-pt="Controle Remoto em Tempo Real">Controle Remoto em Tempo Real</div>
-                <div class="poc-item" data-en="3D Spatial Tracking + Real-time Plotting" data-pt="Tracking Espacial 3D + Plotagem em Tempo Real">Tracking Espacial 3D + Plotagem em Tempo Real</div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-      <div class="pc feat fu">
-        <div class="pnum">01</div>
-        <div class="pi">
-          <!-- COLUNA ESQUERDA -->
-          <div>
-            <div class="proj-logo"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774.19 143.45">
-  <path d="M125.35,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96H8.79l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M172.17,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M281.04,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55h-81.23l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M417.83,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55h-81.23l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M587.07,71.43c0,26.34-18.12,39.51-54.37,39.51-41.98,0-60.11-13.17-60.11-39.51V22.28h26.86v49.16c0,12.91,5.48,17.08,33.25,17.08,20.73,0,27.25-4.82,27.25-17.08V22.28h27.12v49.16Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M714.86,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M785.79,56.96l-13.17,16.82h-43.55l13.17-16.82h43.55Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M904.32,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1025.06,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1156.5,87.08l-17.34,22.43h-43.81c-30.25,0-52.54-19.17-52.54-44.46s22.3-42.77,52.54-42.77h61.15l-17.34,22.69h-43.81c-14.6,0-25.56,8.74-25.56,21.25s10.82,20.86,25.56,20.86h61.15Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1282.98,109.5h-26.86v-33.64h-51.89v33.64h-27.12V22.28h27.12v30.9h51.89v-30.9h26.86v87.23Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-</svg></div>
-            <div class="ptrl">TRL 2/3 · CONCEPT</div>
-            <h3 class="sr-only">TISSUE-TECH</h3>
-            <div class="psub"
-              data-en="E-TEXTILE WEARABLE · REHAB / FITNESS / PERFORMANCE / MILITARY"
-              data-pt="WEARABLE E-TÊXTIL · REABILITAÇÃO / FITNESS / PERFORMANCE / MILITAR">
-              WEARABLE E-TÊXTIL · REABILITAÇÃO / FITNESS / PERFORMANCE / MILITAR
-            </div>
-            <p class="pdesc"
-              data-en="An e-textile nanotech wearable — an intelligent second skin integrated with the Body Operating System [BoS]. Reads neuromuscular activity via EMG and actuates through FES electro-stimulation. Invisible technology delivering unlimited human potential across rehabilitation, fitness, performance and military defence."
-              data-pt="Um wearable e-têxtil nanotecnológico — uma segunda pele inteligente integrada ao Sistema Operacional do Corpo [BoS]. Lê a atividade neuromuscular via EMG e atua por estimulação eletrofuncional FES. Tecnologia invisível que libera o potencial humano ilimitado em reabilitação, fitness, performance e defesa militar.">
-              Um wearable e-têxtil nanotecnológico — uma segunda pele inteligente integrada ao Sistema Operacional do Corpo [BoS]. Lê a atividade neuromuscular via EMG e atua por estimulação eletrofuncional FES. Tecnologia invisível que libera o potencial humano ilimitado em reabilitação, fitness, performance e defesa militar.
-            </p>
-            <div class="ptags">
-              <span class="ptag">DEVICE [e-Textile · Nanotech]</span>
-              <span class="ptag">WEARABLE</span>
-              <span class="ptag">IoT</span>
-              <span class="ptag">EMG / FES</span>
-              <span class="ptag">BIOFEEDBACK · REAL-TIME DATA</span>
-              <span class="ptag">AI</span>
-              <span class="ptag">DIGITAL TWIN</span>
-              <span class="ptag">BoS</span>
-            </div>
-            <a href="#" class="plink" data-en="LEARN MORE" data-pt="SAIBA MAIS">LEARN MORE <span class="arr"></span></a>
-            <div class="d2w-img-block tt-img-block">
-              <div class="d2w-img-label" data-en="E-TEXTILE<br>INTELLIGENT SKIN" data-pt="E-TÊXTIL<br>SEGUNDA PELE">E-TEXTILE<br>INTELLIGENT SKIN</div>
-              <img class="d2w-img" src="Tissue_Fibra.png">
-            </div>
-          </div>
-          <!-- COLUNA DIREITA -->
-          <div>
-            <div class="mvp">
-              <div class="mvpt" data-en="NEUROMUSCULAR READING" data-pt="LEITURA NEUROMUSCULAR">LEITURA NEUROMUSCULAR</div>
-              <div class="mvpr-tags">
-                <span class="mvp-tag">EMG READING</span>
-                <span class="mvp-tag">FES ACTUATION</span>
-                <span class="mvp-tag">REAL-TIME BIOFEEDBACK</span>
-                <span class="mvp-tag">PREDICTIVE ANALYTICS</span>
-                <span class="mvp-tag">INJURY PREVENTION</span>
-              </div>
-            </div>
-            <div class="mvp">
-              <div class="mvpt" data-en="SMART SECOND SKIN" data-pt="SEGUNDA PELE INTELIGENTE">SEGUNDA PELE INTELIGENTE</div>
-              <div class="mvpr-tags">
-                <span class="mvp-tag">NANOTECH WEARABLE</span>
-                <span class="mvp-tag">INVISIBLE SENSORS</span>
-                <span class="mvp-tag">DYNAMIC LOAD OPTIMIZATION</span>
-                <span class="mvp-tag">BoS INTEGRATION</span>
-                <span class="mvp-tag">AI READY</span>
-                <span class="mvp-tag">DIGITAL TWIN</span>
-              </div>
-            </div>
-            <div class="mvp">
-              <div class="mvpt" data-en="PoC · VALIDATED" data-pt="PoC · VALIDADO">PoC · VALIDADO</div>
-              <div class="mvpr-tags">
-                <span class="mvp-tag">BIOFEEDBACK CAPTURE</span>
-                <span class="mvp-tag">PHASE 01 · RESPONSE TRIALS</span>
-                <span class="mvp-tag">EMG/FES PROTOTYPE</span>
-              </div>
-            </div>
-            <div class="mvp">
-              <div class="mvpt" data-en="TARGET MARKETS" data-pt="MERCADOS ALVO">MERCADOS ALVO</div>
-              <div class="mvpr-tags">
-                <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">REHAB</span>
-                <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">FITNESS</span>
-                <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">PERFORMANCE</span>
-                <span class="mvp-tag" style="color:var(--orange);border-color:rgba(255,103,29,0.3);">MILITARY</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="pc fu">
-        <div class="pnum">02</div>
-        <div class="proj-logo"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774.19 143.45">
-  <path d="M97.84,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55H11.92l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M214.02,54.74c7.69,13.43,11.08,19.95,14.08,26.08,2.87-6.13,6.26-12.52,13.95-25.95l13.95-24.77c3.13-5.61,7.82-9.26,14.86-9.26s12.78,3.91,15.12,12l22.04,76.67h-26.86l-8.21-30.38c-2.74-9.91-4.56-16.95-6-23.99-2.87,6.13-6.13,12.78-12.13,24.12l-11.73,21.9c-4.56,8.61-9,9.78-15.52,9.78s-10.95-1.17-15.52-9.78l-11.73-22.04c-6.39-12-9.52-18.12-12.26-23.99-1.3,6.91-3.26,14.21-5.87,23.99l-8.21,30.38h-26.47l22.56-76.67c2.35-8.08,8.47-12,15.25-12s11.6,3.52,14.73,9.26l13.95,24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M366.06,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M612.11,109.5h-36.12l-19.43-23.08h-41.46v23.08h-26.99v-44.59h75.89c8.34,0,14.86-3.78,14.86-9.78,0-6.78-5.61-10.17-14.86-10.17h-75.89l17.6-22.69h56.07c19.82,0,44.85,6.26,44.85,31.16,0,13.56-8.47,24.77-22.82,27.64,3,2.22,6.26,5.35,12.26,11.47l16.04,16.95Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M741.33,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M902.76,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55h-81.23l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1060.01,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1112.95,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1315.71,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-</svg></div>
-        <div class="ptrl">TRL 2 · CONCEPT</div>
-        <h3 class="sr-only">SMART SEAT</h3>
-        <div class="psub" data-en="G-FORCE SIMULATOR · REHAB / PERFORMANCE" data-pt="SIMULADOR DE FORÇA G · REABILITAÇÃO / PERFORMANCE">G-FORCE SIMULATOR · REABILITAÇÃO / PERFORMANCE</div>
-        <p class="pdesc" data-en="An intelligent seat with G-Force simulation — designed for motorsport training, racing simulation and rehabilitation of postural and core muscles under dynamic loading conditions." data-pt="Assento inteligente com simulação de Força G — para treino automobilístico, simulação de corrida e reabilitação de músculos posturais sob carga dinâmica.">An intelligent seat with G-Force simulation — designed for motorsport training, racing simulation and rehabilitation of postural and core muscles under dynamic loading conditions.</p>
-        <div class="ptags"><span class="ptag">DEVICE</span><span class="ptag">G-FORCE</span><span class="ptag">SIMULATION</span><span class="ptag">MOTORSPORT</span><span class="ptag">REHAB</span><span class="ptag">PERFORMANCE</span></div>
-        <a href="#" class="plink" data-en="LEARN MORE" data-pt="SAIBA MAIS">LEARN MORE <span class="arr"></span></a>
-      </div>
-      <div class="pc fu">
-        <div class="pnum">03</div>
-        <div class="proj-logo"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774.19 143.45">
-  <path d="M97.84,57.09c21.25,0,32.73,7.95,32.73,23.86,0,17.86-10.82,28.55-37.42,28.55H11.92l17.34-22.43h65.98c6.39,0,9.26-1.83,9.26-6.39s-2.87-6.26-9.26-6.26h-47.46c-22.43,0-32.73-10.04-32.73-25.03,0-16.43,10.95-27.12,37.42-27.12h75.75l-17.34,22.69h-60.5c-6.26,0-9.26,1.56-9.26,6s3,6.13,9.26,6.13h47.46Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M214.02,54.74c7.69,13.43,11.08,19.95,14.08,26.08,2.87-6.13,6.26-12.52,13.95-25.95l13.95-24.77c3.13-5.61,7.82-9.26,14.86-9.26s12.78,3.91,15.12,12l22.04,76.67h-26.86l-8.21-30.38c-2.74-9.91-4.56-16.95-6-23.99-2.87,6.13-6.13,12.78-12.13,24.12l-11.73,21.9c-4.56,8.61-9,9.78-15.52,9.78s-10.95-1.17-15.52-9.78l-11.73-22.04c-6.39-12-9.52-18.12-12.26-23.99-1.3,6.91-3.26,14.21-5.87,23.99l-8.21,30.38h-26.47l22.56-76.67c2.35-8.08,8.47-12,15.25-12s11.6,3.52,14.73,9.26l13.95,24.64Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M366.06,109.5l16.3-22.43h21.9c5.22,0,11.34,0,15.52.26-2.35-3.13-6-8.48-8.87-12.65l-15.65-23.08-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-101.44Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M612.11,109.5h-36.12l-19.43-23.08h-41.46v23.08h-26.99v-44.59h75.89c8.34,0,14.86-3.78,14.86-9.78,0-6.78-5.61-10.17-14.86-10.17h-75.89l17.6-22.69h56.07c19.82,0,44.85,6.26,44.85,31.16,0,13.56-8.47,24.77-22.82,27.64,3,2.22,6.26,5.35,12.26,11.47l16.04,16.95Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M741.33,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M934.05,84.08c0,14.47-7.95,25.43-35.46,25.43h-76.67v-53.07h77.19c3.91,0,7.56-1.43,7.56-5.87s-3.78-5.61-7.56-5.61h-77.19l18.25-22.69h57.76c20.86,0,34.29,8.08,34.29,24.12,0,10.3-5.87,16.04-11.87,18.25,7.56,2.22,13.69,9,13.69,19.43ZM849.04,75.08v12h49.68c5.87,0,8.34-2.09,8.34-6.13,0-3.78-2.48-5.87-8.34-5.87h-49.68Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M986.21,109.5h-26.99V22.28h26.99v87.23Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1124.29,109.5h-40.81l-26.34-22.95c-9-7.82-13.17-11.6-16.17-14.6.13,4.04.39,8.34.39,12.52v25.03h-27.12V22.28h27.12v20.21c0,5.35-.26,10.69-.52,15.26,3.39-3.13,8.08-7.56,16.04-14.21l25.17-21.25h39.12l-33.38,25.03c-11.6,8.74-16.95,12.65-22.56,16.04,4.96,3.39,11.74,8.21,22.95,17.34l36.12,28.82Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1245.69,87.08l-17.34,22.43h-83.97V22.28h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.19Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1438.28,87.08l-17.34,22.43h-43.81c-30.25,0-52.54-19.17-52.54-44.46s22.3-42.77,52.54-42.77h61.15l-17.34,22.69h-43.81c-14.6,0-25.56,8.74-25.56,21.25s10.82,20.86,25.56,20.86h61.15Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1485.22,22.28l39.25,57.89,40.94-57.89h31.81l-55.81,78.88c-3.78,5.08-9.13,9.78-17.47,9.78s-13.43-4.3-17.21-9.78l-54.63-78.88h33.12Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-  <path d="M1726.44,22.28l-17.47,22.69h-31.16v64.54h-26.99V44.96h-40.94l17.47-22.69h99.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-</svg></div>
-        <div class="ptrl">TRL 2/3 · CONCEPT</div>
-        <h3 class="sr-only">SMART BIKE CVT</h3>
-        <div class="psub" data-en="AUTOMATIC TRANSMISSION · REHAB / FITNESS / PERFORMANCE" data-pt="TRANSMISSÃO AUTOMÁTICA · REABILITAÇÃO / FITNESS / PERFORMANCE">AUTOMATIC TRANSMISSION · REHAB / FITNESS / PERFORMANCE</div>
-        <p class="pdesc" data-en="A CVT-type automatic transmission for bicycles that adapts gear ratios in real-time based on the rider's biofeedback — cadence, power output and physiological response — for optimal performance and rehabilitation." data-pt="Transmissão automática tipo CVT para bicicletas que adapta as relações em tempo real com base no biofeedback do ciclista — cadência, potência e resposta fisiológica.">A CVT-type automatic transmission for bicycles that adapts gear ratios in real-time based on the rider's biofeedback — cadence, power output and physiological response — for optimal performance and rehabilitation.</p>
-        <div class="ptags"><span class="ptag">DEVICE</span><span class="ptag">CVT</span><span class="ptag">IoT</span><span class="ptag">BIOFEEDBACK</span><span class="ptag">REAL-TIME DATA</span><span class="ptag">AI</span><span class="ptag">REHAB</span><span class="ptag">FITNESS</span><span class="ptag">PERFORMANCE</span></div>
-        <a href="#" class="plink" data-en="LEARN MORE" data-pt="SAIBA MAIS">LEARN MORE <span class="arr"></span></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOUNDER -->
 <section id="founder">
   <div class="si">
     <div class="slbl" data-en="THE FOUNDER" data-pt="O FUNDADOR">THE FOUNDER</div>
@@ -772,29 +1866,15 @@
   </div>
 </section>
 
-<!-- RECOGNITION -->
-<section id="recognition">
-  <div class="si">
-    <div class="slbl" data-en="RECOGNITION & ECOSYSTEM" data-pt="RECONHECIMENTO & ECOSSISTEMA">RECOGNITION & ECOSYSTEM</div>
-    <h2 data-en="Validated by<br>the Ecosystem." data-pt="Validados pelo<br>Ecossistema.">Validated by<br>the Ecosystem.</h2>
-    <div class="rg">
-      <div class="rc fu"><div class="ri">✦</div><h3 data-en="VOUCHERS FOR STARTUPS" data-pt="VOUCHERS FOR STARTUPS">VOUCHERS FOR STARTUPS</h3><p data-en="Approved 2025 — New Digital/Technological Products. Funded by the Portuguese government to accelerate deep tech innovation." data-pt="Aprovado 2025 — Novos Produtos Digitais/Tecnológicos. Financiado pelo governo português para acelerar a inovação deep tech.">Approved 2025 — New Digital/Technological Products. Funded by the Portuguese government to accelerate deep tech innovation.</p></div>
-      <div class="rc fu"><div class="ri">◈</div><h3 data-en="STARTUP PORTUGAL" data-pt="STARTUP PORTUGAL">STARTUP PORTUGAL</h3><p data-en="Certified within the national startup ecosystem recognition programme, validating the technology concept and market potential." data-pt="Certificada pelo programa nacional de reconhecimento do ecossistema de startups, validando o conceito tecnológico e o potencial de mercado.">Certified within the national startup ecosystem recognition programme, validating the technology concept and market potential.</p></div>
-      <div class="rc fu"><div class="ri">⬡</div><h3 data-en="TAGUSPARK INCUBATOR" data-pt="INCUBADORA TAGUSPARK">TAGUSPARK INCUBATOR</h3><p data-en="Member of Taguspark — Oeiras Valley, one of Portugal's leading technology parks and part of the European innovation ecosystem." data-pt="Membro do Taguspark — Oeiras Valley, um dos principais parques tecnológicos de Portugal e parte do ecossistema europeu de inovação.">Member of Taguspark — Oeiras Valley, one of Portugal's leading technology parks and part of the European innovation ecosystem.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
 <section id="contact">
   <div class="si">
     <div class="cg">
       <div class="fu">
         <div class="slbl" data-en="GET IN TOUCH" data-pt="ENTRE EM CONTATO">GET IN TOUCH</div>
-        <div class="bcta" data-en="United, our potential is <em>limitless</em>.<br><span style='white-space:nowrap;'>Let's make it happen.</span>" data-pt="Unidos, nosso potencial é <em>ilimitado</em>.<br><span style='white-space:nowrap;'>Vamos fazer acontecer.</span>">United, our potential is <em>limitless</em>.<br><span style="white-space:nowrap;">Let's make it happen.</span></div>
+        <div class="bcta" data-en="United, our potential is <em>limitless</em>.<br><span style=''>Let's make it happen.</span>" data-pt="Unidos, nosso potencial é <em>ilimitado</em>.<br><span style=''>Vamos fazer acontecer.</span>">United, our potential is <em>limitless</em>.<br><span style="">Let's make it happen.</span></div>
       </div>
       <div class="clist fu">
-        <div class="ci"><div class="cdot"></div><a href="mailto:info@twinfactory.cc">info@twinfactory.cc</a></div>
+        <div class="ci"><div class="cdot"></div><a href="/cdn-cgi/l/email-protection#d8b1b6beb798acafb1b6beb9bbacb7aaa1f6bbbb"><span class="__cf_email__" data-cfemail="89e0e7efe6c9fdfee0e7efe8eafde6fbf0a7eaea">[email&#160;protected]</span></a></div>
         <div class="ci"><div class="cdot"></div><span>+351 918 592 199</span></div>
         <div class="ci"><div class="cdot"></div><span>+55 11 98764 6464</span></div>
         <div class="addr"><a href="https://www.google.com/maps/place/TagusPark+Inovação+Edificio+II/@38.7410386,-9.3024038,17z/data=!3m1!4b1!4m6!3m5!1s0xd1ecfb173d85133:0x6f3ba06cc74f0faf!8m2!3d38.7410386!4d-9.3024038!16s%2Fg%2F11j2s2tz76?entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" style="color:inherit;text-decoration:none;"><p>AV. JACQUES DELORS, EDIFÍCIO INOVAÇÃO II</p><p>Nº 411-421, G14 · CP: 2740-122</p><p>TAGUSPARK · OEIRAS VALLEY · PORTUGAL <span style="color:var(--blue);">↗</span></p></a></div>
@@ -817,17 +1897,88 @@
     <path d="M1584.2,116.1h-42.5l-22.8-27.1h-48.7v27.1h-31.7v-52.4h89.2c9.8,0,17.5-4.4,17.5-11.5s-6.6-12-17.5-12h-89.2l20.7-26.7h65.9c23.3,0,52.7,7.4,52.7,36.6s-10,29.1-26.8,32.5c3.5,2.6,7.4,6.3,14.4,13.5l18.9,19.9Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
     <path d="M1741.6,13.6l-60.9,68.7v33.9h-31.9v-34l-62.5-68.5h40.8l24.5,28.5c3.2,3.7,11.8,13,14,16.1,2-2.9,5.5-7.4,12.9-16.2l23.3-28.4h39.9Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
   </svg>
-  <div class="fcopy">© 2025 TWIN FACTORY LDA · ALL RIGHTS RESERVED</div>
+  <div class="fcopy">© 2026 TWIN FACTORY LDA · ALL RIGHTS RESERVED</div>
 </footer>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  function splitHeadlineAfterFirstComma(text){
+    var clean = (text || '').trim();
+    if(!clean) return '';
+
+    var commaIndex = clean.indexOf(',');
+    if(commaIndex === -1) return clean;
+
+    var first = clean.slice(0, commaIndex + 1).trim();
+    var second = clean.slice(commaIndex + 1).trim();
+
+    if(!second) return first;
+
+    return '<span class="split-line">' + first + '</span>' +
+           '<span class="split-line"> ' + second + '</span>';
+  }
+
+  
+  function splitHeadlineAfterFirstColon(text){
+    var clean = (text || '').trim();
+    if(!clean) return '';
+    var colonIndex = clean.indexOf(':');
+    if(colonIndex === -1) return clean;
+
+    var first = clean.slice(0, colonIndex + 1).trim();
+    var second = clean.slice(colonIndex + 1).trim();
+
+    if(!second) return first;
+
+    return '<span class="split-line">' + first + '</span>' +
+           '<span class="split-line">' + second + '</span>';
+  }
+
+  function refreshColonSplitHeadlines(lang){
+    document.querySelectorAll('.js-split-first-colon').forEach(function(el){
+      var value = el.getAttribute('data-' + lang) || el.textContent || '';
+      var html = splitHeadlineAfterFirstColon(value);
+      el.innerHTML = html || value;
+    });
+  }
+
+function refreshCommaSplitHeadlines(lang){
+    document.querySelectorAll('.js-split-first-comma').forEach(function(el){
+      var value = el.getAttribute('data-' + lang) || el.textContent || '';
+      var html = splitHeadlineAfterFirstComma(value);
+      el.innerHTML = html || value;
+    });
+  }
+
   window.setLang = function(l){
     document.getElementById('btn-en').classList.toggle('active',l==='en');
     document.getElementById('btn-pt').classList.toggle('active',l==='pt');
+    document.body.classList.toggle('lang-en', l==='en');
+    document.body.classList.toggle('lang-pt', l==='pt');
     document.querySelectorAll('[data-en]').forEach(function(el){
-      var v=el.getAttribute('data-'+l); if(v) el.innerHTML=v;
+      var v = el.getAttribute('data-' + l);
+      if(!v) return;
+
+      if(el.classList.contains('js-split-first-comma') || el.classList.contains('js-split-first-colon')){
+        return;
+      }
+
+      // If this node contains arrow/icon children, update only its dedicated text span.
+      if(el.matches('a') && el.querySelector('.cta-arrows, .arr')){
+        var label = el.querySelector('span[data-en], .label-i18n');
+        if(label){
+          label.innerHTML = v;
+        }
+        return;
+      }
+
+      el.innerHTML = v;
     });
+
+    refreshCommaSplitHeadlines(l);
+    refreshColonSplitHeadlines(l);
   };
   document.addEventListener('DOMContentLoaded',function(){
+    var initialLang = document.body.classList.contains('lang-pt') ? 'pt' : 'en';
+    window.setLang(initialLang);
     var cur=document.getElementById('cur'),curR=document.getElementById('curR');
     var mx=0,my=0,rx=0,ry=0;
     document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;});
@@ -837,18 +1988,68 @@
       curR.style.transform='translate('+(rx-15)+'px,'+(ry-15)+'px)';
       requestAnimationFrame(loop);
     })();
-        var obs=new IntersectionObserver(function(entries){
+    var hero=document.getElementById('heroContent');
+    if(hero){
+      requestAnimationFrame(function(){ hero.classList.add('is-ready'); });
+    }
+    document.addEventListener('click',function(e){
+      var link = e.target.closest('a[href^="#"]');
+      if(!link) return;
+      var href = link.getAttribute('href');
+      if(!href || href === '#') return;
+      var target = document.querySelector(href);
+      if(!target) return;
+      e.preventDefault();
+      target.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+    var obs=new IntersectionObserver(function(entries){
       entries.forEach(function(e,i){
         if(e.isIntersecting){
-          setTimeout(function(){e.target.classList.add('vis');},i*70);
+          setTimeout(function(){
+            e.target.classList.add('vis');
+            setTimeout(function(){ e.target.style.transition=''; }, 800);
+          },i*70);
           obs.unobserve(e.target);
         }
       });
-    },{threshold:0.01,rootMargin:'0px 0px -10px 0px'});
-    document.querySelectorAll('.fu').forEach(function(el){
-      var r=el.getBoundingClientRect();
-      if(r.top < window.innerHeight){el.classList.add('vis');}
-      else{obs.observe(el);}
+    },{threshold:0.01,rootMargin:'0px 0px -60px 0px'});
+    document.querySelectorAll('.fu').forEach(function(el){ obs.observe(el); });
+
+    // TRL bar animation
+    function animateTrlBar(bar) {
+      var onCount = parseInt(bar.getAttribute('data-on')) || 0;
+      var hlIndex = parseInt(bar.getAttribute('data-hl')) || 0;
+      var segments = bar.querySelectorAll('.ts');
+      // Reset first
+      segments.forEach(function(seg) {
+        seg.classList.remove('on', 'hl');
+      });
+      // Re-animate
+      segments.forEach(function(seg, idx) {
+        setTimeout(function() {
+          if (idx < onCount) { seg.classList.add('on'); }
+          else if (idx === hlIndex - 1) { seg.classList.add('hl'); }
+        }, idx * 120);
+      });
+    }
+
+    var trlObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          animateTrlBar(entry.target);
+          trlObs.unobserve(entry.target);
+        }
+      });
+    }, {threshold: 0.5});
+    document.querySelectorAll('.trl-animate').forEach(function(bar) {
+      trlObs.observe(bar);
+      // Re-animate on panel hover
+      var panel = bar.closest('.trl-panel');
+      if (panel) {
+        panel.addEventListener('mouseenter', function() {
+          animateTrlBar(bar);
+        });
+      }
     });
   });
 </script>
