@@ -486,7 +486,7 @@ body.lang-en .platform-cta .lang-pt-only{display:none !important;}
 }
 .applications-layout{display:block;}
 .applications-copy{max-width:760px;}
-.applications-copy .slbl{font-size:11px;letter-spacing:3.4px;color:var(--blue);margin-bottom:24px;}
+.applications-copy .slbl{color:var(--blue);margin-bottom:24px;}
 .applications-copy .slbl::before{background:var(--blue);}
 .applications-headline-wrap{margin-bottom:24px;}
 .applications-headline{margin-bottom:0;font-size:clamp(39px,4.25vw,58px);line-height:1.02;letter-spacing:-1.3px;}
@@ -681,15 +681,13 @@ body.lang-pt .applications-headline-pt{display:block;font-size:clamp(38px,4vw,54
   gap:28px;align-items:start;
 }
 .flagship-copy{display:flex;flex-direction:column;align-items:flex-start;text-align:left;}
-.flagship-copy .slbl{margin-bottom:22px;color:var(--blue);font-size:11px;letter-spacing:3.2px;}
+.flagship-copy .slbl{margin-bottom:22px;color:var(--blue);font-size:9px;letter-spacing:5px;}
 .flagship-copy .slbl::before{background:var(--blue);}
 .flagship-logo{
-  width:min(430px,100%);
+  width:100%;
   margin-bottom:32px;
-  transform:scale(1.2);
-  transform-origin:left center;
 }
-.flagship-logo svg{width:100%;height:auto;display:block;}
+.flagship-logo svg{height:clamp(34px,4vw,54px);width:auto;max-width:min(560px,100%);display:block;}
 .flagship-bridge{
   max-width:620px;
   font-family:'Nunito Sans',sans-serif;
@@ -829,10 +827,11 @@ body.lang-pt .applications-headline-pt{display:block;font-size:clamp(38px,4vw,54
 
 /* ── PROJECTS ── */
 #projects{border-top:1px solid var(--border);padding-bottom:20vh;}
+.projects-bottom-cta{margin-top:48px;display:flex;justify-content:flex-end;}
 .pg{display:flex;flex-direction:column;gap:2px;}
 .pc{
   background:var(--card-bg);border:1px solid var(--border);
-  padding:36px 40px;
+  padding:48px 40px;
   position:relative;overflow:hidden;
   transition:border-color 0.3s;
 }
@@ -858,26 +857,30 @@ body.lang-pt .applications-headline-pt{display:block;font-size:clamp(38px,4vw,54
 .pc-inner{display:flex;gap:40px;align-items:stretch;}
 .pc-left{flex:1;min-width:0;display:flex;flex-direction:column;}
 .pc-right{
-  width:200px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  padding:16px;
+  width:280px;flex-shrink:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:20px;padding:20px;
 }
 .pc-right img{
-  width:168px;height:168px;
+  width:220px;height:220px;
   border-radius:50%;object-fit:cover;display:block;
   border:1px solid rgba(133,198,235,0.18);
 }
+.pc-right .apps-cta{justify-content:center;}
+.pc-right .apps-cta .cta-title{color:var(--blue);}
+.pc-right .apps-cta:hover .cta-title{color:var(--white);}
 .ptrl{
-  display:inline-block;
-  border:1px solid rgba(255,103,29,0.45);
-  font-family:'Nunito Sans',sans-serif;
-  font-weight:800;font-size:8px;letter-spacing:3px;
-  color:var(--orange);padding:3px 10px;
-  margin-bottom:14px;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(255,103,29,0.55);
+  background:rgba(255,103,29,0.07);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:900;font-size:13px;letter-spacing:2px;
+  color:var(--orange);padding:7px 16px;
+  margin-bottom:20px;text-transform:uppercase;
 }
-.psub{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:9px;letter-spacing:3px;color:var(--blue);margin-bottom:18px;text-transform:uppercase;}
-.ptags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:22px;margin-top:auto;padding-top:18px;}
-.ptag{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:8px;letter-spacing:1px;color:var(--gray);border:1px solid var(--border);padding:3px 8px;text-transform:uppercase;}
+.psub{font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:11px;letter-spacing:2px;color:var(--text-hi);margin-bottom:20px;margin-left:16px;text-transform:uppercase;line-height:1.6;}
+.ptags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;margin-top:auto;padding-top:20px;margin-left:16px;}
+.ptag{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:9px;letter-spacing:1.5px;color:var(--text-mid);border:1px solid rgba(133,198,235,0.2);padding:5px 10px;text-transform:uppercase;}
 .plink{
   display:inline-flex;align-items:center;gap:10px;
   font-family:'Nunito Sans',sans-serif;
@@ -887,7 +890,8 @@ body.lang-pt .applications-headline-pt{display:block;font-size:clamp(38px,4vw,54
   margin-top:8px;
 }
 .plink:hover{border-color:var(--blue);}
-.proj-logo{width:min(340px,80%);margin-bottom:14px;}
+.proj-logo{width:100%;margin-bottom:20px;}
+.proj-logo svg{height:clamp(28px,3.2vw,44px);width:auto;max-width:min(480px,88%);display:block;}
 .proj-logo svg{width:100%;height:auto;display:block;}
 
 /* ── RECOGNITION ── */
@@ -1236,7 +1240,7 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
           </p>
         
         <div class="platform-actions">
-          <a href="#applications-section" class="hero-btn hero-btn-secondary platform-cta">
+          <a href="#applications-section" class="hero-btn hero-btn-secondary">
             <span class="lang-en-only">Where It Takes Form</span>
             <span class="lang-pt-only">Onde Ganha Forma</span>
             <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
@@ -1337,15 +1341,11 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
             </p>
           </div>
           <div class="app-cta-card fu">
-            <a href="#technology" class="apps-cta">
-              <span class="cta-title">
-                <span data-en="The Stack" data-pt="O Stack">The Stack</span>
-              </span>
-              <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
-              <span class="cta-sub">
-                <span data-en="Core enabling technologies" data-pt="Tecnologias habilitadoras centrais">Core enabling technologies</span>
-              </span>
-            </a>
+            <a href="#technology" class="hero-btn hero-btn-secondary">
+            <span class="lang-en-only">EXPLORE APPLICATIONS</span>
+            <span class="lang-pt-only">EXPLORAR APLICAÇÕES</span>
+            <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+          </a>
           </div>
         </div>
       </div>
@@ -1470,15 +1470,11 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
     </div>
 
     <div class="tech-cta fu">
-      <a href="#d2w-section" class="apps-cta">
-        <span class="cta-title">
-          <span data-en="The D2W System" data-pt="O Sistema D2W">The D2W System</span>
-        </span>
-        <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
-        <span class="cta-sub">
-          <span data-en="First system built on the platform" data-pt="Primeiro sistema construído na plataforma">First system built on the platform</span>
-        </span>
-      </a>
+      <a href="#d2w-section" class="hero-btn hero-btn-secondary">
+            <span class="lang-en-only">EXPLORE TECHNOLOGY</span>
+            <span class="lang-pt-only">EXPLORAR TECNOLOGIA</span>
+            <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+          </a>
     </div>
 
   </div>
@@ -1543,10 +1539,11 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
         </div>
       </div>
       <div class="flagship-cta-row">
-        <a href="https://twinfactory.cc/projects" class="plink">
-          <span class="label-i18n" data-en="SEE ALL PROJECTS" data-pt="VER TODOS OS PROJETOS">SEE ALL PROJECTS</span>
-          <span class="arr"></span>
-        </a>
+        <a href="#projects" class="hero-btn hero-btn-secondary">
+            <span class="lang-en-only">SEE ALL PROJECTS</span>
+            <span class="lang-pt-only">VER TODOS OS PROJETOS</span>
+            <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+          </a>
       </div>
     </div>
   </div>
@@ -1591,10 +1588,14 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
               <span class="ptag">REAL-TIME DATA</span><span class="ptag">AI</span>
               <span class="ptag">DIGITAL TWIN</span>
             </div>
-            <a href="https://twinfactory.cc/projects" class="plink"><span class="label-i18n" data-en="EXPLORE D2W" data-pt="EXPLORAR D2W">EXPLORE D2W</span> <span class="arr"></span></a>
           </div>
           <div class="pc-right">
             <img src="homem.png" alt="D2W — Musculoskeletal Improvement System">
+            <a href="https://twinfactory.cc/projects" class="apps-cta">
+              <span class="cta-title lang-en-only">EXPLORE D2W</span>
+              <span class="cta-title lang-pt-only">EXPLORAR D2W</span>
+              <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+            </a>
           </div>
         </div>
       </div>
@@ -1623,19 +1624,19 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
               data-pt="WEARABLE E-TÊXTIL · REABILITAÇÃO / FITNESS / PERFORMANCE / DEFESA MILITAR">
               E-TEXTILE WEARABLE · REHAB / FITNESS / PERFORMANCE / MILITARY</div>
             <div class="ptags">
-              <span class="ptag">DEVICE [e-Textile · Nanotech]</span>
-              <span class="ptag">WEARABLE</span>
-              <span class="ptag">IoT</span>
-              <span class="ptag">EMG / FES</span>
+              <span class="ptag">DEVICE [e-Textile · Nanotech]</span><span class="ptag">WEARABLE</span>
+              <span class="ptag">IoT</span><span class="ptag">EMG / FES</span>
               <span class="ptag">BIOFEEDBACK · REAL-TIME DATA</span>
-              <span class="ptag">AI</span>
-              <span class="ptag">DIGITAL TWIN</span>
-              <span class="ptag">BoS</span>
+              <span class="ptag">AI</span><span class="ptag">DIGITAL TWIN</span><span class="ptag">BoS</span>
             </div>
-            <a href="https://twinfactory.cc/projects" class="plink"><span class="label-i18n" data-en="LEARN MORE" data-pt="SAIBA MAIS">LEARN MORE</span> <span class="arr"></span></a>
           </div>
           <div class="pc-right">
             <img src="Tissue_Fibra.png" alt="Tissue-Tech — E-Textile Intelligent Skin">
+            <a href="https://twinfactory.cc/projects" class="apps-cta">
+              <span class="cta-title lang-en-only">LEARN MORE</span>
+              <span class="cta-title lang-pt-only">SAIBA MAIS</span>
+              <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+            </a>
           </div>
         </div>
       </div>
@@ -1665,15 +1666,18 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
               data-pt="TRANSMISSÃO AUTOMÁTICA · REABILITAÇÃO / FITNESS / PERFORMANCE">
               AUTOMATIC TRANSMISSION · REHAB / FITNESS / PERFORMANCE</div>
             <div class="ptags">
-              <span class="ptag">DEVICE</span><span class="ptag">CVT</span>
-              <span class="ptag">IoT</span><span class="ptag">BIOFEEDBACK</span>
+              <span class="ptag">DEVICE</span><span class="ptag">IoT</span>
+              <span class="ptag">CVT</span><span class="ptag">BIOFEEDBACK</span>
               <span class="ptag">REAL-TIME DATA</span><span class="ptag">AI</span>
-              <span class="ptag">REHAB</span><span class="ptag">FITNESS</span><span class="ptag">PERFORMANCE</span>
             </div>
-            <a href="https://twinfactory.cc/projects" class="plink"><span class="label-i18n" data-en="LEARN MORE" data-pt="SAIBA MAIS">LEARN MORE</span> <span class="arr"></span></a>
           </div>
           <div class="pc-right">
             <img src="bike.png" alt="Smart Bike CVT — Automatic Transmission">
+            <a href="https://twinfactory.cc/projects" class="apps-cta">
+              <span class="cta-title lang-en-only">LEARN MORE</span>
+              <span class="cta-title lang-pt-only">SAIBA MAIS</span>
+              <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+            </a>
           </div>
         </div>
       </div>
@@ -1699,18 +1703,28 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
               data-pt="SIMULADOR DE FORÇA G · REABILITAÇÃO / PERFORMANCE">
               G-FORCE SIMULATOR · REHAB / PERFORMANCE</div>
             <div class="ptags">
-              <span class="ptag">DEVICE</span><span class="ptag">G-FORCE</span>
-              <span class="ptag">SIMULATION</span><span class="ptag">MOTORSPORT</span>
-              <span class="ptag">REHAB</span><span class="ptag">PERFORMANCE</span>
+              <span class="ptag">DEVICE</span><span class="ptag">IoT</span>
+              <span class="ptag">G-FORCE</span><span class="ptag">SIMULATION</span><span class="ptag">AI</span>
             </div>
-            <a href="https://twinfactory.cc/projects" class="plink"><span class="label-i18n" data-en="LEARN MORE" data-pt="SAIBA MAIS">LEARN MORE</span> <span class="arr"></span></a>
           </div>
           <div class="pc-right">
             <img src="seat.png" alt="Smart Seat — G-Force Simulator">
+            <a href="https://twinfactory.cc/projects" class="apps-cta">
+              <span class="cta-title lang-en-only">LEARN MORE</span>
+              <span class="cta-title lang-pt-only">SAIBA MAIS</span>
+              <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+            </a>
           </div>
         </div>
       </div>
 
+    </div>
+    <div class="projects-bottom-cta fu">
+      <a href="#recognition" class="hero-btn hero-btn-secondary">
+            <span class="lang-en-only">VALIDATED BY THE ECOSYSTEM</span>
+            <span class="lang-pt-only">VALIDADOS PELO ECOSSISTEMA</span>
+            <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+          </a>
     </div>
   </div>
 </section>
