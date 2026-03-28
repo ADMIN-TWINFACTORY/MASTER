@@ -297,6 +297,7 @@ a:hover .cta-arrows{transform:translateX(4px) translateY(-1px);}
   letter-spacing:2.5px;
   font-family:'Nunito Sans',sans-serif;
   font-size:11px;font-weight:800;
+  display:inline-flex;align-items:center;gap:8px;
   transition:transform 0.25s ease,border-color 0.25s ease,background 0.25s ease,color 0.25s ease,box-shadow 0.25s ease;
 }
 .hero-btn .lang-en-only,.hero-btn .lang-pt-only{display:inline;}
@@ -339,7 +340,7 @@ body.lang-pt .hero-btn{min-width:182px;padding:14px 16px;}
   border-color:rgba(133,198,235,0.68);
   color:var(--white);
 }
-.hero-btn .cta-arrows{margin-left:10px;}
+.hero-btn .cta-arrows{width:22px;height:11px;flex-shrink:0;margin-left:4px;}
 
 /* Hero enter animation */
 .hero-content.is-ready .hero-category,
@@ -941,14 +942,14 @@ body.lang-pt .applications-headline-pt{display:block;font-size:clamp(38px,4vw,54
 .rec-divider{width:100%;height:1px;background:var(--border);margin:32px 0;}
 .rec-cta-wrap{text-align:center;padding-top:40px;}
 
-/* ── ABOUT ── */
+/* ── ABOUT (merged with Founder) ── */
 #about{border-top:1px solid var(--border);}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.about-grid{display:grid;grid-template-columns:2.2fr 1fr;gap:80px;align-items:start;}
 .about-grid p{text-align:left;}
 .about-block1{margin-bottom:56px;}
 .about-taglines{margin:20px 0 32px;}
 .about-tagline-b{font-family:'Nunito Sans',sans-serif;font-weight:300;font-size:clamp(15px,1.4vw,19px);color:var(--blue);line-height:1.5;margin-bottom:8px;font-style:italic;}
-.about-tagline-c{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:clamp(12px,1.1vw,15px);color:var(--white);letter-spacing:1px;text-align:center;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);}
+.about-tagline-c{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:clamp(18px,2vw,26px);color:var(--white);letter-spacing:1px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:24px;}
 .about-tagline-c em{color:var(--orange);font-style:normal;}
 .indent-line{display:inline-block;padding-left:2ch;}
 .indent-line2{display:inline-block;padding-left:3.2ch;}
@@ -958,34 +959,41 @@ body.lang-pt .applications-headline-pt{display:block;font-size:clamp(38px,4vw,54
 .about-text p{font-size:16px;line-height:1.85;color:var(--gray);margin-bottom:20px;text-align:justify;}
 .about-text strong{color:var(--white);font-weight:700;}
 .bq{border-left:3px solid var(--orange);padding:12px 0 12px 22px;font-style:italic;font-size:17px;font-weight:300;color:var(--blue);line-height:1.65;margin:28px 0;}
-.stats{display:flex;flex-direction:column;gap:2px;height:100%;}
+/* about headlines — 2 lines only */
+.about-h2{font-size:clamp(26px,2.8vw,38px) !important;line-height:1.2 !important;margin-bottom:20px !important;}
+/* left col: founder card on top, texts below */
+.about-left{display:flex;flex-direction:column;gap:0;}
+/* right col: stats stacked vertically */
+.about-right{display:flex;flex-direction:column;gap:0;}
+.stats{display:flex;flex-direction:column;gap:2px;}
 .stat{background:var(--card-bg);border:1px solid var(--border);padding:28px 24px;transition:border-color 0.3s;flex:1;display:flex;flex-direction:column;justify-content:center;}
 .stat:hover{border-color:var(--border-h);}
 .snum{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:62px;color:var(--blue);line-height:1;}
 .snum sup{font-size:28px;color:var(--orange);}
-.snum-plus{font-size:1.1em;color:var(--orange);font-style:italic;vertical-align:middle;transform:translateY(-1px);}
+.snum-plus{font-size:inherit;color:var(--orange);font-style:italic;}
 .snum-trl{font-size:inherit;color:var(--blue);font-weight:900;}
 .snum-arrow{font-size:18px;color:var(--orange);font-weight:800;letter-spacing:1px;margin-left:6px;}
 .snum-split{display:inline-flex;align-items:center;gap:0;}
-.snum-op{font-size:36px;color:var(--orange);margin:0 4px;line-height:1;align-self:center;}
+.snum-op{font-size:22px;color:var(--orange);margin:0 4px;line-height:1;align-self:center;margin-top:-0.1em;}
 .slb{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;color:var(--gray);margin-top:10px;text-transform:uppercase;line-height:1.8;}
-
-/* ── FOUNDER ── */
-#founder{border-top:1px solid var(--border);}
-.fg{display:grid;grid-template-columns:300px 1fr;gap:72px;align-items:start;}
-.fcard{background:transparent;border:none;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;position:relative;overflow:visible;}
-.fcard-photo-wrap{width:280px;height:280px;flex-shrink:0;margin-bottom:20px;}
+/* founder card — inline below stats */
+.founder-inline{display:flex;gap:28px;align-items:flex-start;margin-top:2px;background:var(--card-bg);border:1px solid var(--border);border-top:none;padding:28px 24px;}
+.founder-inline:hover{border-color:var(--border-h);}
+.fcard-photo-wrap{width:180px;height:180px;flex-shrink:0;}
 .fcard-photo{width:100%;height:100%;object-fit:contain;}
-.fcard-lbl{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:8px;letter-spacing:4px;color:var(--gray);text-transform:uppercase;text-align:center;position:relative;}
-.fname{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:clamp(36px,4vw,52px);line-height:0.9;letter-spacing:-1px;margin-bottom:6px;}
-.frole{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:9px;letter-spacing:4px;color:var(--orange);text-transform:uppercase;margin-bottom:32px;}
-.founder-logo{width:min(480px,100%);margin-bottom:12px;}
+.founder-inline-info{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0;}
+.founder-logo{width:100%;max-width:391px;margin-bottom:6px;}
 .founder-logo svg{width:100%;height:auto;display:block;}
-.founder-text p{font-size:15px;line-height:1.85;color:var(--gray);margin-bottom:16px;}
-.founder-text strong{color:var(--white);font-weight:700;}
+.frole{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:8px;letter-spacing:3px;color:var(--orange);text-transform:uppercase;margin-bottom:8px;}
+.founder-bio{font-size:14px;line-height:1.8;color:var(--gray);}
+.founder-bio strong{color:var(--white);font-weight:700;}
+.founder-bio-q{display:block;margin-top:8px;white-space:nowrap;}
+.founder-cta{margin-top:20px;}
+.snum-paren-br{color:var(--blue);display:inline-block;transform:translateY(-10%);}
 
 /* ── CONTACT ── */
-#contact{border-top:1px solid var(--border);}
+#contact{border-top:1px solid var(--border);min-height:100vh;display:flex;align-items:center;}
+#contact .si{width:100%;}
 .cg{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
 .bcta{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:clamp(24px,2.8vw,38px);line-height:1.15;margin-bottom:32px;}
 .bcta em{color:var(--orange);font-style:normal;}
@@ -1038,8 +1046,7 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
   .tech-grid,
   .pg,
   .rg,
-  .cg,
-  .fg{grid-template-columns:1fr;gap:32px;}
+  .cg{grid-template-columns:1fr;gap:32px;}
   .pc-inner{flex-direction:column;}
   .pc-right{width:100%;height:200px;}
 
@@ -1119,8 +1126,9 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
   .stat{text-align:center;}
   .snum{justify-content:center;}
 
-  /* founder */
-  .founder-logo{margin:0 auto 12px;}
+  /* founder inline */
+  .founder-inline{flex-direction:column;align-items:center;text-align:center;}
+  .founder-logo{margin:0 auto 4px;}
   .frole{text-align:center;}
 
   /* recognition */
@@ -1164,10 +1172,12 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
     </svg>
   </a>
   <ul class="nav-links">
-    <li><a href="#about" data-en="ABOUT" data-pt="SOBRE">ABOUT</a></li>
     <li><a href="#platform" data-en="PLATFORM" data-pt="PLATAFORMA">PLATFORM</a></li>
+    <li><a href="#technology" data-en="TECHNOLOGY" data-pt="TECNOLOGIA">TECHNOLOGY</a></li>
+    <li><a href="#d2w-section" data-en="D2W" data-pt="D2W">D2W</a></li>
     <li><a href="#projects" data-en="PROJECTS" data-pt="PROJETOS">PROJECTS</a></li>
-    <li><a href="#founder" data-en="FOUNDER" data-pt="FUNDADOR">FOUNDER</a></li>
+    <li><a href="#recognition" data-en="RECOGNITION" data-pt="RECONHECIMENTO">RECOGNITION</a></li>
+    <li><a href="#about" data-en="ABOUT" data-pt="SOBRE">ABOUT</a></li>
     <li><a href="#contact" data-en="CONTACT" data-pt="CONTATO">CONTACT</a></li>
   </ul>
   <div class="lang-toggle">
@@ -1919,116 +1929,16 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
     <div class="slbl" data-en="ABOUT US" data-pt="SOBRE NÓS">SOBRE NÓS</div>
     <div class="about-grid">
 
-      <!-- COLUNA ESQUERDA: dois blocos -->
-      <div>
+      <!-- COLUNA ESQUERDA: founder card topo + textos abaixo -->
+      <div class="about-left">
 
-        <!-- BLOCO 1: Technology Driven. Driving Technology. -->
-        <div class="fu about-block1">
-          <h2 data-en="Technology Driven.<br><span class='indent-line'>Driving Technology.</span>" data-pt="Technology Driven.<br><span class='indent-line'>Driving Technology.</span>">Technology Driven.<br><span class="indent-line">Driving Technology.</span></h2>
-          <div class="about-tagline-b"
-            data-en="We are driven by emerging technologies — but we also drive technologies forward."
-            data-pt="Somos impulsionados pelas tecnologias emergentes — mas também impulsionamos as tecnologias.">
-            Somos impulsionados pelas tecnologias emergentes — mas também impulsionamos as tecnologias.
+        <!-- FOUNDER CARD — topo -->
+        <div class="founder-inline fu">
+          <div class="fcard-photo-wrap">
+            <img src="andre.png" alt="André Sernaglia" class="fcard-photo"/>
           </div>
-          <p data-en="At Twin Factory we don't just apply emerging technologies — we push them beyond their known limits. Creativity and unconventional thinking lead us to use technology in ways its own creators never anticipated. In doing so, we don't only build better products — we expand what technology itself can do."
-             data-pt="Na Twin Factory não apenas aplicamos tecnologias emergentes — nós as empurramos além dos seus limites conhecidos. A criatividade e o pensamento não convencional nos levam a usar a tecnologia de maneiras que nem seus próprios criadores previram. Ao fazer isso, não apenas construímos produtos melhores — expandimos o que a própria tecnologia é capaz de fazer.">
-            Na Twin Factory não apenas aplicamos tecnologias emergentes — nós as empurramos além dos seus limites conhecidos. A criatividade e o pensamento não convencional nos levam a usar a tecnologia de maneiras que nem seus próprios criadores previram. Ao fazer isso, não apenas construímos produtos melhores — expandimos o que a própria tecnologia é capaz de fazer.
-          </p>
-        </div>
-
-        <!-- BLOCO 2: Foco em saúde motora + Ford -->
-        <div class="fu">
-          <h2 style="margin-bottom:24px;" data-en="Motor Health.<br><span class='indent-line2'>Redefined.</span>" data-pt="Saúde Motora.<br><span class='indent-line2'>Redefinida.</span>">Motor Health.<br><span class="indent-line2">Redefined.</span></h2>
-          <p data-en="We are a deep tech startup developing <strong>intelligent products</strong> based on Industry 4.0 enabling technologies. Our core focus is motor health — transforming rehabilitation, fitness, performance and military through data, replacing assumptions with measurable, objective insights powered by real biodata."
-             data-pt="Somos uma startup de deep tech que desenvolve <strong>produtos inteligentes</strong> baseados nas tecnologias habilitadoras da Indústria 4.0. Nosso foco central é a saúde motora — transformando reabilitação, fitness, performance e defesa militar por meio de dados, substituindo suposições por insights objetivos e mensuráveis baseados em biodados reais.">
-            Somos uma startup de deep tech que desenvolve <strong>produtos inteligentes</strong> baseados nas tecnologias habilitadoras da Indústria 4.0. Nosso foco central é a saúde motora — transformando reabilitação, fitness, performance e defesa militar por meio de dados, substituindo suposições por insights objetivos e mensuráveis baseados em biodados reais.
-          </p>
-          <div class="ford-callout">
-            <div class="bq ford-bq"
-              data-en='<span class="ford-inline-label">As Henry Ford would say...</span>"If I had asked people what they wanted,<br><span style="display:inline-block;padding-left:17ch;">they would have said faster horses."</span>'
-              data-pt='<span class="ford-inline-label">Como Henry Ford diria...</span>"Se eu tivesse perguntado às pessoas o que queriam,<br><span style="display:inline-block;padding-left:19.5ch;">teriam dito cavalos mais rápidos."</span>'>
-              <span class="ford-inline-label">Como Henry Ford diria...</span>"Se eu tivesse perguntado às pessoas o que queriam,<br><span style="display:inline-block;padding-left:19.5ch;">teriam dito cavalos mais rápidos."</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- FRASE CENTRAL: spanning visual center -->
-      <!-- placeholder, will be added below grid -->
-      <!-- COLUNA DIREITA: stats -->
-      <div class="stats fu">
-
-        <div class="stat">
-          <div class="snum" style="display:flex;align-items:center;gap:10px;">
-            <span>4</span>
-            <span style="font-size:inherit;line-height:1;display:flex;align-items:center;gap:1px;">
-              <span class="snum-paren-br">[</span><span class="snum-plus">Plus</span><span class="snum-paren-br">]</span>
-            </span>
-          </div>
-          <div class="slb"
-            data-en="PRODUCTS IN DEVELOPMENT"
-            data-pt="PRODUTOS EM DESENVOLVIMENTO">
-            PRODUTOS EM DESENVOLVIMENTO
-          </div>
-        </div>
-
-        <div class="stat">
-          <div class="snum" style="display:flex;align-items:center;gap:10px;">
-            <span>2</span>
-            <span style="font-size:inherit;font-weight:900;color:var(--orange);">Países</span>
-          </div>
-          <div class="slb"
-            data-en="PRESENCE IN SP &nbsp;•&nbsp; LX"
-            data-pt="PRESENÇA EM SP &nbsp;•&nbsp; LX">
-            PRESENÇA EM SP &nbsp;•&nbsp; LX
-          </div>
-        </div>
-
-        <div class="stat">
-          <div class="snum">
-            <span class="snum-paren-br">[</span><span class="snum-trl">TRL</span><span class="snum-paren-br">]</span>&nbsp;<span style="color:var(--orange);">5</span>
-          </div>
-          <div class="slb"
-            data-en="TECHNOLOGY READINESS LEVEL<br>NASA METHODOLOGY"
-            data-pt="TECHNOLOGY READINESS LEVEL<br>METODOLOGIA NASA">
-            TECHNOLOGY READINESS LEVEL<br>METODOLOGIA NASA
-          </div>
-        </div>
-
-        <div class="stat">
-          <div class="snum"><span class="snum-split">30<span class="snum-op" style="font-size:22px;color:var(--orange);margin:0 4px;">[20+10]</span></span></div>
-          <div class="slb"
-            data-en="YEARS OF EXPERIENCE<br>20 IN COMMUNICATION<br>10 IN TECHNOLOGY & INDUSTRY 4.0"
-            data-pt="ANOS DE EXPERIÊNCIA<br>20 EM COMUNICAÇÃO<br>10 EM TECNOLOGIA E INDÚSTRIA 4.0">
-            ANOS DE EXPERIÊNCIA<br>20 EM COMUNICAÇÃO<br>10 EM TECNOLOGIA E INDÚSTRIA 4.0
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-    <!-- FRASE CENTRAL full-width -->
-    <div class="about-tagline-c">
-      <span data-en="Technology moves us." data-pt="A tecnologia nos move.">A tecnologia nos move.</span>
-      &nbsp;<em data-en="We move technology." data-pt="Nós movemos a tecnologia.">Nós movemos a tecnologia.</em>
-    </div>
-  </div>
-</section>
-
-<section id="founder">
-  <div class="si">
-    <div class="slbl" data-en="THE FOUNDER" data-pt="O FUNDADOR">THE FOUNDER</div>
-    <div class="fg">
-      <div class="fcard fu">
-        <div class="fcard-bg">ANDRE&#10;SERNAGLIA</div>
-        <div class="fcard-photo-wrap">
-          <img src="andre.png" alt="André Sernaglia" class="fcard-photo"/>
-        </div>
-        <div class="fcard-lbl" data-en="FOUNDER & CEO" data-pt="FUNDADOR & CEO">FOUNDER & CEO</div>
-      </div>
-      <div class="fu">
-        <div class="founder-logo" style="margin-bottom:12px;"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1876.44 143.45">
+          <div class="founder-inline-info">
+            <div class="founder-logo"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1876.44 143.45">
   <path d="M58.12,109.5l15.95-21.94h21.43c5.1,0,11.1,0,15.18.25-2.3-3.06-5.87-8.29-8.67-12.37l-15.31-22.58-40.05,56.64H15.39l54.72-77.18c3.57-4.98,8.8-9.57,17.09-9.57s13.14,4.21,16.84,9.57l53.32,77.18H58.12Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
   <path d="M253.67,106.32l-52.3-46.94v50.13h-23.98V38.71c0-11.35,6.89-15.95,14.41-15.95,3.19,0,6.38.77,10.59,4.59l52.3,46.94V24.16h24.11v70.67c0,11.35-6.89,16.07-14.54,16.07-3.32,0-6.51-.77-10.59-4.59Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
   <path d="M362.48,109.5h-57.15v-53.19h26.53v31.25h30.62c14.67,0,25.26-8.16,25.26-20.41s-10.97-20.79-25.26-20.79h-57.15l16.84-22.2h40.31c29.85,0,51.41,17.22,51.41,41.84s-21.81,43.5-51.41,43.5Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
@@ -2044,27 +1954,102 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
   <path d="M1692.14,109.5h-26.41V24.16h26.41v85.34Z" style="fill: none; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
   <path d="M1755.67,109.5l15.95-21.94h21.43c5.1,0,11.1,0,15.18.25-2.3-3.06-5.87-8.29-8.67-12.37l-15.31-22.58-40.05,56.64h-31.25l54.72-77.18c3.57-4.98,8.8-9.57,17.09-9.57s13.14,4.21,16.84,9.57l53.32,77.18h-99.25Z" style="fill: none; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
 </svg></div>
-        <div class="frole" data-en="FOUNDER & CEO · TWIN FACTORY" data-pt="FUNDADOR & CEO · TWIN FACTORY">FOUNDER & CEO · TWIN FACTORY</div>
-        <p data-en="Passionate enthusiast of science, technology and sports — with a special love for mountain biking and snowboarding. André Sernaglia embraces life as an adventure, driven by curiosity and a commitment to innovation." data-pt="Entusiasta apaixonado por ciência, tecnologia e esportes — com um amor especial por mountain bike e snowboard. André Sernaglia abraça a vida como uma aventura, movido pela curiosidade e comprometimento com a inovação.">Passionate enthusiast of science, technology and sports — with a special love for mountain biking and snowboarding. André Sernaglia embraces life as an adventure, driven by curiosity and a commitment to innovation.</p>
-        <p data-en='With deep experience in Industry 4.0, where precision and data are essential, he asked: <strong>"Why not use these technologies to transform motor health?"</strong> Frustrated by the lack of objectivity in physical therapy after his own injury recovery, he founded Twin Factory to bridge that gap.' data-pt='Com vasta experiência na Indústria 4.0, ele perguntou: <strong>"Por que não usar essas tecnologias para transformar a saúde motora?"</strong> Frustrado com a falta de objetividade na fisioterapia após sua recuperação, fundou a Twin Factory.'>With deep experience in Industry 4.0, where precision and data are essential, he asked: <strong>"Why not use these technologies to transform motor health?"</strong> Frustrated by the lack of objectivity in physical therapy after his own injury recovery, he founded Twin Factory to bridge that gap.</p>
-        <div class="bq" data-en='"This imprecision left me frustrated and convinced that there was significant room for improvement."' data-pt='"Essa imprecisão me deixou frustrado e convicto de que havia muito espaço para melhoria."'>"This imprecision left me frustrated and convinced that there was significant room for improvement."</div>
+            <div class="frole" data-en="FOUNDER & CEO · TWIN FACTORY" data-pt="FUNDADOR & CEO · TWIN FACTORY">FOUNDER & CEO · TWIN FACTORY</div>
+            <p class="founder-bio"
+              data-en="Passionate enthusiast of science, technology and sports — with a special love for mountain biking and snowboarding. With deep experience in Industry 4.0, where precision and data are essential, he asked:<span class='founder-bio-q'><strong>&ldquo;Why not use these technologies to transform motor health?&rdquo;</strong></span>Frustrated by the lack of objectivity in physical therapy after his own injury recovery, he founded Twin Factory to bridge that gap."
+              data-pt="Entusiasta apaixonado por ciência, tecnologia e esportes — com amor especial por mountain bike e snowboard. Com vasta experiência na Indústria 4.0, onde precisão e dados são essenciais, ele perguntou:<span class='founder-bio-q'><strong>&ldquo;Por que não usar essas tecnologias para transformar a saúde motora?&rdquo;</strong></span>Frustrado com a falta de objetividade na fisioterapia após sua recuperação, fundou a Twin Factory para preencher essa lacuna.">
+              Passionate enthusiast of science, technology and sports — with a special love for mountain biking and snowboarding. With deep experience in Industry 4.0, where precision and data are essential, he asked:<span class="founder-bio-q"><strong>&ldquo;Why not use these technologies to transform motor health?&rdquo;</strong></span>Frustrated by the lack of objectivity in physical therapy after his own injury recovery, he founded Twin Factory to bridge that gap.
+            </p>
+          </div>
+        </div>
+
+        <!-- BLOCO 1: Technology Driven -->
+        <div class="fu about-block1" style="margin-top:40px;">
+          <h2 class="about-h2" data-en="Technology Driven.<br><span class='indent-line'>Driving Technology.</span>" data-pt="Technology Driven.<br><span class='indent-line'>Driving Technology.</span>">Technology Driven.<br><span class="indent-line">Driving Technology.</span></h2>
+          <div class="about-tagline-b"
+            data-en="We are driven by emerging technologies — and we drive them forward."
+            data-pt="Somos impulsionados pelas tecnologias emergentes — mas também as impulsionamos.">
+            Somos impulsionados pelas tecnologias emergentes — mas também as impulsionamos.
+          </div>
+          <p data-en="At Twin Factory we don't just apply emerging technologies — we push them beyond their own limits. Creativity and unconventional thinking lead us to use technology outside its original conception. In doing so, we don't only build better products — we expand what technology itself can deliver."
+             data-pt="Na Twin Factory não apenas aplicamos tecnologias emergentes — nós as impulsionamos para além de seus próprios limites. A criatividade e o pensamento não convencional nos levam a usar a tecnologia fora de sua concepção. Ao fazer isso, não apenas construímos produtos melhores — expandimos o que a própria tecnologia é capaz de entregar.">
+            Na Twin Factory não apenas aplicamos tecnologias emergentes — nós as impulsionamos para além de seus próprios limites. A criatividade e o pensamento não convencional nos levam a usar a tecnologia fora de sua concepção. Ao fazer isso, não apenas construímos produtos melhores — expandimos o que a própria tecnologia é capaz de entregar.
+          </p>
+        </div>
+
+        <!-- BLOCO 2: Motor Health -->
+        <div class="fu">
+          <h2 class="about-h2" data-en="Motor Health. Redefined." data-pt="Saúde Motora. Redefinida.">Saúde Motora. Redefinida.</h2>
+          <p data-en="We are a deep tech startup developing <strong>intelligent products</strong> based on Industry 4.0 enabling technologies. Focused on motor health — we transform rehabilitation, fitness, performance and military defence through data, replacing assumptions with objective, measurable insights powered by real biodata."
+             data-pt="Somos uma startup deep tech que desenvolve <strong>produtos inteligentes</strong> baseados nas tecnologias habilitadoras da Indústria 4.0. Com foco em saúde motora — transformamos reabilitação, fitness, performance e defesa militar por meio de dados, substituindo suposições por insights objetivos e mensuráveis com biodados reais.">
+            Somos uma startup deep tech que desenvolve <strong>produtos inteligentes</strong> baseados nas tecnologias habilitadoras da Indústria 4.0. Com foco em saúde motora — transformamos reabilitação, fitness, performance e defesa militar por meio de dados, substituindo suposições por insights objetivos e mensuráveis com biodados reais.
+          </p>
+        </div>
+
       </div>
+      <div class="about-right fu">
+        <div class="stats">
+          <div class="stat">
+            <div class="snum" style="display:flex;align-items:center;gap:8px;">
+              <span>4</span>
+              <span class="snum-paren-br">[</span><span class="snum-plus">Plus</span><span class="snum-paren-br">]</span>
+            </div>
+            <div class="slb" data-en="PRODUCTS IN DEVELOPMENT" data-pt="PRODUTOS EM DESENVOLVIMENTO">PRODUTOS EM DESENVOLVIMENTO</div>
+          </div>
+          <div class="stat">
+            <div class="snum" style="display:flex;align-items:center;gap:10px;">
+              <span>2</span>
+              <span style="font-size:inherit;font-weight:900;color:var(--orange);">Países</span>
+            </div>
+            <div class="slb" data-en="PRESENCE IN SP &nbsp;•&nbsp; LX" data-pt="PRESENÇA EM SP &nbsp;•&nbsp; LX">PRESENÇA EM SP &nbsp;•&nbsp; LX</div>
+          </div>
+          <div class="stat">
+            <div class="snum" style="display:flex;align-items:center;gap:6px;">
+              <span class="snum-paren-br">[</span><span class="snum-trl">TRL</span><span class="snum-paren-br">]</span><span style="color:var(--orange);">5</span>
+            </div>
+            <div class="slb" data-en="TECHNOLOGY READINESS LEVEL<br>NASA METHODOLOGY" data-pt="TECHNOLOGY READINESS LEVEL<br>METODOLOGIA NASA">TECHNOLOGY READINESS LEVEL<br>METODOLOGIA NASA</div>
+          </div>
+          <div class="stat">
+            <div class="snum"><span class="snum-split">30<span class="snum-op">[20+10]</span></span></div>
+            <div class="slb" data-en="YEARS OF EXPERIENCE<br>20 IN COMMUNICATION<br>10 IN TECHNOLOGY & INDUSTRY 4.0" data-pt="ANOS DE EXPERIÊNCIA<br>20 EM COMUNICAÇÃO<br>10 EM TECNOLOGIA E INDÚSTRIA 4.0">ANOS DE EXPERIÊNCIA<br>20 EM COMUNICAÇÃO<br>10 EM TECNOLOGIA E INDÚSTRIA 4.0</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- TAGLINE full-width + CTA -->
+    <div class="about-tagline-c">
+      <span>
+        <span data-en="Technology moves us." data-pt="A tecnologia nos move.">A tecnologia nos move.</span>
+        &nbsp;<em data-en="We move technology." data-pt="Nós movemos a tecnologia.">Nós movemos a tecnologia.</em>
+      </span>
+      <a href="#contact" class="hero-btn hero-btn-secondary">
+        <span class="lang-en-only">GET IN TOUCH</span>
+        <span class="lang-pt-only">ENTRE EM CONTATO</span>
+        <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M151.76,55.48l-60.24,44.01c-3.3,2.41-7.94.05-7.94-4.03V7.44c0-4.09,4.64-6.44,7.94-4.03l60.24,44.01c2.73,2,2.73,6.07,0,8.07Z" style="fill:#FF671D;"/><path d="M72.71,55.48L12.47,99.48c-3.3,2.41-7.95.05-7.95-4.04V7.44c0-4.09,4.64-6.45,7.95-4.04l60.24,44c2.73,2,2.73,6.08,0,8.07Z" style="fill:#FF671D;"/></svg>
+      </a>
     </div>
   </div>
 </section>
+
 
 <section id="contact">
   <div class="si">
     <div class="cg">
       <div class="fu">
-        <div class="slbl" data-en="GET IN TOUCH" data-pt="ENTRE EM CONTATO">GET IN TOUCH</div>
-        <div class="bcta" data-en="United, our potential is <em>limitless</em>.<br><span style=''>Let's make it happen.</span>" data-pt="Unidos, nosso potencial é <em>ilimitado</em>.<br><span style=''>Vamos fazer acontecer.</span>">United, our potential is <em>limitless</em>.<br><span style="">Let's make it happen.</span></div>
+        <div class="bcta" data-en="United, our potential is <em>limitless</em>.<br><span style=''>Let's make it happen.</span>" data-pt="Juntos, somos mais <em>fortes</em>.<br>Vamos fazer acontecer.">United, our potential is <em>limitless</em>.<br><span style="">Let's make it happen.</span></div>
+        <a href="#hero" class="hero-btn hero-btn-secondary" style="margin-top:32px;">
+          <span>FAST FORWARD</span>
+          <svg class="cta-arrows" viewBox="0 0 158.33 102.89" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 79.16,51.44 0,102.89" fill="#FF671D"/><polygon points="79.16,0 158.33,51.44 79.16,102.89" fill="#FF671D"/></svg>
+          <span>TO THE FUTURE</span>
+        </a>
       </div>
       <div class="clist fu">
-        <div class="ci"><div class="cdot"></div><a href="/cdn-cgi/l/email-protection#d8b1b6beb798acafb1b6beb9bbacb7aaa1f6bbbb"><span class="__cf_email__" data-cfemail="89e0e7efe6c9fdfee0e7efe8eafde6fbf0a7eaea">[email&#160;protected]</span></a></div>
+        <div class="ci"><div class="cdot"></div><a href="mailto:info@twinfactory.cc">info@twinfactory.cc</a></div>
         <div class="ci"><div class="cdot"></div><span>+351 918 592 199</span></div>
         <div class="ci"><div class="cdot"></div><span>+55 11 98764 6464</span></div>
-        <div class="addr"><a href="https://www.google.com/maps/place/TagusPark+Inovação+Edificio+II/@38.7410386,-9.3024038,17z/data=!3m1!4b1!4m6!3m5!1s0xd1ecfb173d85133:0x6f3ba06cc74f0faf!8m2!3d38.7410386!4d-9.3024038!16s%2Fg%2F11j2s2tz76?entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" style="color:inherit;text-decoration:none;"><p>AV. JACQUES DELORS, EDIFÍCIO INOVAÇÃO II</p><p>Nº 411-421, G14 · CP: 2740-122</p><p>TAGUSPARK · OEIRAS VALLEY · PORTUGAL <span style="color:var(--blue);">↗</span></p></a></div>
+        <div class="ci"><div class="cdot"></div><span>MEMBER OF TAGUSPARK INCUBATOR</span></div>
+        <div class="addr"><a href="https://www.google.com/maps/place/TagusPark+Inovação+Edificio+II/@38.7410386,-9.3024038,17z/data=!3m1!4b1!4m6!3m5!1s0xd1ecfb173d85133:0x6f3ba06cc74f0faf!8m2!3d38.7410386!4d-9.3024038!16s%2Fg%2F11j2s2tz76?entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" style="color:inherit;text-decoration:none;"><p>AV. JACQUES DELORS, EDIFÍCIO INOVAÇÃO II · Nº 411-421, G14</p><p>CP: 2740-122 · TAGUSPARK · OEIRAS VALLEY · PORTUGAL <span style="color:var(--blue);">↗</span></p></a></div>
       </div>
     </div>
   </div>

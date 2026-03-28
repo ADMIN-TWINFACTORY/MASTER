@@ -95,7 +95,7 @@ main{
   background:var(--card-bg);
   border:1px solid var(--border);
   padding:36px 28px 32px;
-  display:flex;flex-direction:column;align-items:flex-start;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;
   gap:16px;
   position:relative;overflow:hidden;
   transition:border-color 0.3s,transform 0.3s;
@@ -127,6 +127,25 @@ main{
   font-family:'Nunito Sans',sans-serif;font-weight:700;
   font-size:9px;letter-spacing:3px;color:var(--blue);
   text-transform:uppercase;line-height:1.5;
+}
+.proj-img-wrap{
+  width:100%;
+  margin-top:auto;
+  overflow:hidden;
+  border-radius:2px;
+  margin-top:4px;
+  background:var(--bg);
+}
+.proj-img-wrap img{
+  width:100%;height:100%;
+  object-fit:contain;
+  display:block;
+  opacity:0.85;
+  transition:opacity 0.3s,transform 0.4s;
+}
+.proj-card:hover .proj-img-wrap img{
+  opacity:1;
+  transform:scale(1.04);
 }
 /* FOOTER */
 footer{
@@ -207,6 +226,7 @@ footer{
 </svg></div>
       <div class="proj-trl">TRL 4/5 · PROTOTYPE</div>
       <div class="proj-name">LOAD GENERATOR DEVICE<br>· REHAB<br>· FITNESS<br>· PERFORMANCE<br>· MILITARY</div>
+        <div class="proj-img-wrap"><img src="homem.png" alt=""></div>
     </div>
 
     <!-- TISSUE-TECH -->
@@ -227,6 +247,7 @@ footer{
 </svg></div>
       <div class="proj-trl">TRL 2/3 · CONCEPT</div>
       <div class="proj-name">E-TEXTILE WEARABLE<br>· REHAB<br>· FITNESS<br>· PERFORMANCE<br>· MILITARY</div>
+        <div class="proj-img-wrap"><img src="Tissue_Fibra.png" alt=""></div>
     </div>
 
     <!-- SMART BIKE CVT -->
@@ -248,6 +269,7 @@ footer{
 </svg></div>
       <div class="proj-trl">TRL 2/3 · CONCEPT</div>
       <div class="proj-name">AUTOMATIC TRANSMISSION<br>· REHAB<br>· FITNESS<br>· PERFORMANCE</div>
+        <div class="proj-img-wrap"><img src="bike.png" alt=""></div>
     </div>
 
     <!-- SMART SEAT -->
@@ -266,6 +288,7 @@ footer{
 </svg></div>
       <div class="proj-trl">TRL 2 · CONCEPT</div>
       <div class="proj-name">G-FORCE SIMULATOR<br>· REHAB<br>· PERFORMANCE<br>· GAMING<br>· TRAINING &amp; SIMULATION</div>
+        <div class="proj-img-wrap"><img src="seat.png" alt=""></div>
     </div>
 
   </div>
@@ -285,7 +308,7 @@ footer{
     <path d="M1584.2,116.1h-42.5l-22.8-27.1h-48.7v27.1h-31.7v-52.4h89.2c9.8,0,17.5-4.4,17.5-11.5s-6.6-12-17.5-12h-89.2l20.7-26.7h65.9c23.3,0,52.7,7.4,52.7,36.6s-10,29.1-26.8,32.5c3.5,2.6,7.4,6.3,14.4,13.5l18.9,19.9Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
     <path d="M1741.6,13.6l-60.9,68.7v33.9h-31.9v-34l-62.5-68.5h40.8l24.5,28.5c3.2,3.7,11.8,13,14,16.1,2-2.9,5.5-7.4,12.9-16.2l23.3-28.4h39.9Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
   </svg>
-  <div class="fcopy">© 2026 TWIN FACTORY LDA · ALL RIGHTS RESERVED</div>
+  <div class="fcopy">© 2026 TWIN FACTORY · ALL RIGHTS RESERVED</div>
 </footer>
 </body>
 </html>
