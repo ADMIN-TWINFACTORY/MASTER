@@ -950,7 +950,7 @@ body.lang-pt .applications-headline-pt{display:block;font-size:clamp(38px,4vw,54
 .about-block1{margin-bottom:56px;}
 .about-taglines{margin:20px 0 32px;}
 .about-tagline-b{font-family:'Nunito Sans',sans-serif;font-weight:300;font-size:clamp(15px,1.4vw,19px);color:var(--blue);line-height:1.5;margin-bottom:8px;font-style:italic;}
-.about-tagline-c{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:clamp(18px,2vw,26px);color:var(--white);letter-spacing:1px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.about-tagline-c{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:clamp(18px,2vw,26px);color:var(--white);letter-spacing:1px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
 .about-tagline-c em{color:var(--orange);font-style:normal;}
 .indent-line{display:inline-block;padding-left:2ch;}
 .indent-line2{display:inline-block;padding-left:3.2ch;}
@@ -988,7 +988,7 @@ body.lang-pt .applications-headline-pt{display:block;font-size:clamp(38px,4vw,54
 .frole{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:8px;letter-spacing:3px;color:var(--orange);text-transform:uppercase;margin-bottom:8px;}
 .founder-bio{font-size:14px;line-height:1.8;color:var(--gray);}
 .founder-bio strong{color:var(--white);font-weight:700;}
-.founder-bio-q{display:block;margin-top:8px;white-space:nowrap;}
+.founder-bio-q{display:block;margin-top:8px;white-space:normal;}
 .founder-cta{margin-top:20px;}
 .snum-paren-br{color:var(--blue);display:inline-block;transform:translateY(-10%);}
 
@@ -1141,6 +1141,9 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
   .bcta{text-align:center;}
   .clist{align-items:center;}
   .addr{text-align:center;border-left:none;border-top:2px solid var(--border);padding-left:0;padding-top:20px;}
+
+    .rec-group-label span{white-space:normal;}
+  .trl-product-value{white-space:normal;}
 
   /* i18n block display */
   .lang-en-only,.lang-pt-only{display:block;}
