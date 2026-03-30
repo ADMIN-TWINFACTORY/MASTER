@@ -143,8 +143,6 @@ h2{
   letter-spacing:-1.5px;
   line-height:1.05;
   margin-bottom:48px;
-  overflow-wrap:break-word;
-  word-break:break-word;
 }
 
 /* Arrow utility */
@@ -952,7 +950,7 @@ body.lang-pt .applications-headline-pt{display:block;font-size:clamp(38px,4vw,54
 .about-block1{margin-bottom:56px;}
 .about-taglines{margin:20px 0 32px;}
 .about-tagline-b{font-family:'Nunito Sans',sans-serif;font-weight:300;font-size:clamp(15px,1.4vw,19px);color:var(--blue);line-height:1.5;margin-bottom:8px;font-style:italic;}
-.about-tagline-c{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:clamp(18px,2vw,26px);color:var(--white);letter-spacing:1px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.about-tagline-c{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:clamp(18px,2vw,26px);color:var(--white);letter-spacing:1px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:24px;}
 .about-tagline-c em{color:var(--orange);font-style:normal;}
 .indent-line{display:inline-block;padding-left:2ch;}
 .indent-line2{display:inline-block;padding-left:3.2ch;}
@@ -990,7 +988,7 @@ body.lang-pt .applications-headline-pt{display:block;font-size:clamp(38px,4vw,54
 .frole{font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:8px;letter-spacing:3px;color:var(--orange);text-transform:uppercase;margin-bottom:8px;}
 .founder-bio{font-size:14px;line-height:1.8;color:var(--gray);}
 .founder-bio strong{color:var(--white);font-weight:700;}
-.founder-bio-q{display:block;margin-top:8px;white-space:normal;}
+.founder-bio-q{display:block;margin-top:8px;white-space:nowrap;}
 .founder-cta{margin-top:20px;}
 .snum-paren-br{color:var(--blue);display:inline-block;transform:translateY(-10%);}
 
@@ -1034,7 +1032,6 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
 
   /* nav */
   nav{padding:14px 20px;}
-  .nav-logo svg{max-width:160px;}
   .nav-links{display:none;}
   .lang-toggle{margin-left:16px;}
 
@@ -1139,13 +1136,6 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
   .rg-2,.rg-3,.rg-5{grid-template-columns:1fr;}
   .rc-top{flex-wrap:wrap;}
   .rec-group-label span{font-size:8px;letter-spacing:3px;}
-
-  /* trl bar */
-  .trl-product-value{white-space:normal;}
-  .trl-product-bar{flex-wrap:wrap;}
-
-  /* recognition labels */
-  .rec-group-label span{white-space:normal;}
 
   /* contact */
   .bcta{text-align:center;}
@@ -2056,7 +2046,7 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
         </a>
       </div>
       <div class="clist fu">
-        <div class="ci"><div class="cdot"></div><a href="/cdn-cgi/l/email-protection#6801060e07281c1f01060e090b1c071a11460b0b"><span class="__cf_email__" data-cfemail="254c4b434a6551524c4b434446514a575c0b4646">[email&#160;protected]</span></a></div>
+        <div class="ci"><div class="cdot"></div><a href="mailto:info@twinfactory.cc">info@twinfactory.cc</a></div>
         <div class="ci"><div class="cdot"></div><span>+351 918 592 199</span></div>
         <div class="ci"><div class="cdot"></div><span>+55 11 98764 6464</span></div>
         <div class="ci"><div class="cdot"></div><span>MEMBER OF TAGUSPARK INCUBATOR</span></div>
@@ -2082,7 +2072,7 @@ footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify
   </svg>
   <div class="fcopy">© 2026 TWIN FACTORY · ALL RIGHTS RESERVED</div>
 </footer>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   function splitHeadlineAfterFirstComma(text){
     var clean = (text || '').trim();
     if(!clean) return '';
@@ -2198,16 +2188,6 @@ function refreshCommaSplitHeadlines(lang){
     },{threshold:0.01,rootMargin:'0px 0px -60px 0px'});
     document.querySelectorAll('.fu').forEach(function(el){ obs.observe(el); });
 
-    // Fallback: force vis on any .fu already in viewport after a short delay
-    setTimeout(function(){
-      document.querySelectorAll('.fu:not(.vis)').forEach(function(el){
-        var r=el.getBoundingClientRect();
-        if(r.top < window.innerHeight && r.bottom > 0){
-          el.classList.add('vis');
-        }
-      });
-    }, 200);
-
     // TRL bar animation
     function animateTrlBar(bar) {
       var onCount = parseInt(bar.getAttribute('data-on')) || 0;
@@ -2236,4 +2216,15 @@ function refreshCommaSplitHeadlines(lang){
     }, {threshold: 0.5});
     document.querySelectorAll('.trl-animate').forEach(function(bar) {
       trlObs.observe(bar);
-   
+      // Re-animate on panel hover
+      var panel = bar.closest('.trl-panel');
+      if (panel) {
+        panel.addEventListener('mouseenter', function() {
+          animateTrlBar(bar);
+        });
+      }
+    });
+  });
+</script>
+</body>
+</html>
