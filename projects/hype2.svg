@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_5" data-name="Layer 5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1263.43 123.05">
+<svg id="Layer_5" data-name="Layer 5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1305.5 143">
   <g>
-    <path d="M107.29,104.82h-26.86v-33.64H28.54v33.64H1.41V17.59h27.12v30.9h51.89v-30.9h26.86v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-    <path d="M321.65,104.82h-26.99V17.59h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-    <path d="M421.92,82.51h-45.63v22.3h-26.86v-44.59h75.1c8.34,0,13.17-4.04,13.17-10.04s-4.83-9.91-13.17-9.91h-75.1l17.86-22.69h54.76c26.99,0,42.77,13.3,42.77,32.73s-15.78,32.21-42.9,32.21h0Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-    <path d="M242.46,104.82l-40.74-57.89-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-31.5Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+    <path d="M130.63,117.79h-26.86v-33.64h-51.89v33.64h-27.12V30.56h27.12v30.9h51.89v-30.9h26.86v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+    <path d="M345,117.79h-26.99V30.56h26.99v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+    <path d="M445.27,95.49h-45.63v22.3h-26.86v-44.59h75.1c8.34,0,13.17-4.04,13.17-10.04s-4.83-9.91-13.17-9.91h-75.1l17.86-22.69h54.76c26.99,0,42.77,13.3,42.77,32.73s-15.78,32.21-42.9,32.21h0Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+    <path d="M265.81,117.79l-40.74-57.89-40.94,57.89h-31.94l55.94-78.88c3.65-5.08,9-9.78,17.47-9.78s13.43,4.3,17.21,9.78l54.5,78.88h-31.5Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
   </g>
   <g>
-    <path d="M515.9,17.19h-9.26v88.79h9.26v15.65h-25.03V1.41h25.03v15.78Z" style="fill: #85c6eb; stroke: #85c6eb; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-    <path d="M647.33,104.82h-26.86v-33.64h-51.89v33.64h-27.12V17.59h27.12v30.9h51.89v-30.9h26.86v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-    <path d="M686.99,80.96c8.21,0,14.73,4.69,14.73,12.78s-6.52,12.52-14.73,12.52-14.6-4.56-14.6-12.52,6.52-12.78,14.6-12.78Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-    <path d="M832.37,17.59l-51.76,58.41v28.82h-27.12v-28.95l-53.2-58.28h34.68l20.86,24.25c2.74,3.13,10.04,11.08,11.87,13.69,1.69-2.48,4.69-6.26,10.95-13.82l19.82-24.12h33.9Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-    <path d="M844.76,80.96c8.21,0,14.73,4.69,14.73,12.78s-6.52,12.52-14.73,12.52-14.6-4.56-14.6-12.52,6.52-12.78,14.6-12.78Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-    <path d="M956.63,82.51h-45.63v22.3h-26.86v-44.59h75.1c8.34,0,13.17-4.04,13.17-10.04s-4.83-9.91-13.17-9.91h-75.1l17.86-22.69h54.76c26.99,0,42.77,13.3,42.77,32.73s-15.78,32.21-42.9,32.21h0Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-    <path d="M1026.26,80.96c8.21,0,14.73,4.69,14.73,12.78s-6.52,12.52-14.73,12.52-14.6-4.56-14.6-12.52,6.52-12.78,14.6-12.78Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-    <path d="M1167.22,82.39l-17.34,22.43h-83.97V17.59h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.2Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-    <path d="M1199.56,80.96c8.21,0,14.73,4.69,14.73,12.78s-6.52,12.52-14.73,12.52-14.6-4.56-14.6-12.52,6.52-12.78,14.6-12.78Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
-    <path d="M1262.01,121.64h-24.9v-15.65h9.26V17.19h-9.26V1.41h24.9v120.22Z" style="fill: #85c6eb; stroke: #85c6eb; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+    <path d="M539.25,30.17h-9.26v88.79h9.26v15.65h-25.03V14.39h25.03v15.78Z" style="fill: #85c6eb; stroke: #85c6eb; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+    <path d="M670.68,117.79h-26.86v-33.64h-51.89v33.64h-27.12V30.56h27.12v30.9h51.89v-30.9h26.86v87.23Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+    <path d="M710.33,93.93c8.21,0,14.73,4.69,14.73,12.78s-6.52,12.52-14.73,12.52-14.6-4.56-14.6-12.52,6.52-12.78,14.6-12.78Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+    <path d="M855.71,30.56l-51.76,58.41v28.82h-27.12v-28.95l-53.2-58.28h34.68l20.86,24.25c2.74,3.13,10.04,11.08,11.87,13.69,1.69-2.48,4.69-6.26,10.95-13.82l19.82-24.12h33.9Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+    <path d="M868.11,93.93c8.21,0,14.73,4.69,14.73,12.78s-6.52,12.52-14.73,12.52-14.6-4.56-14.6-12.52,6.52-12.78,14.6-12.78Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+    <path d="M979.98,95.49h-45.63v22.3h-26.86v-44.59h75.1c8.34,0,13.17-4.04,13.17-10.04s-4.83-9.91-13.17-9.91h-75.1l17.86-22.69h54.76c26.99,0,42.77,13.3,42.77,32.73s-15.78,32.21-42.9,32.21h0Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+    <path d="M1049.61,93.93c8.21,0,14.73,4.69,14.73,12.78s-6.52,12.52-14.73,12.52-14.6-4.56-14.6-12.52,6.52-12.78,14.6-12.78Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+    <path d="M1190.56,95.36l-17.34,22.43h-83.97V30.56h101.05l-17.47,22.69h-56.46v10.43h69.1l-15.52,19.82h-53.59v11.87h74.2Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+    <path d="M1222.9,93.93c8.21,0,14.73,4.69,14.73,12.78s-6.52,12.52-14.73,12.52-14.6-4.56-14.6-12.52,6.52-12.78,14.6-12.78Z" style="fill: #ff671d; stroke: #ff671d; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
+    <path d="M1285.36,134.61h-24.9v-15.65h9.26V30.17h-9.26v-15.78h24.9v120.22Z" style="fill: #85c6eb; stroke: #85c6eb; stroke-miterlimit: 10; stroke-width: 2.83px;"/>
   </g>
 </svg>
